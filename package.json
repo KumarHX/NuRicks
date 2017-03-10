@@ -4,7 +4,7 @@
   "description": "Website for nuricks, public music label",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "../NuRicksBackendbin/www"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/KumarHX/NuRicks/issues"
   },
-  "homepage": "https://github.com/KumarHX/NuRicks#readme"
+  "homepage": "https://github.com/KumarHX/NuRicks#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "jade": "^1.11.0",
+    "pg": "^6.1.4",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.2"
+  }
 }
