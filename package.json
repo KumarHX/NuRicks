@@ -1,0 +1,19 @@
+{
+  "name": "nuricks",
+  "version": "1.0.0",
+  "description": "Website for nuricks, public music label",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KumarHX/NuRicks.git"
+  },
+  "author": "Pranav Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KumarHX/NuRicks/issues"
+  },
+  "homepage": "https://github.com/KumarHX/NuRicks#readme"
+}
