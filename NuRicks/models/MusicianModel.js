@@ -122,7 +122,7 @@ MusiciansModel = {
     },
 
     deleteMusician: function(res, musicianEmail){
-        Musicians.delete({
+        Musicians.remove({
             where: {
                 email: musicianEmail
             }
