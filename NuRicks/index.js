@@ -1,6 +1,7 @@
 var express = require('express')
 var path = require('path');
 var routes = require('./routes/siteRouter');
+var musicians = require('./routes/musicians');
 var app = express()
 
 
@@ -9,6 +10,7 @@ var app = express()
 
 
 app.use('/', routes);
+app.use('/api/musicians', musicians);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

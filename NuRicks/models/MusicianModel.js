@@ -8,10 +8,7 @@ var Sequelize = sequelize_modules.Sequelize;
 
 /*  Musician's model
  *
- *  email: The renter's email address.
- *      - Foreign key. (Users_Model)
- *  description: A description of the renter
- *  merchant_id: each renter has a merchant ID that is used for payments.
+ *  email: The musicians's email address.
  *
  */
 
@@ -20,8 +17,146 @@ var Sequelize = sequelize_modules.Sequelize;
         type: Sequelize.STRING,
         primaryKey: true,
         allowNull: false
-    }
+    },
+
+    stageName: {
+    	type: Sequelize.STRING,
+    },
+
+    firstName: {
+    	type: Sequelize.STRING,
+    },
+
+    lastName: {
+    	type: Sequelize.STRING,
+    },
+
+    soundcloudLink: {
+    	type: Sequelize.STRING,
+    },
+
+    fbid: { 
+    	type: Sequelize.STRING
+    },
+
+    bio: { 
+    	type: Sequelize.STRING
+    },
+
+    instagramLink: { 
+    	type: Sequelize.STRING
+    },
+
+    youtubeLink: { 
+    	type: Sequelize.STRING
+    },
+
+    facebookLink: { 
+    	type: Sequelize.STRING
+    },
+
+    picture_url: { type: Sequelize.TEXT },
+    verified: {type: Sequelize.BOOLEAN}
 });
 
 Musicians.sync();
+
+MusiciansModel = {
+
+    /*   Post requested in musicians.js
+     *
+     *   Creates a musician given the corresponding fields, and responds to the request
+     *   with the musician object.
+     *
+     *   Arguments:
+     *     res: Response Object Used to respond to a request
+     *     fields: Fields must match the fields in the Musicians's model 
+     *
+     */
+
+    createMusician: function(res, fields){
+        Musicians.create(fields).then(function(result){
+            res.json({
+                status: 1, Musician: result
+            })
+        }).catch(function(err){
+            Musicians.findOne({
+                where:{
+                    email: fields["email"]
+                }
+            }).then(function(result){
+            	res.json({status: -1, errors:['Unable to create musician as a musician already exists with this email', result]})
+            });
+    	})
+    },
+
+     /*   Get requested in musicians.js
+     *
+     *   Looks for a musician that is associated with the email address passed.
+     *   If a musician is found, the functions returns all the info(fields) of that
+     *   musician.
+     *
+     *   Arguments:
+     *     res: Response Object Used to respond to a request
+     *     search: The email corresponding to the Musician we wish to update
+     *
+     *
+     */
+
+    getMusicianInfoFromEmail: function(res, search){
+        Musicians.findOne({
+            where:{
+                email: search
+            }
+        }).then( function(musicianInfo){
+            if(musicianInfo){
+                res.json({status: "1", "musician_info": musicianInfo})
+            }
+            else{
+                res.json({status: -1, errors: ['Musician does not exist']})
+            }
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find musician', err]});
+        });
+    },
+
+    deleteMusician: function(res, musicianEmail){
+        Musicians.delete({
+            where: {
+                email: musicianEmail
+            }
+        }).then(function(musicianDelete){
+            res.json({status: "1", "deleted_musician": musicianDelete})
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to delete Musician', err]});
+        });
+    },
+
+    updateMusicianInfoScreen: function (res, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio){
+        Musicians.findOne({
+            where:{
+                email: email
+            }
+        }).then(function(editMusician) {
+            editMusician.update({
+                stageName:  stageName,
+                soundcloudLink: soundcloudLink,
+                instagramLink: instagramLink,
+                youtubeLink: youtubeLink,
+                facebookLink: facebookLink,
+                picture_url: picture_url,
+                bio: bio
+            }).then(function(musician){
+                res.json({status: 1, musician: musician});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit musician info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find musician', err]});
+        })
+    },
+};
+
 module.exports.Musicians = Musicians;
+module.exports.MusiciansModel = MusiciansModel;
