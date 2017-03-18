@@ -1,0 +1,28 @@
+.oThin {
+  box-shadow: 0 0 0 1px $text-color;
+}
+
+.oMedium {
+  box-shadow: 0 0 0 3px $text-color;
+}
+
+.oThick {
+  box-shadow: 0 0 0 5px $text-color;
+}
+
+.bThin {
+  border: 1px solid $text-color;
+}
+
+.bMedium {
+  border: 3px solid $text-color;
+}
+
+.bThick {
+  border: 5px solid $text-color;
+}
+
+.oNone {
+  box-shadow: none;
+  border: none;
+}

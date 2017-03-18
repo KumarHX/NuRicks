@@ -1,0 +1,51 @@
+{
+  "name": "nuricks-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aaruel",
+  "license": "MIT",
+  "description": "Frontend for Nu-Ricks website",
+  "dependencies": {
+    "@angular/common": "~2.4.6",
+    "@angular/compiler": "~2.4.6",
+    "@angular/core": "~2.4.6",
+    "@angular/forms": "~2.4.6",
+    "@angular/http": "~2.4.6",
+    "@angular/platform-browser": "~2.4.6",
+    "@angular/platform-browser-dynamic": "~2.4.6",
+    "@angular/router": "~3.4.6",
+    "core-js": "^2.4.1",
+    "express": "^4.14.0",
+    "rxjs": "5.0.2",
+    "zone.js": "^0.7.6"
+  },
+  "devDependencies": {
+    "@types/jasmine": "2.5.38",
+    "@types/node": "^6.0.65",
+    "angular2-template-loader": "^0.4.0",
+    "awesome-typescript-loader": "^2.2.4",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.3.1",
+    "gulp-google-webfonts": "0.0.14",
+    "gulp-imagemin": "^3.0.3",
+    "gulp-modify-css-urls": "^0.2.2",
+    "gulp-prettify": "^0.4.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^2.1.1",
+    "gulp-uglify": "^1.5.4",
+    "gulp-util": "^3.0.7",
+    "html-loader": "^0.4.3",
+    "typescript": "2.0.10",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^1.13.3",
+    "webpack-stream": "^3.2.0"
+  }
+}

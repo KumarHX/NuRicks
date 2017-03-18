@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+// 1. Configuration and helpers
+@import
+'abstracts/variables',
+'abstracts/functions',
+'abstracts/mixins';
+
+// 2. Vendors
+//@import
+
+// 3. Base stuff
+@import
+'base/reset',
+'base/base',
+'base/fonts',
+'base/typography',
+'base/helpers';
+
+// 4. Layout-related sections
+@import
+'layout/nav',
+'layout/header',
+'layout/grid',
+'layout/footer';
+
+// 5. Components
+@import
+'components/form',
+'components/button',
+'components/toggle',
+'components/icon',
+'components/shadow',
+'components/border',
+'components/hideshow',
+'components/hamburger',
+'components/lightbox',
+'components/tooltip',
+'components/modal';
+
+// 6. Page-specific styles
+@import
+'pages/home';
+
+// 7. Themes
+@import
+'themes/default';
+
+body {
+  overflow-x: hidden;
+}

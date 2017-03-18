@@ -1,0 +1,21 @@
+.hide {
+  position: absolute;
+  visibility: hidden;
+  transform: translateY(-16pt);
+  opacity: 0;
+  transition: transform .3s ease, opacity .2s ease-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.show {
+  position: inherit;
+  visibility: visible;
+  opacity: 1;
+  transition: transform .3s ease, opacity .2s ease-in;
+  pointer-events: auto;
+}
+
+.slideLeft {
+  transform: translate(0);
+}

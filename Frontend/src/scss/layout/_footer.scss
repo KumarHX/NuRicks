@@ -1,0 +1,26 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+
+footer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-bottom: 20pt;
+
+  ul {
+    margin: 0 16pt 8pt;
+
+    li:first-of-type {
+      font-size: $tL;
+      font-weight: bold;
+    }
+    li:not(:first-of-type) {
+      color: $darker-mid-grey;
+    }
+  }
+
+  @include screen('sm') {
+    display: none;
+  }
+}

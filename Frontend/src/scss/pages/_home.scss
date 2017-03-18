@@ -1,0 +1,29 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+.mainWrapper {
+  .header {
+    position: relative;
+    height: 100vh;
+    pointer-events: none;
+    & > * {
+      @include abs-center;
+    }
+    .splash {
+      width: auto;
+      height: 80vh;
+    }
+    div {
+      text-align: center;
+    }
+    .title {
+      font-size: 6em;
+      text-shadow: 5px 5px $bg;
+      pointer-events: none;
+    }
+    h2 {
+      font-size: $title;
+      line-height: 0.6;
+    }
+  }
+}

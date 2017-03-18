@@ -1,0 +1,41 @@
+.modal {
+  width: 350px;
+  max-width: 90%;
+  padding: 16pt 16pt 8pt;
+  text-align: center;
+  background: $darker-light-grey;
+  transition: opacity .3s ease;
+  border-radius: 5px;
+  z-index: 99;
+
+  h2 {
+    margin-bottom: 5px;
+  }
+
+  .btn {
+    margin: 15px 0;
+  }
+
+  @include fixed-center();
+}
+
+.popup {
+  position: fixed;
+  top: 16pt;
+  right: 8pt;
+  width: 200pt;
+  height: auto;
+  padding: 16pt;
+  color: $bg;
+  text-align: center;
+  background: $darker-light-grey;
+  border-radius: 5px;
+  z-index: 98;
+}
+
+.exit {
+  position: absolute;
+  top: 6pt;
+  right: 8pt;
+  cursor: pointer;
+}

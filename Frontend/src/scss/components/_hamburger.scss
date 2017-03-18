@@ -1,0 +1,51 @@
+.resMenu {
+  display: none;
+  padding: 0;
+  @include screen('sm') {
+    display: inherit;
+  }
+}
+
+.hamburger {
+  width: 32pt;
+  height: 32pt;
+  margin-bottom: -2pt;
+  div {
+    margin-top: 12pt;
+    height: 4pt;
+    background: black;
+    transition: transform .4s cubic-bezier(.1,.3,.5,1);
+  }
+
+  div::before,
+  div::after {
+    position: absolute;
+    display: block;
+    width: 32pt;
+    height: 4pt;
+    background-color: black;
+    content: "";
+  }
+}
+
+div::before {
+  transform: translateY(-10pt);
+  transition: transform .4s cubic-bezier(.1,.3,.5,1);
+}
+
+div::after {
+  transform: translateY(10pt);
+  transition: opacity .05s linear;
+}
+
+.fold {
+  div::before {
+    transform: rotate(-90deg);
+  }
+  div::after {
+    opacity: 0;
+  }
+  div {
+    transform: rotate(45deg);
+  }
+}

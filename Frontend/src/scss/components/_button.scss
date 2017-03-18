@@ -1,0 +1,44 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+@import "../abstracts/variables";
+
+.btn, button {
+  display: inline-block;
+  width: auto;
+  height: $md;
+  line-height: $md;
+  text-align: center;
+  font-size: $tM;
+  padding: 0 16pt;
+  border-radius: 5px;
+  background: $mid-grey;
+  color: $light-grey;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btnL {
+  height: $lg;
+  line-height: $lg;
+  font-size: $tL;
+}
+
+.btnS {
+  height: $sm;
+  line-height: $sm;
+  font-size: $tS;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: auto;
+  font-size: $tS;
+  cursor: pointer;
+
+  & > * {
+    display: inline-block;
+  }
+}

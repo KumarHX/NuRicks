@@ -1,0 +1,48 @@
+.icon {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: $lg;
+  min-width: $lg;
+  height: $lg;
+  line-height: $lg;
+  text-align: center;
+  font-size: $tL;
+  border-radius: 5px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.iconS {
+  width: $md;
+  min-width: $md;
+  height: $md;
+  line-height: $md;
+  font-size: $tM;
+}
+.iconL {
+  width: $xl;
+  min-width: $xl;
+  height: $xl;
+  line-height: $xl;
+  font-size: $tL;
+}
+
+.dickbutt {
+  background-image: url("https://ih1.redbubble.net/image.24695464.0125/flat,800x800,070,f.u1.jpg");
+}
+
+.pepe {
+  background-image: url("http://i1.kym-cdn.com/photos/images/facebook/000/862/065/0e9.jpg");
+}
+
+.harambe {
+  background-image: url("http://sgcommunity.net/wp-content/uploads/2016/10/Beauty.jpg");
+}
+.spongebob {
+  background-image: url("https://thenypost.files.wordpress.com/2015/08/spongebob-e1441057213584.jpg?quality=90&strip=all&w=664&h=441&crop=1");
+}
