@@ -5,12 +5,15 @@
 var sequelize_modules = require("./init");
 var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
+var passport = require('passport')
+var FacebookStrategy = require('passport-facebook').Strategy
 
 /*  Musician's model
  *
  *  email: The musicians's email address.
  *
  */
+
 
  var Musicians = sequelize.define("Musicians", {
     email: {
@@ -60,6 +63,42 @@ var Sequelize = sequelize_modules.Sequelize;
 });
 
 Musicians.sync();
+
+passport.use(new FacebookStrategy({
+  clientID: '222498668155227',
+  clientSecret:  '7e600563610f0c8d21240afb25d44447',
+  callbackURL: "http://localhost:3000/auth/facebook/callback",
+  profileFields: ['id', 'name', 'email']
+}, (token, tokenSecret, profile, cb) => {
+  // Do things with the profile here
+  console.log('Well, you\'ve hit the Facebook callback.')
+  Musicians.findOne({
+    fbid: profile.userID,
+  }, (err, musician) => {
+    if (err) {
+      return cb(err)
+    }
+    if (musician) {
+      return cb(null, musician)
+    }
+
+      // Create object to insert
+    const newMusician = new Musicians({
+      platformName: 'facebook',
+      fbid: profile.id,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      email: profile.email
+    })
+    newMusician.save((err) => {
+      if (err) {
+        console.log('Error while registering musician: ', err)
+        return cb(err)
+      }
+      return cb(null, newMusician)
+    })
+  })
+}))
 
 MusiciansModel = {
 

@@ -37,6 +37,23 @@ router.get('/deleteMusician/:email', function(req, res, next){
     MusiciansModel.deleteMusician(res, search);
 });
 
+
+
+router.get('/auth/facebook', function(req, res, next){
+    passport.authenticate('facebook');
+});
+
+
+router.get('/auth/facebook/callback', function(req, res, next){
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+        function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/');
+  };
+});
+
+
+
 router.post('/updateMusicianInfo', function(req, res, next){
     var email = req.body.email;
     var	stageName = req.body.stageName;
