@@ -67,7 +67,7 @@ Musicians.sync();
 passport.use(new FacebookStrategy({
   clientID: '222498668155227',
   clientSecret:  '7e600563610f0c8d21240afb25d44447',
-  callbackURL: "http://localhost:3000/auth/facebook/callback",
+  callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
   profileFields: ['id', 'name', 'email']
 }, (token, tokenSecret, profile, cb) => {
   // Do things with the profile here
