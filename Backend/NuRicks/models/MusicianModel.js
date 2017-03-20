@@ -84,7 +84,6 @@ passport.use(new FacebookStrategy({
 
       // Create object to insert
     const newMusician = new Musicians({
-      platformName: 'facebook',
       fbid: profile.id,
       firstName: profile.name.givenName,
       lastName: profile.name.familyName,
