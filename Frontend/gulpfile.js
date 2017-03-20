@@ -10,6 +10,7 @@ var uglify = require('gulp-uglify');
 var rimraf = require('gulp-rimraf');
 var connect = require('gulp-connect');
 var imagemin = require('gulp-imagemin');
+var tslint = require('gulp-tslint');
 var webpack = require('webpack-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
@@ -37,6 +38,18 @@ gulp.task('html', function() {
     gulp.src('./src/view/index.html')
         .pipe(gulp.dest('./dist'));
 });
+
+/**
+ * Gulp Task
+ *
+ * Check syntax for correctness
+ */
+gulp.task('tslint', function() {
+    return gulp.src('app/**/*.ts')
+        .pipe(tslint({formatter: "verbose"}))
+        .pipe(tslint.report());
+});
+
 
 /**
  * Gulp Task
@@ -151,6 +164,6 @@ gulp.task('watch', function () {
  *
  * Initialize all tasks and watchers.
  */
-gulp.task('init', ['scss', 'html', 'webpack', 'images', 'watch', 'webserver']);
+gulp.task('init', ['tslint', 'scss', 'html', 'webpack', 'images', 'watch', 'webserver']);
 
 gulp.task('build',['html','scss','webpack']);

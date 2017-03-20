@@ -2,28 +2,165 @@
 // This file contains styles that are specific to the home page.
 // -----------------------------------------------------------------------------
 .mainWrapper {
-  .header {
+  #header {
     position: relative;
     height: 100vh;
-    pointer-events: none;
-    & > * {
-      @include abs-center;
-    }
     .splash {
+      @include abs-center;
       width: auto;
+      max-width: 80vw;
       height: 80vh;
     }
     div {
+      @include abs-center;
       text-align: center;
     }
     .title {
       font-size: 6em;
-      text-shadow: 5px 5px $bg;
+      color: $bg;
+      text-shadow: 4px 4px $text-color;
+      white-space: nowrap;
       pointer-events: none;
+      z-index: 1;
     }
     h2 {
-      font-size: $title;
+      padding: 12pt 0;
+      font-size: $mtL;
+      font-weight: bold;
       line-height: 0.6;
+      background: $bg;
+    }
+  }
+  #about, #upcoming {
+    position: relative;
+    width: 720pt;
+    min-height: 100vh;
+    padding: 40pt 0;
+    margin: 0 auto;
+    .title {
+      color: $red;
+      font-size: 3em;
+    }
+    hr {
+      margin: 16pt 0;
+    }
+  }
+  #about {
+    h2 {
+      font-size: $mtL;
+      margin-bottom: 8pt;
+    }
+    h1 {
+      font-size: $mtL;
+      font-weight: bold;
+    }
+    p {
+      margin: 0 0 16pt;
+    }
+  }
+  #upcoming {
+    .showBlock {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: flex-start;
+      margin-bottom: 16pt;
+      .showImg {
+        display: block;
+        width: 250pt;
+        height: 150pt;
+        background-size: cover;
+      }
+      .showDetails {
+        margin-left: 16pt;
+        h1 {
+          font-size: $title;
+        }
+      }
+    }
+    .allShows {
+      position: absolute;
+      bottom: 72pt;
+      right: 0;
+
+      &:hover {
+        color: $red;
+      }
+    }
+  }
+  .fa-chevron-down {
+    position: absolute;
+    bottom: 16pt;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 2em;
+    transition: color .15s ease-in;
+
+    &:hover {
+      color: $red;
+    }
+  }
+  @include screen('lg') {
+    #about, #upcoming {
+      width: 80vw;
+    }
+  }
+  @include screen('md') {
+    #about, #upcoming {
+      width: 80vw;
+      padding: 80pt 0;
+    }
+    #upcoming {
+      .allShows {
+        bottom: 112pt;
+      }
+    }
+  }
+  @include screen('sm') {
+    #header {
+      .title {
+        font-size: 15vw;
+      }
+      h2 {
+        padding: 8pt 0;
+        font-size: $tM;
+        line-height: 1;
+      }
+    }
+    #about, #upcoming {
+      width: 100%;
+      .title {
+        text-align: center;
+        font-size: $title;
+        margin: 0 16pt;
+      }
+      hr {
+        display: none;
+      }
+      h2 {
+        font-size: $tL;
+      }
+    }
+    #about {
+      padding: 56pt 16pt 24pt;
+    }
+    #upcoming {
+      padding: 56pt 0;
+      .showBlock {
+        flex-flow: column;
+        align-items: center;
+        text-align: center;
+        .showImg {
+          width: 100%;
+        }
+        .showDetails {
+          margin: 0;
+        }
+      }
+      .allShows {
+        right: 8pt;
+        bottom: 8pt;
+        font-size: $tL;
+      }
     }
   }
 }
