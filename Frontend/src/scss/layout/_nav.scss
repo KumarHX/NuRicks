@@ -2,31 +2,30 @@ nav {
   position: fixed;
   font-size: $mtL;
   z-index: 99;
+  .navbar {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 40pt;
+    background: black;
+    z-index: 98;
+
+    .hamburger {
+      position: absolute;
+      top: 8px;
+      right: 8pt;
+    }
+  }
   .logo {
     position: fixed;
     top: 24pt;
     left: 24pt;
     font-weight: 900;
-  }
-  .navLabels, .navVenues {
-    position: fixed;
-    top: 50%;
-    padding: 0 8pt;
-    background: $bg;
-    transition: all .25s ease-in;
-    z-index: 2;
+    z-index: 99;
+
     &:hover {
-      color: $bg;
-      background: rgba(193, 0, 20, 0.75);
+      color: $red;
     }
-  }
-  .navVenues {
-    left: 16pt;
-    transform: rotate(270deg) translateY(-50%);
-  }
-  .navLabels {
-    right: 16pt;
-    transform: rotate(90deg) translateY(-50%);
   }
   .pages {
     position: fixed;
@@ -38,15 +37,10 @@ nav {
       display: inline-block;
       margin-left: 16pt;
       font-weight: 100;
-
-      &:nth-of-type(1)::before {
-        background: $yellow;
-      }
-      &:nth-of-type(2)::before {
-        background: $blue;
-      }
-      &:nth-of-type(3)::before {
-        background: $red;
+      &:nth-of-type(3) {
+        font-weight: 900;
+        &::before {
+        }
       }
 
       &:hover {
@@ -62,9 +56,57 @@ nav {
       transform: translate(1em, -0.25em);
       width: 12pt;
       height: 4pt;
+      background: $red;
       content: "";
       opacity: 0;
       transition: all .2s ease-in-out;
     }
+  }
+}
+
+.navAbout, .navUpcoming {
+  position: fixed;
+  top: 50%;
+  float: left;
+  padding: 0 8pt;
+  font-size: $mtL;
+  transition: all .25s ease-in;
+  z-index: 2;
+  &:hover {
+    color: $bg;
+    background: $red;
+  }
+}
+.navAbout {
+  left: 32pt;
+  transform: rotate(270deg) translateX(-50%);
+  transform-origin: left center 0;
+}
+.navUpcoming {
+  right: 32pt;
+  transform: rotate(90deg) translateX(50%);
+  transform-origin: right center 0;
+}
+
+@include screen('md') {
+
+}
+@include screen('sm') {
+  nav {
+    .navbar {
+      display: inherit;
+    }
+    .logo {
+      top: 5pt;
+      left: 16pt;
+      color: $bg;
+    }
+    .pages {
+      display: none;
+    }
+  }
+
+  .navAbout, .navUpcoming {
+    display: none;
   }
 }

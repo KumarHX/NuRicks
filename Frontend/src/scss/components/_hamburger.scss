@@ -7,13 +7,14 @@
 }
 
 .hamburger {
-  width: 32pt;
-  height: 32pt;
-  margin-bottom: -2pt;
+  width: 40pt;
+  height: 36pt;
+
   div {
-    margin-top: 12pt;
+    margin: 12pt auto 0;
+    width: 24pt;
     height: 4pt;
-    background: black;
+    background: $bg;
     transition: transform .4s cubic-bezier(.1,.3,.5,1);
   }
 
@@ -21,20 +22,20 @@
   div::after {
     position: absolute;
     display: block;
-    width: 32pt;
+    width: 24pt;
     height: 4pt;
-    background-color: black;
+    background-color: white;
     content: "";
   }
 }
 
 div::before {
-  transform: translateY(-10pt);
+  transform: translateY(-8pt);
   transition: transform .4s cubic-bezier(.1,.3,.5,1);
 }
 
 div::after {
-  transform: translateY(10pt);
+  transform: translateY(8pt);
   transition: opacity .05s linear;
 }
 
