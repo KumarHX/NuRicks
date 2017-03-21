@@ -7,6 +7,7 @@ var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
 var passport = require('passport')
 var FacebookStrategy = require('passport-facebook').Strategy
+const util = require('util')
 
 /*  Musician's model
  *
@@ -16,10 +17,11 @@ var FacebookStrategy = require('passport-facebook').Strategy
 
 
  var Musicians = sequelize.define("Musicians", {
-    email: {
-        type: Sequelize.STRING,
-        primaryKey: true,
-        allowNull: false
+
+    fbid: {
+      type: Sequelize.STRING,
+      primaryKey: true,
+      allowNull: false
     },
 
     stageName: {
@@ -36,10 +38,6 @@ var FacebookStrategy = require('passport-facebook').Strategy
 
     soundcloudLink: {
     	type: Sequelize.STRING,
-    },
-
-    fbid: {
-    	type: Sequelize.STRING
     },
 
     bio: {
@@ -68,7 +66,7 @@ passport.use(new FacebookStrategy({
   clientID: '222498668155227',
   clientSecret:  '7e600563610f0c8d21240afb25d44447',
   callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
-  profileFields: ['id', 'name', 'email']
+  profileFields: ['id', 'name', 'profileUrl', 'email']
 }, (token, tokenSecret, profile, cb) => {
   // Do things with the profile here
   console.log('Well, you\'ve hit the Facebook callback.')
@@ -81,23 +79,33 @@ passport.use(new FacebookStrategy({
     if (musician) {
       return cb(null, musician)
     }
-
+  })
+    console.log(util.inspect(profile, false, null))
       // Create object to insert
-    const newMusician = new Musicians({
+    var newMusician = Musicians.build({
       fbid: profile.id,
       firstName: profile.name.givenName,
       lastName: profile.name.familyName,
-      email: profile.email
+      picture_url: profile.profileUrl
     })
     newMusician.save((err) => {
+       console.log("here");
       if (err) {
         console.log('Error while registering musician: ', err)
         return cb(err)
       }
+       console.log("here2");
       return cb(null, newMusician)
     })
-  })
 }))
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 MusiciansModel = {
 

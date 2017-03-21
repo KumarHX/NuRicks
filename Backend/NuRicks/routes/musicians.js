@@ -41,12 +41,11 @@ router.get('/deleteMusician/:email', function(req, res, next){
 
 router.get('/auth/facebook', passport.authenticate('facebook'));
 
-
-router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }),
-    function(req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-  });
+router.get('/auth/facebook/callback', passport.authenticate('facebook'),
+  (req, res) => {
+    // Successfully authenticated, redirect.
+    res.redirect('http://localhost:8001/');
+  })
 
 
 
