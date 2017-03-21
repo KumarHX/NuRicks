@@ -2,6 +2,7 @@ var express = require('express')
 var path = require('path');
 var routes = require('./routes/siteRouter');
 var musicians = require('./routes/musicians');
+var passport = require('passport');
 var app = express()
 
 
@@ -13,6 +14,9 @@ app.set('view engine', 'jade');
 
 app.use('/', routes);
 app.use('/api/musicians', musicians);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,8 +49,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log('MI Server running on port ', process.env.PORT || `${3000}!`)
-})
 
 module.exports = app;

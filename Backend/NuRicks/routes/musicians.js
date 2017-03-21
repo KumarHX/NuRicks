@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var passport = require('passport');
 var musician_models = require("../models/MusicianModel");
 var MusiciansModel =  musician_models.MusiciansModel
 
@@ -39,18 +39,14 @@ router.get('/deleteMusician/:email', function(req, res, next){
 
 
 
-router.get('/auth/facebook', function(req, res, next){
-    passport.authenticate('facebook');
-});
+router.get('/auth/facebook', passport.authenticate('facebook'));
 
 
-router.get('/auth/facebook/callback', function(req, res, next){
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-        function(req, res) {
+router.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }),
+    function(req, res) {
         // Successful authentication, redirect home.
         res.redirect('/');
-  };
-});
+  });
 
 
 

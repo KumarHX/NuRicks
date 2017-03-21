@@ -9,14 +9,14 @@
     	<ul class="pages">
     		<li><a>Tickets</a></li>
     		<li><a>Booking</a></li>
-    		<li><a>Login</a></li>
+    		<li class="login"><a>Login</a></li>
     	</ul>
     </nav>
     <a href="#about" class="navAbout">About Us</a>
     <a href="#upcoming" class="navUpcoming">Upcoming Shows</a>
     <div class="mainWrapper">
     	<div id="header">
-    		<img class="splash" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F29274680%2F16864900669%2F1%2Foriginal.jpg?w=800&rect=0%2C537%2C1750%2C875&s=50a9867f67e7acc4b12ea2a0c65d35e7">
+    		<img class="splash" src="https://i.imgur.com/yGEruBk.png">
     		<div>
     			<h1 class="title">Nu-Ricks</h1>
     		</div>
@@ -39,7 +39,7 @@
     		<h1 class="title">Upcoming Shows</h1>
     		<hr>
     		<div class="showBlock">
-    			<a class="showImg" style="background-image: url('https://i.imgur.com/IY61eL0.png')"></a>
+    			<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
     			<div class="showDetails">
     				<h1>Artist X Live</h1>
     				<h2>Venue One</h2>
@@ -47,7 +47,7 @@
     			</div>
     		</div>
     		<div class="showBlock">
-    			<a class="showImg" style="background-image: url('https://i.imgur.com/iWgIIP6.png')"></a>
+    			<a class="showImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></a>
     			<div class="showDetails">
     				<h1>Artist Y Live</h1>
     				<h2>Venue Two</h2>
@@ -64,6 +64,18 @@
     		</div>
     		<a href="" class="allShows">View all shows <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
     		<hr>
+    	</div>
+    </div>
+    <div class="loginOverlay" style="display: none">
+    	<div class="center">
+    		<a class="visitorLogin">
+    			<h1>Visitor Access</h1>
+    			<span><i class="fa fa-facebook"></i>Facebook Login</span>
+    		</a>
+    		<a class="musicianLogin" href="http://localhost:3000/api/musicians/auth/facebook" target="_blank">
+    			<h1>Musician Access</h1>
+    			<span><i class="fa fa-facebook"></i>Facebook Login</span>
+    		</a>
     	</div>
     </div>
 </body>

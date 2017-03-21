@@ -19,3 +19,15 @@
 .slideLeft {
   transform: translate(0);
 }
+
+.drop {
+  overflow: hidden;
+  .mainWrapper {
+    transform: translateY(20vh);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .navAbout, .navUpcoming {
+    pointer-events: none;
+  }
+}

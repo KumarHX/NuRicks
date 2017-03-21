@@ -1,4 +1,8 @@
+// Angular imports
 import { Component } from '@angular/core';
+
+// Custom imports
+import { BackendService } from "../backend/backend.service";
 
 declare var $: any;
 
@@ -7,7 +11,9 @@ declare var $: any;
     templateUrl: 'main.component.html'
 })
 export class MainComponent{
-    constructor() {
+    constructor(
+    private backendService: BackendService
+    ) {
         // Styling jQuery on pageload
         $(document).ready(function () {
             // Expand Nu-Ricks logo on hover
@@ -30,7 +36,7 @@ export class MainComponent{
                 const height: number = $(e.currentTarget).height();
                 const shadowx: number = e.pageX / width * 10;
                 const shadowy: number = e.pageY / height * 10;
-                shadowState = shadowx + "px " + shadowy + "px #2D2D2D";
+                shadowState = shadowx + "px " + shadowy + "px white";
                 $(e.currentTarget).find(".title").css("text-shadow", shadowState);
             });
 
@@ -41,6 +47,27 @@ export class MainComponent{
                     scrollTop: $( $.attr(e.currentTarget, "href") ).offset().top
                 }, 500);
             });
+
+            // Login panel
+            $(".login").click(() => {
+                if (!$("body").hasClass("drop")) {
+                    $("body").addClass("drop");
+                    $(".loginOverlay").delay(250).fadeIn();
+                }
+                else {
+                    $(".loginOverlay").fadeOut().queue((next: any) => {
+                        $("body").removeClass("drop");
+                        next();
+                    })
+                }
+            });
         });
+    }
+
+    musicianFacebookLogin(): void {
+        // this.backendService.musicianFacebookLogin()
+        // .subscribe((response) => {
+        //
+        // });
     }
 }

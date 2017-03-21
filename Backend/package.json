@@ -4,7 +4,7 @@
   "description": "Website for nuricks, public music label",
   "main": "index.js",
   "scripts": {
-    "start": "../NuRicksBackendbin/www"
+    "start": "node NuRicks/bin/www"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,8 @@
   "dependencies": {
     "express": "^4.15.2",
     "jade": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
     "pg": "^6.1.4",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.30.2"

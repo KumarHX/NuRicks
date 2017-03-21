@@ -38,23 +38,23 @@ var FacebookStrategy = require('passport-facebook').Strategy
     	type: Sequelize.STRING,
     },
 
-    fbid: { 
+    fbid: {
     	type: Sequelize.STRING
     },
 
-    bio: { 
+    bio: {
     	type: Sequelize.STRING
     },
 
-    instagramLink: { 
+    instagramLink: {
     	type: Sequelize.STRING
     },
 
-    youtubeLink: { 
+    youtubeLink: {
     	type: Sequelize.STRING
     },
 
-    facebookLink: { 
+    facebookLink: {
     	type: Sequelize.STRING
     },
 
@@ -108,7 +108,7 @@ MusiciansModel = {
      *
      *   Arguments:
      *     res: Response Object Used to respond to a request
-     *     fields: Fields must match the fields in the Musicians's model 
+     *     fields: Fields must match the fields in the Musicians's model
      *
      */
 
