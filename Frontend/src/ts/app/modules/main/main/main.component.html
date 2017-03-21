@@ -9,7 +9,8 @@
     	<ul class="pages">
     		<li><a>Tickets</a></li>
     		<li><a>Booking</a></li>
-    		<li class="login"><a>Login</a></li>
+    		<li class="login" *ngIf="ps.userObject.fbid == ''"><a>Login</a></li>
+            <li class="login" *ngIf="ps.userObject.fbid != ''"><a>{{ps.userObject.firstName}}</a></li>
     	</ul>
     </nav>
     <a href="#about" class="navAbout">About Us</a>

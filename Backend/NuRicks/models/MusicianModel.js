@@ -24,6 +24,10 @@ const util = require('util')
       allowNull: false
     },
 
+    email: {
+        type: Sequelize.STRING,
+    },
+
     stageName: {
     	type: Sequelize.STRING,
     },
@@ -155,6 +159,25 @@ MusiciansModel = {
                 email: search
             }
         }).then( function(musicianInfo){
+            if(musicianInfo){
+                res.json({status: "1", "musician_info": musicianInfo})
+            }
+            else{
+                res.json({status: -1, errors: ['Musician does not exist']})
+            }
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find musician', err]});
+        });
+    },
+
+    loginMusician: function(res, search) {
+        Musicians.findOne({
+            where: {
+                fbid: search
+            }
+        }).then( function(musicianInfo){
+            res.setHeader("Access-Control-Allow-Credentials", true);
             if(musicianInfo){
                 res.json({status: "1", "musician_info": musicianInfo})
             }

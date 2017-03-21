@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var musician_models = require("../models/MusicianModel");
+var jwt = require("jwt-simple")
 var MusiciansModel =  musician_models.MusiciansModel
+const secret = "changethisinproduction";
 
 /*
  *  Handles signup request
@@ -12,7 +14,7 @@ var MusiciansModel =  musician_models.MusiciansModel
 
 router.post('/signup', function(req, res, next){
     var musician_info = req.body;
-    MusiciansModel.createUser(res, musician_info);
+    MusiciansModel.createMusician(res, musician_info);
 });
 
 /*
@@ -43,11 +45,27 @@ router.get('/auth/facebook', passport.authenticate('facebook'));
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook'),
   (req, res) => {
+    const payload = {fbid: req.user.fbid};
+    const token = jwt.encode(payload, secret);
+    // res.cookie('jwt', token);
+    req.session.key = token;
     // Successfully authenticated, redirect.
     res.redirect('http://localhost:8001/');
   })
 
+router.get('/auth/test', (req, res) => {
+    const payload = {fbid: "433300887023476"}
+    const token = jwt.encode(payload, secret);
+    // res.cookie('jwt', token);
+    req.session.key = token;
+    res.redirect('http://localhost:8001/')
+})
 
+router.get('/auth', (req, res) => {
+    var session = jwt.decode(req.session.key, secret);
+    var fbid = session.fbid;
+    MusiciansModel.loginMusician(res, fbid);
+})
 
 router.post('/updateMusicianInfo', function(req, res, next){
     var email = req.body.email;

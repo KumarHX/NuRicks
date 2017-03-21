@@ -8,6 +8,7 @@ import { HttpModule } from "@angular/http";
 import { OutletComponent } from './main.component';
 import { MainComponent } from './main/main.component';
 import { BackendService } from './backend/backend.service';
+import { PersistentService } from './main.global.ts';
 import { routing } from './main.routing';
 
 const appRoutes: Routes = [
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
         OutletComponent
     ],
     providers: [
-        BackendService
+        BackendService,
+        PersistentService
     ]
 })
 export class MainModule{}

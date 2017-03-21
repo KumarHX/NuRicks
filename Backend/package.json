@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/KumarHX/NuRicks#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-session": "^2.0.0-beta.1",
     "express": "^4.15.2",
     "jade": "^1.11.0",
+    "jwt-simple": "^0.5.1",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "pg": "^6.1.4",

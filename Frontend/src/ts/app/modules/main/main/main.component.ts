@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 
 // Custom imports
 import { BackendService } from "../backend/backend.service";
+import { PersistentService } from "../main.global";
 
 declare var $: any;
 
@@ -12,7 +13,8 @@ declare var $: any;
 })
 export class MainComponent{
     constructor(
-    private backendService: BackendService
+    private backendService: BackendService,
+    private ps: PersistentService
     ) {
         // Styling jQuery on pageload
         $(document).ready(function () {
@@ -62,12 +64,5 @@ export class MainComponent{
                 }
             });
         });
-    }
-
-    musicianFacebookLogin(): void {
-        // this.backendService.musicianFacebookLogin()
-        // .subscribe((response) => {
-        //
-        // });
     }
 }

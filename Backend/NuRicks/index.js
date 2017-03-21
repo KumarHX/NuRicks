@@ -3,6 +3,9 @@ var path = require('path');
 var routes = require('./routes/siteRouter');
 var musicians = require('./routes/musicians');
 var passport = require('passport');
+var cookieSession = require('cookie-session');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var app = express()
 
 
@@ -12,7 +15,23 @@ app.set('view engine', 'jade');
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8001");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+app.use(bodyParser.json());
+app.use(cookieParser());
+// Main Cookie handler
+var cookieExpiryDate = new Date(Date.now() + (24 * 60 * 60 * 1000)); // 24 hours
+app.use(cookieSession({
+    name: "jwt",
+    keys: ["changethisinproduction"],
+    cookie: {
+        httpOnly: true,
+        expires: cookieExpiryDate
+    }
+}));
 
 app.use('/', routes);
 app.use('/api/musicians', musicians);

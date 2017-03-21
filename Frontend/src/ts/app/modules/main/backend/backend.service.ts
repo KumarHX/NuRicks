@@ -16,8 +16,10 @@ export class BackendService {
         private http: Http
     ) { }
 
-    musicianFacebookLogin(): Observable<any> {
-        return this.http.get(`${this.backendUrl}/musicians/auth/facebook`)
+    checkAuth(): Observable<any> {
+        // check for musician or user on backend
+        // return user
+        return this.http.get(`${this.backendUrl}/musicians/auth`, { withCredentials: true })
             .map(this.extractData)
             .catch(this.handleError);
     }
