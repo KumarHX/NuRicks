@@ -20,22 +20,22 @@ router.post('/signup', function(req, res, next){
 /*
  *  Find a musician
  *
- *  email: email to search on
+ *  fbid: fbid to search on
  */
 
-router.get('/getMusicianInfoFromEmail/:email', function(req, res, next){
-    var search = req.params.email;
+router.get('/getMusicianInfoFromEmail/:fbid', function(req, res, next){
+    var search = req.params.fbid;
     MusiciansModel.getMusicianInfoFromEmail(res, search);
 });
 
 /*
  *  Delete a musician
  *
- *  email: email to search on
+ *  fbid: fbid to search on
  */
 
-router.get('/deleteMusician/:email', function(req, res, next){
-    var search = req.params.email;
+router.get('/deleteMusician/:fbid', function(req, res, next){
+    var search = req.params.fbid;
     MusiciansModel.deleteMusician(res, search);
 });
 
@@ -45,6 +45,7 @@ router.get('/auth/facebook', passport.authenticate('facebook'));
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook'),
   (req, res) => {
+    console.log("sent fbid: " + req.user.fbid)
     const payload = {fbid: req.user.fbid};
     const token = jwt.encode(payload, secret);
     // res.cookie('jwt', token);
@@ -68,6 +69,7 @@ router.get('/auth', (req, res) => {
 })
 
 router.post('/updateMusicianInfo', function(req, res, next){
+    var fbid = req.body.fbid;
     var email = req.body.email;
     var	stageName = req.body.stageName;
     var	bio = req.body.bio;
@@ -76,7 +78,7 @@ router.post('/updateMusicianInfo', function(req, res, next){
     var	youtubeLink = req.body.youtubeLink;
     var	facebookLink = req.body.facebookLink;
     var picture_url = req.body.picture_url;
-    MusiciansModel.updateMusicianInfoScreen(res, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio);
+    MusiciansModel.updateMusicianInfoScreen(res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio);
 });
 
 

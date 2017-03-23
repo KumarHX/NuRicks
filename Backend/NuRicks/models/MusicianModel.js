@@ -67,48 +67,43 @@ const util = require('util')
 Musicians.sync();
 
 passport.use(new FacebookStrategy({
-  clientID: '222498668155227',
-  clientSecret:  '7e600563610f0c8d21240afb25d44447',
-  callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
-  profileFields: ['id', 'name', 'profileUrl', 'email']
-}, (token, tokenSecret, profile, cb) => {
-  // Do things with the profile here
-  console.log('Well, you\'ve hit the Facebook callback.')
-  Musicians.findOne({
-    fbid: profile.userID,
-  }, (err, musician) => {
-    if (err) {
-      return cb(err)
-    }
-    if (musician) {
-      return cb(null, musician)
-    }
-  })
-    console.log(util.inspect(profile, false, null))
-      // Create object to insert
-    var newMusician = Musicians.build({
+    clientID: '222498668155227',
+    clientSecret:  '7e600563610f0c8d21240afb25d44447',
+    callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
+    profileFields: ['id', 'name', 'profileUrl']  },
+  function(accessToken, refreshToken, profile, cb) {
+    console.log("1: " + profile.id);
+    Musicians.findOne({ 
+      fbid: profile.id
+    }).then(user => {
+      console.log("user:" + user)
+      if (user) {
+        return cb(null, user, { message: 'User already exists' });
+      }
+    }).catch(err => cb(err));
+    console.log("2: " + profile.id);
+    const newMusician = Musicians.build({
       fbid: profile.id,
       firstName: profile.name.givenName,
       lastName: profile.name.familyName,
       picture_url: profile.profileUrl
-    })
-    newMusician.save((err) => {
-       console.log("here");
-      if (err) {
-        console.log('Error while registering musician: ', err)
-        return cb(err)
+    });
+    console.log("At the current: " + newMusician.fbid);
+    cb(null, newMusician, { message: 'Musician created!' });
+    newMusician.save().then(user => {
+      if (user) {
+        return cb(null, user, { message: 'Musician created!' });
       }
-       console.log("here2");
-      return cb(null, newMusician)
-    })
-}))
+    }).catch(err => cb(err));
+  }
+));
 
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(function(id, done) {
+ done(null, user);
 });
 
 MusiciansModel = {
@@ -132,17 +127,17 @@ MusiciansModel = {
         }).catch(function(err){
             Musicians.findOne({
                 where:{
-                    email: fields["email"]
+                    fbid: fields["fbid"]
                 }
             }).then(function(result){
-            	res.json({status: -1, errors:['Unable to create musician as a musician already exists with this email', result]})
+            	res.json({status: -1, errors:['Unable to create musician as a musician already exists with this fbid', result]})
             });
     	})
     },
 
      /*   Get requested in musicians.js
      *
-     *   Looks for a musician that is associated with the email address passed.
+     *   Looks for a musician that is associated with the fbid passed.
      *   If a musician is found, the functions returns all the info(fields) of that
      *   musician.
      *
@@ -156,7 +151,7 @@ MusiciansModel = {
     getMusicianInfoFromEmail: function(res, search){
         Musicians.findOne({
             where:{
-                email: search
+                fbid: search
             }
         }).then( function(musicianInfo){
             if(musicianInfo){
@@ -172,6 +167,7 @@ MusiciansModel = {
     },
 
     loginMusician: function(res, search) {
+      console.log(search);
         Musicians.findOne({
             where: {
                 fbid: search
@@ -190,10 +186,10 @@ MusiciansModel = {
         });
     },
 
-    deleteMusician: function(res, musicianEmail){
+    deleteMusician: function(res, fbid){
         Musicians.remove({
             where: {
-                email: musicianEmail
+                fbid: fbid
             }
         }).then(function(musicianDelete){
             res.json({status: "1", "deleted_musician": musicianDelete})
@@ -202,13 +198,14 @@ MusiciansModel = {
         });
     },
 
-    updateMusicianInfoScreen: function (res, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio){
+    updateMusicianInfoScreen: function (res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio){
         Musicians.findOne({
             where:{
-                email: email
+                fbid: fbid
             }
         }).then(function(editMusician) {
             editMusician.update({
+                email: email,
                 stageName:  stageName,
                 soundcloudLink: soundcloudLink,
                 instagramLink: instagramLink,
