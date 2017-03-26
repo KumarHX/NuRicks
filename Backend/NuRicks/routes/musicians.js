@@ -23,7 +23,7 @@ router.post('/signup', function(req, res, next){
  *  fbid: fbid to search on
  */
 
-router.get('/getMusicianInfoFromEmail/:fbid', function(req, res, next){
+router.get('/getMusicianInfoFromID/:fbid', function(req, res, next){
     var search = req.params.fbid;
     MusiciansModel.getMusicianInfoFromEmail(res, search);
 });
@@ -81,5 +81,9 @@ router.post('/updateMusicianInfo', function(req, res, next){
     MusiciansModel.updateMusicianInfoScreen(res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio);
 });
 
+router.get('/logout', (req, res) => {
+    req.session = null;
+    res.redirect('http://localhost:8001/');
+});
 
 module.exports = router;

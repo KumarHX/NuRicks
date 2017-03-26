@@ -11,7 +11,7 @@ const util = require('util')
 
 /*  Musician's model
  *
- *  email: The musicians's email address.
+ *  fbid: The musicians's facebook ID (primary key)
  *
  */
 
@@ -76,9 +76,9 @@ passport.use(new FacebookStrategy({
     Musicians.findOne({ 
       fbid: profile.id
     }).then(user => {
-      console.log("user:" + user)
+      console.log("Musician:" + user)
       if (user) {
-        return cb(null, user, { message: 'User already exists' });
+        return cb(null, user, { message: 'Musician already exists' });
       }
     }).catch(err => cb(err));
     console.log("2: " + profile.id);
