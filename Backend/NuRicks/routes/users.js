@@ -12,19 +12,12 @@ router.get('/auth/facebook', passport.authenticate('facebook'));
 router.get('/auth/facebook/callback', passport.authenticate('facebook'),
   (req, res) => {
     console.log("sent fbid: " + req.user.fbid)
-    const payload = {fbid: req.user.fbid};
+    const payload = {fbid: req.user.fbid, userType: "user"};
     const token = jwt.encode(payload, secret);
     // res.cookie('jwt', token);
     req.session.key = token;
     // Successfully authenticated, redirect.
     res.redirect('http://localhost:8001/');
-});
-
-
-router.get('/auth', (req, res) => {
-    var session = jwt.decode(req.session.key, secret);
-    var fbid = session.fbid;
-    UsersModel.loginUser(res, fbid);
 });
 
 

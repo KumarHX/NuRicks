@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var musician_models = require("../models/MusicianModel");
 var jwt = require("jwt-simple")
-var MusiciansModel =  musician_models.MusiciansModel
+var MusiciansModel =  musician_models.MusiciansModel;
 const secret = "changethisinproduction";
 
 /*
@@ -46,7 +46,7 @@ router.get('/auth/facebook', passport.authenticate('facebook'));
 router.get('/auth/facebook/callback', passport.authenticate('facebook'),
   (req, res) => {
     console.log("sent fbid: " + req.user.fbid)
-    const payload = {fbid: req.user.fbid};
+    const payload = {fbid: req.user.fbid, userType: "musician"};
     const token = jwt.encode(payload, secret);
     // res.cookie('jwt', token);
     req.session.key = token;
@@ -60,12 +60,6 @@ router.get('/auth/test', (req, res) => {
     // res.cookie('jwt', token);
     req.session.key = token;
     res.redirect('http://localhost:8001/')
-})
-
-router.get('/auth', (req, res) => {
-    var session = jwt.decode(req.session.key, secret);
-    var fbid = session.fbid;
-    MusiciansModel.loginMusician(res, fbid);
 })
 
 router.post('/updateMusicianInfo', function(req, res, next){

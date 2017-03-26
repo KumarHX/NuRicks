@@ -2,6 +2,8 @@ var express = require('express')
 var path = require('path');
 var routes = require('./routes/siteRouter');
 var musicians = require('./routes/musicians');
+var auth = require('./routes/auth');
+var users = require('./routes/users');
 var passport = require('passport');
 var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
@@ -35,10 +37,8 @@ app.use(cookieSession({
 
 app.use('/', routes);
 app.use('/api/musicians', musicians);
-
-
-
-
+app.use('/api/users', musicians);
+app.use('/api/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
