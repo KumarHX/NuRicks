@@ -65,4 +65,12 @@ export class MainComponent{
             });
         });
     }
+    logout(): void {
+        this.backendService.logout()
+        .subscribe((response: any) => {
+            if (response.status) {
+                location.reload();
+            }
+        });
+    }
 }

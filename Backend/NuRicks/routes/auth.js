@@ -9,14 +9,29 @@ var UsersModel =  user_models.UsersModel;
 const secret = "changethisinproduction";
 
 
-router.get('/auth', (req, res) => {
+router.get('/', (req, res) => {
+    // res.setHeader('Access-Control-Allow-Credentials', 'true');
+    if (typeof req.session.key === 'undefined') {
+        res.json({error: "noauth"});
+        return;
+    }
     var session = jwt.decode(req.session.key, secret);
     var fbid = session.fbid;
     var userType = session.userType;
     if (userType == "musician") {
         MusiciansModel.loginMusician(res, fbid);
     }
+    else if (userType == "user") {
+        UsersModel.loginUser(res, fbid);
+    }
     else {
-        UserModel.loginuser(res, fbid);
+        res.json({error: "noauth"});
     }
 })
+
+router.get('/logout', (req, res) => {
+    req.session = null;
+    res.json({"status": true});
+});
+
+module.exports = router;

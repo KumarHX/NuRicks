@@ -19,7 +19,13 @@ export class BackendService {
     checkAuth(): Observable<any> {
         // check for musician or user on backend
         // return user
-        return this.http.get(`${this.backendUrl}/musicians/auth`, { withCredentials: true })
+        return this.http.get(`${this.backendUrl}/auth/`, { withCredentials: true })
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    logout(): Observable<any> {
+        return this.http.get(`${this.backendUrl}/auth/logout`, { withCredentials: true })
             .map(this.extractData)
             .catch(this.handleError);
     }

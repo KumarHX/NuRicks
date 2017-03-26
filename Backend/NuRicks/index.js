@@ -8,6 +8,8 @@ var passport = require('passport');
 var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var helmet = require('helmet');
+var cors = require('cors');
 var app = express()
 
 
@@ -17,11 +19,13 @@ app.set('view engine', 'jade');
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:8001");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// Helmet defaults
+app.use(helmet());
+app.use(cors({
+    origin: "http://localhost:8001",
+    credentials: true
+}));
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 // Main Cookie handler
@@ -35,9 +39,8 @@ app.use(cookieSession({
     }
 }));
 
-app.use('/', routes);
 app.use('/api/musicians', musicians);
-app.use('/api/users', musicians);
+app.use('/api/users', users);
 app.use('/api/auth', auth);
 
 // catch 404 and forward to error handler

@@ -73,28 +73,32 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'name', 'profileUrl']  },
   function(accessToken, refreshToken, profile, cb) {
     console.log("1: " + profile.id);
-    Musicians.findOne({ 
+    Musicians.findOne({
       fbid: profile.id
     }).then(user => {
       console.log("Musician:" + user)
       if (user) {
         return cb(null, user, { message: 'Musician already exists' });
       }
-    }).catch(err => cb(err));
-    console.log("2: " + profile.id);
-    const newMusician = Musicians.build({
-      fbid: profile.id,
-      firstName: profile.name.givenName,
-      lastName: profile.name.familyName,
-      picture_url: profile.profileUrl
-    });
-    console.log("At the current: " + newMusician.fbid);
-    cb(null, newMusician, { message: 'Musician created!' });
-    newMusician.save().then(user => {
-      if (user) {
-        return cb(null, user, { message: 'Musician created!' });
+      else {
+        console.log("2: " + profile.id);
+        const newMusician = Musicians.build({
+          fbid: profile.id,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          picture_url: profile.profileUrl
+        });
+        console.log("At the current: " + newMusician.fbid);
+        cb(null, newMusician, { message: 'Musician created!' });
+        newMusician.save().then(user => {
+          if (user) {
+            return console.log("musician created");
+            // return cb(null, user, { message: 'Musician created!' });
+          }
+        }).catch(err => cb(err));
       }
     }).catch(err => cb(err));
+
   }
 ));
 

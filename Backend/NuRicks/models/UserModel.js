@@ -49,26 +49,29 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'name', 'profileUrl']  },
   function(accessToken, refreshToken, profile, cb) {
     console.log("1: " + profile.id);
-    Users.findOne({ 
+    Users.findOne({
       fbid: profile.id
     }).then(user => {
       console.log("user:" + user)
       if (user) {
         return cb(null, user, { message: 'User already exists' });
       }
-    }).catch(err => cb(err));
-    console.log("2: " + profile.id);
-    const newUser = Users.build({
-      fbid: profile.id,
-      firstName: profile.name.givenName,
-      lastName: profile.name.familyName,
-      picture_url: profile.profileUrl
-    });
-    console.log("At the current: " + newUser.fbid);
-    cb(null, newUser, { message: 'User created!' });
-    newUser.save().then(user => {
-      if (user) {
-        return cb(null, user, { message: 'User created!' });
+      else {
+        console.log("2: " + profile.id);
+        const newUser = Users.build({
+          fbid: profile.id,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          picture_url: profile.profileUrl
+        });
+        console.log("At the current: " + newUser.fbid);
+        cb(null, newUser, { message: 'User created!' });
+        newUser.save().then(user => {
+          if (user) {
+            return console.log("User created");
+            // return cb(null, user, { message: 'User created!' });
+          }
+        }).catch(err => cb(err));
       }
     }).catch(err => cb(err));
   }

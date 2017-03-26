@@ -25,3 +25,5 @@ router.get('/logout', (req, res) => {
     req.session = null;
     res.redirect('http://localhost:8001/');
 });
+
+module.exports = router;
