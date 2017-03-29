@@ -10,7 +10,6 @@ const secret = "changethisinproduction";
 
 
 router.get('/', (req, res) => {
-    // res.setHeader('Access-Control-Allow-Credentials', 'true');
     if (typeof req.session.key === 'undefined') {
         res.json({error: "noauth"});
         return;
@@ -18,6 +17,7 @@ router.get('/', (req, res) => {
     var session = jwt.decode(req.session.key, secret);
     var fbid = session.fbid;
     var userType = session.userType;
+    console.log(userType);
     if (userType == "musician") {
         MusiciansModel.loginMusician(res, fbid);
     }

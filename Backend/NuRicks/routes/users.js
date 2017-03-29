@@ -6,10 +6,9 @@ var jwt = require("jwt-simple")
 var UsersModel =  user_models.UsersModel;
 const secret = "changethisinproduction";
 
-router.get('/auth/facebook', passport.authenticate('facebook'));
+router.get('/auth/facebook', passport.authenticate('facebook-users'));
 
-
-router.get('/auth/facebook/callback', passport.authenticate('facebook'),
+router.get('/auth/facebook/callback', passport.authenticate('facebook-users'),
   (req, res) => {
     console.log("sent fbid: " + req.user.fbid)
     const payload = {fbid: req.user.fbid, userType: "user"};

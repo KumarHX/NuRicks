@@ -66,7 +66,7 @@ const util = require('util')
 
 Musicians.sync();
 
-passport.use(new FacebookStrategy({
+passport.use('facebook-musicians', new FacebookStrategy({
     clientID: '222498668155227',
     clientSecret:  '7e600563610f0c8d21240afb25d44447',
     callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
@@ -86,14 +86,13 @@ passport.use(new FacebookStrategy({
           fbid: profile.id,
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
-          picture_url: profile.profileUrl
+          picture_url: profile.profileUrl,
+          email: ''
         });
         console.log("At the current: " + newMusician.fbid);
-        cb(null, newMusician, { message: 'Musician created!' });
         newMusician.save().then(user => {
           if (user) {
-            return console.log("musician created");
-            // return cb(null, user, { message: 'Musician created!' });
+            return cb(null, newMusician, { message: 'Musician created!' });
           }
         }).catch(err => cb(err));
       }

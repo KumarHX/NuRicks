@@ -42,7 +42,7 @@ const util = require('util')
 
 Users.sync();
 
-passport.use(new FacebookStrategy({
+passport.use('facebook-users', new FacebookStrategy({
     clientID: '222498668155227',
     clientSecret:  '7e600563610f0c8d21240afb25d44447',
     callbackURL: "http://localhost:3000/api/users/auth/facebook/callback",
@@ -65,11 +65,9 @@ passport.use(new FacebookStrategy({
           picture_url: profile.profileUrl
         });
         console.log("At the current: " + newUser.fbid);
-        cb(null, newUser, { message: 'User created!' });
         newUser.save().then(user => {
           if (user) {
-            return console.log("User created");
-            // return cb(null, user, { message: 'User created!' });
+            return cb(null, newUser, { message: 'User created!' });
           }
         }).catch(err => cb(err));
       }

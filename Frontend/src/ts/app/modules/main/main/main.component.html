@@ -9,9 +9,9 @@
     	<ul class="pages">
     		<li><a>Tickets</a></li>
     		<li><a>Booking</a></li>
-    		<li class="login" *ngIf="ps.userObject.fbid == ''"><a>Login</a></li>
-            <li class="login" *ngIf="ps.userObject.fbid != ''"><a>{{ps.userObject.firstName || ps.musicianObject.firstName}}</a></li>
-            <li *ngIf="ps.userObject.fbid != ''"><a (click)="logout()">logout</a></li>
+    		<li class="login" *ngIf="ps.userObject.fbid == '' && ps.musicianObject.fbid == ''"><a>Login</a></li>
+            <li class="login" *ngIf="ps.userObject.fbid != '' || ps.musicianObject.fbid != ''"><a>{{ps.userObject.firstName || ps.musicianObject.firstName}}</a></li>
+            <li *ngIf="ps.userObject.fbid != '' || ps.musicianObject.fbid != ''"><a (click)="logout()">logout</a></li>
     	</ul>
     </nav>
     <a href="#about" class="navAbout">About Us</a>

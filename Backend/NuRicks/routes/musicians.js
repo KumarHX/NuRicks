@@ -41,9 +41,9 @@ router.get('/deleteMusician/:fbid', function(req, res, next){
 
 
 
-router.get('/auth/facebook', passport.authenticate('facebook'));
+router.get('/auth/facebook', passport.authenticate('facebook-musicians'));
 
-router.get('/auth/facebook/callback', passport.authenticate('facebook'),
+router.get('/auth/facebook/callback', passport.authenticate('facebook-musicians'),
   (req, res) => {
     console.log("sent fbid: " + req.user.fbid)
     const payload = {fbid: req.user.fbid, userType: "musician"};
