@@ -11,26 +11,13 @@ declare var $: any;
     selector: 'app',
     templateUrl: 'main.component.html'
 })
-export class MainComponent{
+export class MainComponent {
     constructor(
     private backendService: BackendService,
     private ps: PersistentService
     ) {
         // Styling jQuery on pageload
         $(document).ready(function () {
-            // Expand Nu-Ricks logo on hover
-            $(".logo").hover((e: any) => {
-                $(e.currentTarget).text("Nu-Ricks");
-            }, (e: any) => {
-                $(e.currentTarget).text("NR");
-            });
-
-            // Expand menu on mobile
-            $(".hamburger").click(() => {
-                $(".hamburger").toggleClass("fold");
-                $(".mainWrapper").toggleClass("menuOpen");
-            });
-
             // Nu-Ricks logo shadow effect
             let shadowState: any;
             $("#header").mousemove((e: any) => {
@@ -51,7 +38,7 @@ export class MainComponent{
             });
 
             // Login panel
-            $(".login").click(() => {
+            $("#mLogin").click(() => {
                 if (!$("body").hasClass("drop")) {
                     $("body").addClass("drop");
                     $(".loginOverlay").delay(250).fadeIn();
@@ -63,14 +50,6 @@ export class MainComponent{
                     })
                 }
             });
-        });
-    }
-    logout(): void {
-        this.backendService.logout()
-        .subscribe((response: any) => {
-            if (response.status) {
-                location.reload();
-            }
         });
     }
 }

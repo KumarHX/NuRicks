@@ -1,83 +1,66 @@
-<body>
-    <nav>
-    	<div class="navbar">
-    		<div class="hamburger">
-    			<div></div>
-    		</div>
-    	</div>
-    	<a [routerLink]="['/']" class="logo">NR</a>
-    	<ul class="pages">
-    		<li><a>Tickets</a></li>
-    		<li><a>Booking</a></li>
-    		<li class="login" *ngIf="ps.userObject.fbid == '' && ps.musicianObject.fbid == ''"><a>Login</a></li>
-            <li class="login" *ngIf="ps.userObject.fbid != '' || ps.musicianObject.fbid != ''"><a>{{ps.userObject.firstName || ps.musicianObject.firstName}}</a></li>
-            <li *ngIf="ps.userObject.fbid != '' || ps.musicianObject.fbid != ''"><a (click)="logout()">logout</a></li>
-    	</ul>
-    </nav>
-    <a href="#about" class="navAbout">About Us</a>
-    <a href="#upcoming" class="navUpcoming">Upcoming Shows</a>
-    <div class="mainWrapper">
-    	<div id="header">
-    		<img class="splash" src="https://i.imgur.com/yGEruBk.png">
-    		<div>
-    			<h1 class="title">Nu-Ricks</h1>
-    		</div>
-    		<a href="#about"><i class="fa fa-chevron-down"></i></a>
-    	</div>
-    	<div id="about">
-    		<h1 class="title">About Us</h1>
-    		<hr>
-    		<h2>NU-Ricks is the highest volume independent live music company in the SF Bay Area.</h2>
-    		<h1>Artists</h1>
-    		<p>NU-Ricks enables artists to grow their networks, get on stage and build a performance resume all while making money while performing.</p>
-    		<h1>Venues</h1>
-    		<p>NU-Ricks can drive foot traffic to your venue. This leads to increased bar sales, better notoriety, and repeat customers.</p>
-    		<h1>Labels</h1>
-    		<p>Ensure your artists gain the necessary exposure and notoriety they deserve. With our promotional strategies, you can be assured that your artist will be treated and promoted in the most professional of manners.</p>
-    		<hr>
-    		<a href="#upcoming"><i class="fa fa-chevron-down"></i></a>
-    	</div>
-    	<div id="upcoming">
-    		<h1 class="title">Upcoming Shows</h1>
-    		<hr>
-    		<div class="showBlock">
-    			<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
-    			<div class="showDetails">
-    				<h1>Artist X Live</h1>
-    				<h2>Venue One</h2>
-    				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-    			</div>
-    		</div>
-    		<div class="showBlock">
-    			<a class="showImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></a>
-    			<div class="showDetails">
-    				<h1>Artist Y Live</h1>
-    				<h2>Venue Two</h2>
-    				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-    			</div>
-    		</div>
-    		<div class="showBlock">
-    			<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-    			<div class="showDetails">
-    				<h1>Artist Z Live</h1>
-    				<h2>Venue Three</h2>
-    				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-    			</div>
-    		</div>
-    		<a href="" class="allShows">View all shows <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-    		<hr>
-    	</div>
-    </div>
-    <div class="loginOverlay" style="display: none">
-    	<div class="center">
-    		<a class="visitorLogin" href="http://localhost:3000/api/users/auth/facebook">
-    			<h1>Visitor Access</h1>
-    			<span><i class="fa fa-facebook"></i>Facebook Login</span>
-    		</a>
-    		<a class="musicianLogin" href="http://localhost:3000/api/musicians/auth/facebook">
-    			<h1>Musician Access</h1>
-    			<span><i class="fa fa-facebook"></i>Facebook Login</span>
-    		</a>
-    	</div>
-    </div>
-</body>
+<a href="#about" class="navAbout">About Us</a>
+<a href="#upcoming" class="navUpcoming">Upcoming Shows</a>
+<div class="mainWrapper">
+	<div id="header">
+		<img class="splash" src="https://i.imgur.com/yGEruBk.png">
+		<div>
+			<h1 class="title">Nu-Ricks</h1>
+		</div>
+		<a href="#about"><i class="fa fa-chevron-down"></i></a>
+	</div>
+	<div id="about">
+		<h1 class="title">About Us</h1>
+		<hr>
+		<h2>NU-Ricks is the highest volume independent live music company in the SF Bay Area.</h2>
+		<h1>Artists</h1>
+		<p>NU-Ricks enables artists to grow their networks, get on stage and build a performance resume all while making money while performing.</p>
+		<h1>Venues</h1>
+		<p>NU-Ricks can drive foot traffic to your venue. This leads to increased bar sales, better notoriety, and repeat customers.</p>
+		<h1>Labels</h1>
+		<p>Ensure your artists gain the necessary exposure and notoriety they deserve. With our promotional strategies, you can be assured that your artist will be treated and promoted in the most professional of manners.</p>
+		<hr>
+		<a href="#upcoming"><i class="fa fa-chevron-down"></i></a>
+	</div>
+	<div id="upcoming">
+		<h1 class="title">Upcoming Shows</h1>
+		<hr>
+		<div class="showBlock">
+			<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
+			<div class="showDetails">
+				<h1>Artist X Live</h1>
+				<h2>Venue One</h2>
+				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+			</div>
+		</div>
+		<div class="showBlock">
+			<a class="showImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></a>
+			<div class="showDetails">
+				<h1>Artist Y Live</h1>
+				<h2>Venue Two</h2>
+				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+			</div>
+		</div>
+		<div class="showBlock">
+			<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+			<div class="showDetails">
+				<h1>Artist Z Live</h1>
+				<h2>Venue Three</h2>
+				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+			</div>
+		</div>
+		<a href="" class="allShows">View all shows <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+		<hr>
+	</div>
+</div>
+<div class="loginOverlay" style="display: none">
+	<div class="center">
+		<a class="visitorLogin" href="http://localhost:3000/api/users/auth/facebook">
+			<h1>Visitor Access</h1>
+			<span><i class="fa fa-facebook"></i>Facebook Login</span>
+		</a>
+		<a class="musicianLogin" href="http://localhost:3000/api/musicians/auth/facebook">
+			<h1>Musician Access</h1>
+			<span><i class="fa fa-facebook"></i>Facebook Login</span>
+		</a>
+	</div>
+</div>

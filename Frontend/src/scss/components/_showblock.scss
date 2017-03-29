@@ -1,0 +1,51 @@
+.showBlock {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  margin-bottom: 16pt;
+  cursor: pointer;
+  transition: background .25s ease-in-out;
+  .showImg {
+    display: block;
+    width: 250pt;
+    height: 150pt;
+    background-size: cover;
+  }
+  .showDetails {
+    margin-left: 16pt;
+    h1 {
+      font-size: $title;
+    }
+    .btn {
+      width: 200pt;
+      margin-top: 8pt;
+      transition: background .15s ease-in-out;
+
+      &:hover {
+        background: $red;
+      }
+    }
+  }
+  &:hover {
+    background: $darker-light-grey;
+  }
+}
+
+@include screen('sm') {
+  .showBlock {
+    flex-flow: column;
+    align-items: center;
+    padding-bottom: 8pt;
+    text-align: center;
+    .showImg {
+      width: 100%;
+    }
+    .showDetails {
+      margin: 0;
+
+      .btn {
+        margin: 8pt auto;
+      }
+    }
+  }
+}

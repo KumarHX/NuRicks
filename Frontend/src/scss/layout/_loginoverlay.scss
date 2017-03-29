@@ -16,7 +16,9 @@
       width: 240pt;
       height: 240pt;
       margin: 0 16pt;
+      text-align: center;
       color: $text-color;
+      white-space: nowrap;
       font-weight: bold;
       background: $bg;
       border: 10px solid $text-color;
@@ -85,7 +87,7 @@
       padding-top: 24pt;
       .visitorLogin, .musicianLogin {
         padding: 16pt 0;
-        height: auto;
+        max-height: 30vh;
         h1 {
           font-size: $tL;
         }

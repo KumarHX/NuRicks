@@ -84,18 +84,6 @@
         background: $darker-light-grey;
       }
     }
-    .allShows {
-      position: absolute;
-      bottom: 72pt;
-      right: 0;
-
-      &:hover {
-        color: $red;
-      }
-    }
-    hr:last-of-type {
-      margin-top: 40pt;
-    }
   }
   .fa-chevron-down {
     position: absolute;
@@ -118,11 +106,6 @@
     #about, #upcoming {
       width: 80vw;
       padding: 80pt 0;
-    }
-    #upcoming {
-      .allShows {
-        bottom: 112pt;
-      }
     }
   }
   @include screen('sm') {
@@ -170,11 +153,6 @@
         .showDetails {
           margin: 0;
         }
-      }
-      .allShows {
-        right: 8pt;
-        bottom: 8pt;
-        font-size: $tL;
       }
     }
   }

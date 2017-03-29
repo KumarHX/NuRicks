@@ -143,7 +143,8 @@ gulp.task('webserver', function() {
     connect.server({
         root: path.webserver.root,
         livereload: true,
-        port: 8001
+        port: 8001,
+        fallback: "src/view/index.html"
     });
 });
 

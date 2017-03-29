@@ -1,5 +1,13 @@
 import { Injectable } from "@angular/core";
+import
+{
+    Router,
+    Resolve,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot
+} from '@angular/router';
 
+import { Observable } from "rxjs/Rx";
 import { BackendService } from "./backend/backend.service";
 
 interface musicianValidation {
@@ -54,10 +62,16 @@ export class PersistentService {
     }
 
     constructor(
-    private backendService: BackendService
-    ){
-        this.backendService.checkAuth()
-        .subscribe((response: any) => {
+    private backendService: BackendService,
+    private router: Router
+    ){}
+
+    resolve(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ): Observable<any>|Promise<any>|any {
+        return this.backendService.checkAuth()
+        .map((response: any) => {
             if (response.status == "1" && response.musician_info) {
                 console.log("Musician");
                 const a = response.musician_info;
@@ -73,6 +87,7 @@ export class PersistentService {
                 this.musicianObject.facebookLink = a.facebookLink;
                 this.musicianObject.picture_url = a.picture_url;
                 this.musicianObject.verified = a.verified;
+                this.router.navigate(['/dashboard']);
             }
             if (response.status == "1" && response.user_info) {
                 console.log("User");
@@ -84,6 +99,6 @@ export class PersistentService {
                 this.userObject.lastName = a.lastName;
                 this.userObject.picture_url = a.picture_url;
             }
-        });
+        }).first();
     }
 }

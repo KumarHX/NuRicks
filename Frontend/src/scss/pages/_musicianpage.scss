@@ -1,0 +1,131 @@
+.musicianWrapper {
+  padding: 120pt 5vw 40pt;
+
+  .bio {
+    padding-bottom: 8pt;
+    text-align: right;
+    .bioPic {
+      position: relative;
+      display: block;
+      height: 35vh;
+      width: 640pt;
+      margin: 0 auto;
+      text-shadow: 2px 2px $text-color;
+      color: $bg;
+      background-image: url("http://i.imgur.com/XjNSzYX.jpg");
+      background-size: cover;
+      background-position: center center;
+
+      .title {
+        @include abs-center;
+        font-size: 4em;
+      }
+    }
+    ul {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: space-around;
+      height: 100%;
+      width: 56pt;
+
+      a {
+        position: relative;
+        color: $bg;
+        font-size: $mtL;
+        &:hover {
+          color: $red;
+
+          &::after {
+            opacity: 1;
+            transform: translate(0, -50%);
+          }
+        }
+        &::after {
+          position: absolute;
+          top: 50%;
+          left: 120%;
+          opacity: 0;
+          transform: translate(-15%, -50%);
+          content: attr(data-url);
+          color: $bg;
+          font-size: $tS;
+          font-weight: bold;
+          transition: all .2s ease-in;
+        }
+      }
+    }
+    .fa-camera {
+      position: absolute;
+      bottom: 8pt;
+      right: 8pt;
+      font-size: $tL;
+    }
+  }
+  .myShows {
+    .title {
+      font-size: 3em;
+      color: $red;
+    }
+    .showBlock {
+      cursor: auto;
+      &:hover {
+        background: $bg;
+      }
+    }
+  }
+}
+
+@include screen('md') {
+  .musicianWrapper {
+    padding: 120pt 8pt 40pt;
+    .bio {
+      .bioPic {
+        width: 100%;
+      }
+    }
+  }
+}
+@include screen('sm') {
+  .musicianWrapper {
+    padding: 56pt 8pt 24pt;
+    .title {
+      font-size: $title;
+    }
+    hr {
+      display: none;
+    }
+    .bio {
+      margin-bottom: 24pt;
+      text-align: center;
+      background: $light-grey;
+      .bioPic {
+        .title {
+          top: 75%;
+          transform: translate(-50%,0);
+          font-size: $mtL;
+        }
+        ul {
+          flex-flow: row nowrap;
+          width: 100%;
+          height: 56pt;
+
+          a {
+            &::after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 400px) {
+  .musicianWrapper {
+    .myShows {
+      .title {
+        font-size: $title;
+      }
+    }
+  }
+}

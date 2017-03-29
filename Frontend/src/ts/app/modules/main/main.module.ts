@@ -1,18 +1,37 @@
 // Angular imports
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router, CanActivate } from '@angular/router';
 import { HttpModule } from "@angular/http";
 
 // Custom Imports
 import { OutletComponent } from './main.component';
+import { NavComponent } from './nav/nav.component';
 import { MainComponent } from './main/main.component';
+import { MusicianComponent } from './musician/musician.component';
 import { BackendService } from './backend/backend.service';
 import { PersistentService } from './main.global.ts';
 import { routing } from './main.routing';
 
+@Injectable()
+class MusicianGuard implements CanActivate {
+    constructor(
+    private ps: PersistentService,
+    private router: Router
+    ) {}
+
+    canActivate() {
+        if (this.ps.musicianObject.fbid != '') {
+            return true;
+        }
+        this.router.navigate(['/']);
+        return false;
+    }
+}
+
 const appRoutes: Routes = [
-    { path: "", component: MainComponent }
+    { path: "", component: MainComponent, resolve: { team: PersistentService } },
+    { path: "dashboard", component: MusicianComponent, canActivate: [ MusicianGuard ] }
 ];
 
 @NgModule({
@@ -24,14 +43,18 @@ const appRoutes: Routes = [
     ],
     declarations: [
         OutletComponent,
-        MainComponent
+        NavComponent,
+        MainComponent,
+        MusicianComponent
     ],
     bootstrap: [
+        NavComponent,
         OutletComponent
     ],
     providers: [
         BackendService,
-        PersistentService
+        PersistentService,
+        MusicianGuard
     ]
 })
 export class MainModule{}

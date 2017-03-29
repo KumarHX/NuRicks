@@ -37,11 +37,13 @@
 'components/hamburger',
 'components/lightbox',
 'components/tooltip',
+'components/showblock',
 'components/modal';
 
 // 6. Page-specific styles
 @import
-'pages/home';
+'pages/home',
+'pages/musicianpage';
 
 // 7. Themes
 @import
