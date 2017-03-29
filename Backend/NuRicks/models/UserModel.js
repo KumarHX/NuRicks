@@ -49,29 +49,26 @@ passport.use('facebook-users', new FacebookStrategy({
     profileFields: ['id', 'name', 'profileUrl']  },
   function(accessToken, refreshToken, profile, cb) {
     console.log("1: " + profile.id);
-    Users.findOne({
-      fbid: profile.id
-    }).then(user => {
-      console.log("user:" + user)
+    console.log("2: " + profile.id);
+    const newUser = Users.build({
+      fbid: profile.id,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      picture_url: profile.profileUrl
+    });
+    console.log("At the current: " + newUser.fbid);
+    newUser.save().then(user => {
       if (user) {
-        return cb(null, user, { message: 'User already exists' });
+        return cb(null, user, { message: 'User created!' });
       }
-      else {
-        console.log("2: " + profile.id);
-        const newUser = Users.build({
-          fbid: profile.id,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-          picture_url: profile.profileUrl
-        });
-        console.log("At the current: " + newUser.fbid);
-        newUser.save().then(user => {
-          if (user) {
-            return cb(null, newUser, { message: 'User created!' });
-          }
-        }).catch(err => cb(err));
-      }
-    }).catch(err => cb(err));
+    }).catch(err => {
+      sequelize.query('SELECT * FROM Users WHERE fbid = ' + profile.id + ';',
+        { model: Users }).then(function(user){
+  // Each record will now be a instance of Project
+          console.log("we here: "+ JSON.stringify(user));
+          return cb(null, user[0], { message: 'User created!' });
+        })
+    });
   }
 ));
 

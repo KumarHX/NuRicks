@@ -73,31 +73,27 @@ passport.use('facebook-musicians', new FacebookStrategy({
     profileFields: ['id', 'name', 'profileUrl']  },
   function(accessToken, refreshToken, profile, cb) {
     console.log("1: " + profile.id);
-    Musicians.findOne({
-      fbid: profile.id
-    }).then(user => {
-      console.log("Musician:" + user)
+    console.log("2: " + profile.id);
+    const newMusician = Musicians.build({
+      fbid: profile.id,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      picture_url: profile.profileUrl
+    });
+    console.log("At the current: " + newMusician.fbid);
+    //cb(null, newMusician, { message: 'Musician created!' });
+    newMusician.save().then(user => {
       if (user) {
-        return cb(null, user, { message: 'Musician already exists' });
+        return cb(null, user, { message: 'Musician created!' });
       }
-      else {
-        console.log("2: " + profile.id);
-        const newMusician = Musicians.build({
-          fbid: profile.id,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-          picture_url: profile.profileUrl,
-          email: ''
-        });
-        console.log("At the current: " + newMusician.fbid);
-        newMusician.save().then(user => {
-          if (user) {
-            return cb(null, newMusician, { message: 'Musician created!' });
-          }
-        }).catch(err => cb(err));
-      }
-    }).catch(err => cb(err));
-
+    }).catch(err => {
+      sequelize.query('SELECT * FROM Musicians WHERE fbid = ' + profile.id + ';',
+        { model: Musicians }).then(function(musician){
+  // Each record will now be a instance of Project
+          console.log("we here: "+ JSON.stringify(musician));
+          return cb(null, musician[0], { message: 'Musician created!' });
+        })
+    });
   }
 ));
 
@@ -106,7 +102,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
- done(null, user);
+   done(null, user);
 });
 
 MusiciansModel = {
@@ -151,7 +147,7 @@ MusiciansModel = {
      *
      */
 
-    getMusicianInfoFromEmail: function(res, search){
+    getMusicianInfoFromID: function(res, search){
         Musicians.findOne({
             where:{
                 fbid: search
