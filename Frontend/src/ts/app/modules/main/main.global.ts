@@ -87,7 +87,8 @@ export class PersistentService {
                 this.musicianObject.facebookLink = a.facebookLink;
                 this.musicianObject.picture_url = a.picture_url;
                 this.musicianObject.verified = a.verified;
-                if (state.url == '/') {
+                // exception for facebook weirdness
+                if (state.url == '/' || state.url == '/#_=_') {
                     this.router.navigate(['/dashboard']);
                 }
             }

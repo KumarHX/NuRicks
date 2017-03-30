@@ -23,6 +23,11 @@
 						<i class="fa fa-soundcloud"></i>
 					</a>
 				</li>
+				<li>
+					<a [routerLink]="'/musician/' + ps.musicianObject.fbid" target="_blank" [attr.data-url]="'/musician/' + ps.musicianObject.fbid">
+						<i class="fa fa-link"></i>
+					</a>
+				</li>
 			</ul>
 			<ul style="display: none" class="bioEditLinks">
 				<input type="text" id="instagram-url" placeholder="Instagram">

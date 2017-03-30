@@ -36,20 +36,6 @@ export class MainComponent {
                     scrollTop: $( $.attr(e.currentTarget, "href") ).offset().top
                 }, 500);
             });
-
-            // Login panel
-            $("#mLogin").click(() => {
-                if (!$("body").hasClass("drop")) {
-                    $("body").addClass("drop");
-                    $(".loginOverlay").delay(250).fadeIn();
-                }
-                else {
-                    $(".loginOverlay").fadeOut().queue((next: any) => {
-                        $("body").removeClass("drop");
-                        next();
-                    })
-                }
-            });
         });
     }
 }

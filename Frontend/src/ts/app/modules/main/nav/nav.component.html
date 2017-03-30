@@ -13,3 +13,15 @@
         <li *ngIf="ps.userObject.fbid != '' || ps.musicianObject.fbid != ''"><a (click)="logout()">logout</a></li>
 	</ul>
 </nav>
+<div class="loginOverlay" style="display: none">
+	<div class="center">
+		<a class="visitorLogin" href="http://localhost:3000/api/users/auth/facebook">
+			<h1>Visitor Access</h1>
+			<span><i class="fa fa-facebook"></i>Facebook Login</span>
+		</a>
+		<a class="musicianLogin" href="http://localhost:3000/api/musicians/auth/facebook">
+			<h1>Musician Access</h1>
+			<span><i class="fa fa-facebook"></i>Facebook Login</span>
+		</a>
+	</div>
+</div>

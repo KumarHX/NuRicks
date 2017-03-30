@@ -42,6 +42,19 @@ export class NavComponent {
                     navbar.fadeOut(200);
                 }
             });
+
+            $("#mLogin").click(() => {
+                if (!$("body").hasClass("drop")) {
+                    $("body").addClass("drop");
+                    $(".loginOverlay").delay(250).fadeIn();
+                }
+                else {
+                    $(".loginOverlay").fadeOut().queue((next: any) => {
+                        $("body").removeClass("drop");
+                        next();
+                    })
+                }
+            });
         });
     }
     logout(): void {
