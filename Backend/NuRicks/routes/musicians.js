@@ -25,7 +25,7 @@ router.post('/signup', function(req, res, next){
 
 router.get('/getMusicianInfoFromID/:fbid', function(req, res, next){
     var search = req.params.fbid;
-    MusiciansModel.getMusicianInfoFromEmail(res, search);
+    MusiciansModel.getMusicianInfoFromID(res, search);
 });
 
 /*

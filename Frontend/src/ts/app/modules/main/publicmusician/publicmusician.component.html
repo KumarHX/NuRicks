@@ -1,46 +1,36 @@
 <div class="mainWrapper">
 	<div class="musicianWrapper">
-		<div class="bioBanner" [style.background-image]="'url('+ ps.musicianObject.picture_url +')'">
-			<i style="display: none" (click)="saveMusicianData()" class="fa fa-lock" aria-hidden="true"></i>
+		<div class="bioBanner" [style.background-image]="'url('+ pm.p_musicianObject.picture_url +')'">
 			<ul class="bioLinks">
-				<li *ngIf="ps.musicianObject.instagramLink != null && ps.musicianObject.instagramLink != ''">
-					<a [attr.href]="ps.musicianObject.instagramLink" target="_blank" [attr.data-url]="ps.musicianObject.instagramLink">
+				<li *ngIf="pm.p_musicianObject.instagramLink != null && pm.p_musicianObject.instagramLink != ''">
+					<a [attr.href]="pm.p_musicianObject.instagramLink" target="_blank" [attr.data-url]="pm.p_musicianObject.instagramLink">
 						<i class="fa fa-instagram"></i>
 					</a>
 				</li>
-				<li *ngIf="ps.musicianObject.facebookLink != null && ps.musicianObject.facebookLink != ''">
-					<a [attr.href]="ps.musicianObject.facebookLink" target="_blank" [attr.data-url]="ps.musicianObject.facebookLink">
+				<li *ngIf="pm.p_musicianObject.facebookLink != null && pm.p_musicianObject.facebookLink != ''">
+					<a [attr.href]="pm.p_musicianObject.facebookLink" target="_blank" [attr.data-url]="pm.p_musicianObject.facebookLink">
 						<i class="fa fa-facebook"></i>
 					</a>
 				</li>
-				<li *ngIf="ps.musicianObject.youtubeLink != null && ps.musicianObject.youtubeLink != ''">
-					<a [attr.href]="ps.musicianObject.youtubeLink" target="_blank" [attr.data-url]="ps.musicianObject.youtubeLink">
+				<li *ngIf="pm.p_musicianObject.youtubeLink != null && pm.p_musicianObject.youtubeLink != ''">
+					<a [attr.href]="pm.p_musicianObject.youtubeLink" target="_blank" [attr.data-url]="pm.p_musicianObject.youtubeLink">
 						<i class="fa fa-youtube-play"></i>
 					</a>
 				</li>
-				<li *ngIf="ps.musicianObject.soundcloudLink != null && ps.musicianObject.soundcloudLink != ''">
-					<a [attr.href]="ps.musicianObject.soundcloudLink" target="_blank" [attr.data-url]="ps.musicianObject.soundcloudLink">
+				<li *ngIf="pm.p_musicianObject.soundcloudLink != null && pm.p_musicianObject.soundcloudLink != ''">
+					<a [attr.href]="pm.p_musicianObject.soundcloudLink" target="_blank" [attr.data-url]="pm.p_musicianObject.soundcloudLink">
 						<i class="fa fa-soundcloud"></i>
 					</a>
 				</li>
 			</ul>
-			<ul style="display: none" class="bioEditLinks">
-				<input type="text" id="instagram-url" placeholder="Instagram">
-				<input type="text" id="facebook-url" placeholder="Facebook">
-				<input type="text" id="youtube-url" placeholder="Youtube">
-				<input type="text" id="soundcloud-url" placeholder="Soundcloud">
-				<input type="text" id="profile-url" placeholder="Profile Picture URL">
-			</ul>
-			<i style="display: none" class="fa fa-camera edit" aria-hidden="true"></i>
-			<i class="fa fa-edit edit" aria-hidden="true" (click)="editSys()"></i>
 		</div>
 		<div class="row">
 			<div class="container half bio">
-				<h1 id="stage-name" class="title">{{ps.musicianObject.stageName || ps.musicianObject.firstName + " " + ps.musicianObject.lastName}}</h1>
-				<div id="bio">{{ps.musicianObject.bio || bioFallback}}</div>
+				<h1 id="stage-name" class="title">{{pm.p_musicianObject.stageName || pm.p_musicianObject.firstName + " " + pm.p_musicianObject.lastName}}</h1>
+				<div id="bio">{{pm.p_musicianObject.bio || bioFallback}}</div>
 			</div>
 			<div class="container half myShows">
-				<h1 class="title">My Shows</h1>
+				<h1 class="title">Upcoming Shows</h1>
 				<div class="showBlock">
 					This musician currently has no shows.
 					<!-- <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>

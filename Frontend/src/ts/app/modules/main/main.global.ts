@@ -87,7 +87,9 @@ export class PersistentService {
                 this.musicianObject.facebookLink = a.facebookLink;
                 this.musicianObject.picture_url = a.picture_url;
                 this.musicianObject.verified = a.verified;
-                this.router.navigate(['/dashboard']);
+                if (state.url == '/') {
+                    this.router.navigate(['/dashboard']);
+                }
             }
             if (response.status == "1" && response.user_info) {
                 console.log("User");

@@ -32,9 +32,9 @@ class MusicianGuard implements CanActivate {
 }
 
 const appRoutes: Routes = [
-    { path: "", component: MainComponent, resolve: { team: PersistentService } },
+    { path: "", component: MainComponent, resolve: { pers: PersistentService } },
     { path: "dashboard", component: MusicianComponent, canActivate: [ MusicianGuard ] },
-    { path: "musician/:id", component: PublicMusicianComponent, resolve: { team: PublicMusicianService } }
+    { path: "musician/:id", component: PublicMusicianComponent, resolve: { pers: PersistentService, mus: PublicMusicianService } }
 ];
 
 @NgModule({
