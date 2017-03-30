@@ -2,30 +2,6 @@
 // When having several themes, this file contains everything related to the
 // default one.
 // -----------------------------------------------------------------------------
-
-input, textarea {
-  color: $darker-mid-grey;
-  transition: all 0.2s ease-in-out;
-}
-
-input:focus, textarea:focus {
-  color: $text-color;
-}
-
-input[type=text], input[type=password], textarea {
-  height: $md;
-  padding: 10px;
-  margin: 5px 1px 3px 0px;
-  font-size: $tM;
-  border-radius: 5px;
-  outline: none;
-  border: 1px solid #DDDDDD;
-  -webkit-transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
-  -moz-transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
-  -ms-transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
-  -o-transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
-}
-
 input[type=text]:focus, input[type=password]:focus, textarea:focus, input.inputValid {
   box-shadow: 0 0 5px rgb(116, 226, 115);
   border: 1px solid rgb(116, 226, 115);
@@ -36,24 +12,10 @@ input.inputError, input.inputError:focus {
   border: 1px solid rgb(226, 84, 66);
 
   &::before {
-    //display: inline-block;
     content: '!';
     color: rgb(226, 84, 66);
     font-size: $title;
   }
-}
-
-select {
-  height: $md;
-  border-radius: 5px;
-  border-color: #dddddd;
-  min-height: 40px;
-  padding-left: 5px;
-  outline: none;
-  -webkit-transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
-  -moz-transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
-  -ms-transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
-  -o-transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
 }
 
 select:focus, select:active {
@@ -63,22 +25,6 @@ select:focus, select:active {
 
 option:hover {
   box-shadow: 0 0 5px rgb(116, 226, 115);
-}
-
-hr {
-  border: none;
-  height: 3px;
-  width: 100%;
-  background: $text-color;
-}
-
-i {
-  cursor: pointer;
-
-  & > span {
-    margin-left: 4pt;
-    font-family: $text-font-stack;
-  }
 }
 
 .warning {

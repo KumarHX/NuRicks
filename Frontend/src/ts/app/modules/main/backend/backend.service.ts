@@ -24,6 +24,32 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    getMusician(id: string): Observable<any> {
+        return this.http.get(`${this.backendUrl}/musicians/getMusicianInfoFromID/${id}`, { withCredentials: true })
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    musicianSaveDashboard(musicianObject: any): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify({
+            fbid:           musicianObject.fbid,
+            email:          musicianObject.email,
+            stageName:      musicianObject.stageName,
+            bio:            musicianObject.bio,
+            soundcloudLink: musicianObject.soundcloudLink,
+            instagramLink:  musicianObject.instagramLink,
+            youtubeLink:    musicianObject.youtubeLink,
+            facebookLink:   musicianObject.facebookLink,
+            picture_url:    musicianObject.picture_url
+        });
+
+        return this.http.post(`${this.backendUrl}/musicians/updateMusicianInfo`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError)
+    }
+
     logout(): Observable<any> {
         return this.http.get(`${this.backendUrl}/auth/logout`, { withCredentials: true })
             .map(this.extractData)

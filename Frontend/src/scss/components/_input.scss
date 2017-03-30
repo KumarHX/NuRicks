@@ -1,0 +1,42 @@
+input, textarea {
+  color: $darker-mid-grey;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus, textarea:focus {
+  color: $text-color;
+}
+
+input[type=text], input[type=password], textarea {
+  height: $md;
+  padding: 10px;
+  margin: 5px 1px 3px 0;
+  font-size: $tM;
+  outline: none;
+  border: 1px solid #DDDDDD;
+  transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+select {
+  height: $md;
+  border-radius: 5px;
+  border-color: #dddddd;
+  min-height: 40px;
+  padding-left: 5px;
+  outline: none;
+  transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+[contenteditable=true] {
+  box-shadow: 0 0 5px rgb(116, 226, 115);
+  border: 1px solid rgb(116, 226, 115);
+  min-height: 40px;
+  margin-bottom: 8pt;
+  padding: 10px;
+  outline: none;
+  transition: box-shadow 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+
+.title[contenteditable=true] {
+  line-height: 1;
+}

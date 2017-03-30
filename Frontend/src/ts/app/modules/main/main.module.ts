@@ -9,8 +9,10 @@ import { OutletComponent } from './main.component';
 import { NavComponent } from './nav/nav.component';
 import { MainComponent } from './main/main.component';
 import { MusicianComponent } from './musician/musician.component';
+import { PublicMusicianComponent } from './publicmusician/publicmusician.component';
 import { BackendService } from './backend/backend.service';
 import { PersistentService } from './main.global.ts';
+import { PublicMusicianService } from './publicmusician/publicmusician.component';
 import { routing } from './main.routing';
 
 @Injectable()
@@ -31,7 +33,8 @@ class MusicianGuard implements CanActivate {
 
 const appRoutes: Routes = [
     { path: "", component: MainComponent, resolve: { team: PersistentService } },
-    { path: "dashboard", component: MusicianComponent, canActivate: [ MusicianGuard ] }
+    { path: "dashboard", component: MusicianComponent, canActivate: [ MusicianGuard ] },
+    { path: "musician/:id", component: PublicMusicianComponent, resolve: { team: PublicMusicianService } }
 ];
 
 @NgModule({
@@ -45,7 +48,8 @@ const appRoutes: Routes = [
         OutletComponent,
         NavComponent,
         MainComponent,
-        MusicianComponent
+        MusicianComponent,
+        PublicMusicianComponent
     ],
     bootstrap: [
         NavComponent,
@@ -54,7 +58,8 @@ const appRoutes: Routes = [
     providers: [
         BackendService,
         PersistentService,
-        MusicianGuard
+        MusicianGuard,
+        PublicMusicianService
     ]
 })
 export class MainModule{}
