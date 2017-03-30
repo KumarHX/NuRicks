@@ -70,15 +70,15 @@ passport.use('facebook-musicians', new FacebookStrategy({
     clientID: '222498668155227',
     clientSecret:  '7e600563610f0c8d21240afb25d44447',
     callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
-    profileFields: ['id', 'name', 'profileUrl']  },
+    profileFields: ['id', 'name', 'picture']  },
   function(accessToken, refreshToken, profile, cb) {
-    console.log("1: " + profile.id);
-    console.log("2: " + profile.id);
+    console.log("1: " + JSON.stringify(profile));
+    console.log("2 photo: " + JSON.stringify(profile.photos[0].value));
     const newMusician = Musicians.build({
       fbid: profile.id,
       firstName: profile.name.givenName,
       lastName: profile.name.familyName,
-      picture_url: profile.profileUrl
+      picture_url: profile.photos[0].value
     });
     console.log("At the current: " + newMusician.fbid);
     //cb(null, newMusician, { message: 'Musician created!' });
