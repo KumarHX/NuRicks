@@ -36,6 +36,7 @@ const util = require('util');
     state:{type: Sequelize.STRING, allowNull: false},
     ageRequirement:{type: Sequelize.STRING, allowNull: false},
     cost:{type: Sequelize.INTEGER, allowNull: false},
+    isPossibleEvent:{type: Sequelize.BOOLEAN, allowNull: false},
     extraAtDoor:{type: Sequelize.INTEGER},
 });
 
@@ -51,6 +52,24 @@ EventsModel = {
         }).catch(function(err){
             res.json({status: -1, errors:['Unable to create this Event',err]});
         });
+    },
+
+    queryPossibleEvents: function (res) {
+        Tickets.findAll({
+                where: {
+                    isPossibleEvent: true
+                }
+            })
+            .then(function (foundEvents) {
+                var results = [];
+                for (var i = 0; i < foundEvents.length; i++) {
+                    var data = foundEvents[i];
+                    results.push(data);
+                }
+                res.json({status: "1", "events": results})
+            }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find events', err]});
+        })
     },
 
     getEventInfoFromID: function(res, search){
@@ -69,8 +88,7 @@ EventsModel = {
             console.log("broke");
             res.json({status: -1, errors: ['Unable to find Event', err]});
         });
-    },
-
+    }
 
 };
 
