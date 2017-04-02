@@ -5,9 +5,9 @@
 var sequelize_modules = require("./init");
 var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
-var passport = require('passport')
-var FacebookStrategy = require('passport-facebook').Strategy
-const util = require('util')
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+const util = require('util');
 
 /*  Musician's model
  *
@@ -70,10 +70,10 @@ passport.use('facebook-musicians', new FacebookStrategy({
     clientID: '222498668155227',
     clientSecret:  '7e600563610f0c8d21240afb25d44447',
     callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
-    profileFields: ['id', 'name', 'picture']  },
+    profileFields: ['id', 'name', 'picture','cover']  },
   function(accessToken, refreshToken, profile, cb) {
     console.log("1: " + JSON.stringify(profile));
-    console.log("2 photo: " + JSON.stringify(profile.photos[0].value));
+    console.log("2 cover: " + JSON.stringify(profile.cover));
     const newMusician = Musicians.build({
       fbid: profile.id,
       firstName: profile.name.givenName,

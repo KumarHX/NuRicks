@@ -4,6 +4,8 @@ var routes = require('./routes/siteRouter');
 var musicians = require('./routes/musicians');
 var auth = require('./routes/auth');
 var users = require('./routes/users');
+var events = require('./routes/events');
+var tickets = require('./routes/tickets');
 var passport = require('passport');
 var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
@@ -40,8 +42,10 @@ app.use(cookieSession({
 }));
 
 app.use('/api/musicians', musicians);
+app.use('/api/events', events);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use('/api/tickets', tickets);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
