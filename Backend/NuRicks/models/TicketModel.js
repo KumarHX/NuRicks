@@ -14,7 +14,9 @@ var Events = Event_models.Events;
 var Tickets = sequelize.define("Tickets", {
 
     numberSold:{type: Sequelize.INTEGER, allowNull: false},
-    isGlobal:{type: Sequelize.BOOLEAN, allowNull: false}
+    isGlobal:{type: Sequelize.BOOLEAN, allowNull: false},
+    numberNeededToSell:{type: Sequelize.INTEGER, allowNull: false},
+
 });
 
 
