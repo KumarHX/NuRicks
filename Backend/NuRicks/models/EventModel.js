@@ -7,6 +7,7 @@ var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
 const util = require('util');
 
+
 /*  Musician's model
  *
  *  id: The event's ID (primary key)
@@ -42,6 +43,7 @@ const util = require('util');
 
 Events.sync();
 
+
 EventsModel = {
 
 	 createEvent: function(res, fields){
@@ -55,7 +57,7 @@ EventsModel = {
     },
 
     queryPossibleEvents: function (res) {
-        Tickets.findAll({
+        Events.findAll({
                 where: {
                     isPossibleEvent: true
                 }
