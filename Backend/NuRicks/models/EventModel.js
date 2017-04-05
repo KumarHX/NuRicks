@@ -29,7 +29,7 @@ const util = require('util');
     	type: Sequelize.STRING,
     	allowNull: false
     },
-
+    image_url: { type: Sequelize.STRING},
     street_name: { type: Sequelize.STRING, allowNull: false},
     zip_code:{type: Sequelize.INTEGER, allowNull: false},
     city:{type: Sequelize.STRING, allowNull: false},

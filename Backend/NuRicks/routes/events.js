@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var event_models = require("../models/EventModel");
-var EventModel =  event_models.EventModel;
+var EventModel =  event_models.EventsModel;
 
 
 /*
