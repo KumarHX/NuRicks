@@ -1,10 +1,12 @@
 .showBlock {
+  position: relative;
   display: flex;
   flex-flow: row wrap;
   align-items: flex-start;
   margin-bottom: 16pt;
   cursor: pointer;
   transition: background .25s ease-in-out;
+
   .showImg {
     display: block;
     width: 250pt;

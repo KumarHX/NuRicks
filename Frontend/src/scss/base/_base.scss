@@ -61,6 +61,7 @@ hr {
 
 i {
   cursor: pointer;
+  transition: transform .2s ease;
 
   & > span {
     margin-left: 4pt;

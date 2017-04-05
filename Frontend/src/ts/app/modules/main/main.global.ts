@@ -23,6 +23,7 @@ interface musicianValidation {
     facebookLink: string;
     picture_url: string;
     verified: boolean;
+    events: any;
 }
 
 interface userValidation {
@@ -49,7 +50,8 @@ export class PersistentService {
         youtubeLink: "",
         facebookLink: "",
         picture_url: "",
-        verified: false
+        verified: false,
+        events: []
     }
 
     userObject: userValidation = {

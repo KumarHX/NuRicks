@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ticket_models = require("../models/TicketModel");
-var ticketModel =  ticket_models.ticketModel;
+var ticketModel =  ticket_models.TicketsModel;
 
 /*
  *  Create a ticket
@@ -20,6 +20,7 @@ router.get('/queryGlobalTickets', function(req, res, next){
 
 router.get('/queryTicketByMusician/:fbid', function(req, res, next){
 	var search = req.params.fbid;
+    console.log(ticketModel);
     ticketModel.queryTicketByMusician(res, search);
 });
 

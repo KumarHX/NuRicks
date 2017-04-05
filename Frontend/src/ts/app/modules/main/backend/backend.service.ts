@@ -50,6 +50,18 @@ export class BackendService {
             .catch(this.handleError)
     }
 
+    getMusicianTickets(id: string): Observable<any> {
+        return this.http.get(`${this.backendUrl}/tickets/queryTicketByMusician/${id}`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getEventInfoFromID(id: string): Observable<any> {
+        return this.http.get(`${this.backendUrl}/events/getEventInfoFromID/${id}`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     logout(): Observable<any> {
         return this.http.get(`${this.backendUrl}/auth/logout`, { withCredentials: true })
             .map(this.extractData)
