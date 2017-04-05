@@ -1,5 +1,6 @@
 <div class="mainWrapper">
 	<div class="musicianWrapper">
+		<h1 class="musicianTitle">Musician Dashboard</h1>
 		<div class="bioBanner" [style.background-image]="'url('+ ps.musicianObject.picture_url +')'">
 			<i style="display: none" (click)="saveMusicianData()" class="fa fa-lock" aria-hidden="true"></i>
 			<ul class="bioLinks">
@@ -23,11 +24,6 @@
 						<i class="fa fa-soundcloud"></i>
 					</a>
 				</li>
-				<li>
-					<a [routerLink]="'/musician/' + ps.musicianObject.fbid" target="_blank" [attr.data-url]="'/musician/' + ps.musicianObject.fbid">
-						<i class="fa fa-link"></i>
-					</a>
-				</li>
 			</ul>
 			<ul style="display: none" class="bioEditLinks">
 				<input type="text" id="instagram-url" placeholder="Instagram">
@@ -43,19 +39,82 @@
 			<div class="container half bio">
 				<h1 id="stage-name" class="title">{{ps.musicianObject.stageName || ps.musicianObject.firstName + " " + ps.musicianObject.lastName}}</h1>
 				<div id="bio">{{ps.musicianObject.bio || bioFallback}}</div>
+				<a [routerLink]="'/musician/' + ps.musicianObject.fbid" target="_blank">http://www.nrshows.com/musician/{{ps.musicianObject.fbid}}</a>
 			</div>
-			<div class="container half myShows">
-				<h1 class="title">My Shows</h1>
-				<div class="showBlock">
-					You currently have no shows.
-					<!-- <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-					<div class="showDetails">
-						<h1>Event Name</h1>
-						<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-						<a class="btn">Buy Tickets</a>
-					</div> -->
+			<div class="container half shows">
+				<span class="showTabs">
+					<span class="myShows activeTab">My Shows</span>
+					<span class="availableShows">Available Shows</span>
+				</span>
+				<div class="showList myShowsList">
+					<div class="showBlock">
+						<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+						<div class="showDetails">
+							<h1>Event Name</h1>
+							<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+							<a class="btn">Buy Tickets</a>
+							<h3 class="progress">Sold:
+								<span class="sold">5</span>/<span class="needed">25</span>
+							</h3>
+						</div>
+					</div>
+					<div class="showBlock">
+						<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+						<div class="showDetails">
+							<h1>Event Name</h1>
+							<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+							<a class="btn">Buy Tickets</a>
+							<h3 class="progress">Sold:
+								<span class="sold">12</span>/<span class="needed">25</span>
+							</h3>
+						</div>
+					</div>
+					<div class="showBlock">
+						<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+						<div class="showDetails">
+							<h1>Event Name</h1>
+							<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+							<a class="btn">Buy Tickets</a>
+							<h3 class="progress">Sold:
+								<span class="sold">5</span>/<span class="needed">25</span>
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="showList availableShowsList">
+					<div class="showBlock">
+						<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
+						<div class="showDetails">
+							<h1>Event Name</h1>
+							<a class="btn">Join Show</a>
+						</div>
+					</div>
+					<div class="showBlock">
+						<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
+						<div class="showDetails">
+							<h1>Event Name</h1>
+							<a class="btn">Join Show</a>
+						</div>
+					</div>
+					<div class="showBlock">
+						<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
+						<div class="showDetails">
+							<h1>Event Name</h1>
+							<a class="btn">Join Show</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="modal joinShowModal" style="display: none">
+	<i class="fa fa-times exit"></i>
+	<h1><i class="fa fa-chevron-down rotate"></i> Terms and Conditions</h1>
+	<p>By joining this event you are agreeing to the Nu-Ricks terms of service. <a href="">Read TOS.</a></p>
+	<hr>
+	<h1><i class="fa fa-chevron-down"></i> Event Details</h1>
+	<p></p>
+	<hr>
+	<button>Join Event</button>
 </div>

@@ -1,11 +1,48 @@
 // Angular imports
-import { Component } from "@angular/core";
+import { Component, Injectable } from "@angular/core";
+import
+{
+    Router,
+    Resolve,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot
+} from '@angular/router';
+import { Observable } from "rxjs/Rx";
 
 // Custom imports
 import { BackendService } from "../backend/backend.service";
 import { PersistentService } from "../main.global";
 
 declare var $: any;
+
+@Injectable()
+export class EventService {
+    constructor(
+    private backendService: BackendService,
+    private ps: PersistentService,
+    private router: Router
+    ) {}
+
+    resolve(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ): Observable<any>|Promise<any>|any {
+        return this.backendService.getMusicianTickets(this.ps.musicianObject.fbid)
+        .map((response: any) => {
+            if (response.status == "1") {
+                const tickets = response.tickets;
+                for (var i = 0; i < tickets.length; ++i) {
+                    this.backendService.getEventInfoFromID(tickets[i].MusicianFbid)
+                    .map((response) => {
+                        this.ps.musicianObject.events.push(response);
+                    });
+                }
+            } else {
+
+            }
+        });
+    }
+}
 
 @Component({
     selector: "musician",
@@ -20,6 +57,8 @@ export class MusicianComponent {
         $(document).ready(function () {
             const $bio = $(".bio");
 
+            /* Profile info save
+             */
             $(".fa-edit").click(() => {
                 $(".fa-edit").fadeOut(200);
                 $(".fa-lock").fadeIn(200);
@@ -37,15 +76,55 @@ export class MusicianComponent {
                 $(".bioLinks").delay(400).fadeIn(200);
                 $bio.find(".title, div").attr("contenteditable", "false");
             });
+
+            /* Available/My Show logic
+             */
+            $('.showTabs').children('span').click((e: any) => {
+                const that = $(e.currentTarget);
+                if (!$(that).hasClass('activeTab')) {
+                    $(that).toggleClass('activeTab');
+                    $(that).siblings().toggleClass('activeTab');
+                }
+            });
+
+            $('.myShows').click((e: any) => {
+                if ($(e.currentTarget).hasClass('activeTab')) {
+                    $('.availableShowsList').fadeOut(150);
+                    $('.myShowsList').delay(150).fadeIn(150);
+                }
+            });
+
+            $('.availableShows').click((e: any) => {
+                if ($(e.currentTarget).hasClass('activeTab')) {
+                    $('.myShowsList').fadeOut(150);
+                    $('.availableShowsList').delay(150).fadeIn(150);
+                }
+            });
+
+            /* Join show modal
+             */
+            const $joinModal = $('.joinShowModal');
+            $('.availableShowsList').find('.btn').click((e: any) => {
+                $joinModal.fadeIn(250);
+            });
+
+            $joinModal.find('.exit').click((e: any) => {
+                $(e.currentTarget).parent().fadeOut(250);
+            });
+
+            // $joinModal.find('h1').click((e: any) => {
+            //     $(e.currentTarget).children('.fa-chevron-down').toggleClass('rotate');
+            //     $(e.currentTarget).sibling('p').toggle(200);
+            // });
         });
     }
 
     editSys(): void {
-        $("#instagram-url").val( this.ps.musicianObject.instagramLink);
-        $("#facebook-url").val(  this.ps.musicianObject.facebookLink);
-        $("#youtube-url").val(   this.ps.musicianObject.youtubeLink);
+        $("#instagram-url") .val(this.ps.musicianObject.instagramLink);
+        $("#facebook-url")  .val(this.ps.musicianObject.facebookLink);
+        $("#youtube-url")   .val(this.ps.musicianObject.youtubeLink);
         $("#soundcloud-url").val(this.ps.musicianObject.soundcloudLink);
-        $("#profile-url").val(   this.ps.musicianObject.picture_url);
+        $("#profile-url")   .val(this.ps.musicianObject.picture_url);
     }
 
     saveMusicianData(): void {
@@ -58,7 +137,6 @@ export class MusicianComponent {
         this.ps.musicianObject.bio            = $("#bio").text();
         this.backendService.musicianSaveDashboard(this.ps.musicianObject)
         .subscribe((response: any) => {
-
         });
     }
 }

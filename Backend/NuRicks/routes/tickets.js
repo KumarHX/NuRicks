@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ticket_models = require("../models/TicketModel");
-var ticketModel =  ticket_models.ticketModel;
+var ticketModel =  ticket_models.TicketsModel;
 
 /*
  *  Create a ticket

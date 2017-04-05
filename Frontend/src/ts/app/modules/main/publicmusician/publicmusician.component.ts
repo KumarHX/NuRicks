@@ -34,9 +34,7 @@ export class PublicMusicianService {
     private backendService: BackendService,
     private ps: PersistentService,
     private router: Router
-    ) {
-
-    }
+    ) {}
 
     resolve(
         route: ActivatedRouteSnapshot,
@@ -74,6 +72,6 @@ export class PublicMusicianComponent {
     private ps: PersistentService,
     private pm: PublicMusicianService
     ) {
-        
+
     }
 }

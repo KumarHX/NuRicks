@@ -1,6 +1,10 @@
 .musicianWrapper {
   padding: 80pt 5vw 40pt;
-
+  .musicianTitle {
+    font-size: 3em;
+    color: $red;
+    text-align: center;
+  }
   .bioBanner {
     position: relative;
     display: block;
@@ -31,19 +35,16 @@
         color: $bg;
         font-size: $mtL;
         &:hover {
-          color: $red;
-
           &::after {
             opacity: 1;
-            transform: translate(0, -50%);
           }
         }
         &::after {
           position: absolute;
-          top: 50%;
-          left: 120%;
+          display: inline-block;
+          top: 0.2em;
+          left: 2em;
           opacity: 0;
-          transform: translate(-15%, -50%);
           content: attr(data-url);
           color: $bg;
           font-size: $tS;
@@ -57,18 +58,19 @@
       margin-left: 16pt;
       align-items: flex-start;
       input {
-        background: rgba($bg, 0.5);
+        background: rgba($bg, 0.75);
       }
     }
-    .edit, .fa-lock {
+    .edit, .submit, .uploadBanner {
       position: absolute;
       font-size: $tL;
+      cursor: pointer;
     }
-    .edit {
+    .edit, .uploadBanner {
       bottom: 8pt;
       right: 8pt;
     }
-    .fa-lock {
+    .submit {
       top: 8pt;
       right: 8pt;
     }
@@ -77,19 +79,47 @@
     margin-top: 16pt;
 
     .bio {
-
+      a {
+        margin-top: 16pt;
+        &:hover {
+          color: $red;
+        }
+      }
     }
-    .myShows {
-      .title {
+    .shows {
+      .showTabs {
+        white-space: nowrap;
+      }
+      .myShows, .availableShows {
+        position: relative;
+        display: inline-block;
         text-align: center;
-        font-size: 3em;
-        color: $red;
+        width: 160pt;
+        padding: 8pt 0;
+        background: $bg;
+        border: 1px solid $text-color;
+        border-radius: 12pt 4pt 0 0;
+        font-weight: bold;
+        transition: all .15s ease;
+        cursor: pointer;
+        z-index: 0;
+      }
+      .availableShows {
+        margin-left: -8pt;
+      }
+      .activeTab {
+        color: $bg;
+        background: $text-color;
+        z-index: 1;
       }
       .showBlock {
         flex-flow: column;
         align-items: center;
         padding-bottom: 8pt;
         text-align: center;
+        &:hover {
+          background: $bg;
+        }
         .showImg {
           width: 100%;
         }
@@ -154,10 +184,32 @@
 }
 @media (max-width: 400px) {
   .musicianWrapper {
-    .myShows {
+    .shows {
       .title {
         font-size: $title;
       }
+    }
+  }
+}
+
+.joinShowModal {
+  padding: 24pt;
+  text-align: left;
+  h1 {
+    cursor: pointer;
+  }
+  p {
+    color: $dark-grey;
+    margin-left: 24pt;
+    font-size: $tS;
+  }
+  a {
+    color: $red;
+  }
+  button {
+    margin-top: 8pt;
+    &:hover {
+      background: $red;
     }
   }
 }
