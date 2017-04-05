@@ -20,7 +20,6 @@ router.get('/queryGlobalTickets', function(req, res, next){
 
 router.get('/queryTicketByMusician/:fbid', function(req, res, next){
 	var search = req.params.fbid;
-    console.log(ticketModel);
     ticketModel.queryTicketByMusician(res, search);
 });
 
