@@ -85,6 +85,24 @@ TicketsModel = {
             }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find tickets', err]});
         })
+    },
+
+    queryTicketByMusicianURL: function (res, search) {
+        Tickets.findAll({
+                where: {
+                    urlValue: search
+                }
+            })
+            .then(function (foundTickets) {
+                var results = [];
+                for (var i = 0; i < foundTickets.length; i++) {
+                    var data = foundTickets[i];
+                    results.push(data);
+                }
+                res.json({status: "1", "tickets": results})
+            }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find tickets', err]});
+        })
     }
 
 };
