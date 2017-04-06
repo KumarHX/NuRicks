@@ -162,7 +162,9 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
     submitCreateTicket(): void {
         this.backendService.createTicket(<string>this.ps.musicianObject.fbid, <number>this.evs.event.id)
         .subscribe((response) => {
-
+            if (response.status == "1") {
+                window.location.href = '/';
+            }
         });
     }
 
