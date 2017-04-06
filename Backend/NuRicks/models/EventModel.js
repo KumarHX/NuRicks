@@ -49,6 +49,7 @@ Events.sync();
 EventsModel = {
 
 	 createEvent: function(res, fields){
+        console.log("hello");
         Events.create(fields).then(function(results){
             res.json({
                 status:1, Event: results
