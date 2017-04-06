@@ -51,10 +51,12 @@ EventsModel = {
 	 createEvent: function(res, fields){
         console.log("hello");
         Events.create(fields).then(function(results){
+            console.log("success");
             res.json({
                 status:1, Event: results
             })
         }).catch(function(err){
+            onsole.log("fail " + err);
             res.json({status: -1, errors:['Unable to create this Event',err]});
         });
     },
