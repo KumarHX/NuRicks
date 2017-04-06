@@ -56,6 +56,18 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    getGlobalTickets(): Observable<any> {
+        return this.http.get(`${this.backendUrl}/tickets/queryGlobalTickets`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getPossibleEvents(): Observable<any> {
+        return this.http.get(`${this.backendUrl}/events/queryPossibleEvents`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     getEventInfoFromID(id: string): Observable<any> {
         return this.http.get(`${this.backendUrl}/events/getEventInfoFromID/${id}`)
             .map(this.extractData)

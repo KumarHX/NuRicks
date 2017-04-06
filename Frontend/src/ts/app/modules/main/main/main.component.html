@@ -24,31 +24,14 @@
 	<div id="upcoming">
 		<h1 class="title">Upcoming Shows</h1>
 		<hr>
-		<div class="showBlock">
+		<div *ngFor="let event of ps.globalUserObject.events" class="showBlock">
 			<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
 			<div class="showDetails">
-				<h1>Artist X Live</h1>
-				<h2>Venue One</h2>
-				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+				<h1>{{event.eventName}}</h1>
+				<h2>{{event.street_name}}</h2>
+				<h3>{{event.ShowStarts}} &mdash; <span>${{event.cost}}</span></h3>
 			</div>
 		</div>
-		<div class="showBlock">
-			<a class="showImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></a>
-			<div class="showDetails">
-				<h1>Artist Y Live</h1>
-				<h2>Venue Two</h2>
-				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-			</div>
-		</div>
-		<div class="showBlock">
-			<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-			<div class="showDetails">
-				<h1>Artist Z Live</h1>
-				<h2>Venue Three</h2>
-				<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-			</div>
-		</div>
-		<a href="" class="allShows">View all shows <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
 		<hr>
 	</div>
 </div>

@@ -47,33 +47,12 @@
 					<span class="availableShows">Available Shows</span>
 				</span>
 				<div class="showList myShowsList">
-					<div class="showBlock">
+					<div *ngIf="ps.musicianObject.events.length <= 0">You are currently not apart of any shows.</div>
+					<div *ngFor="let event of ps.musicianObject.events" class="showBlock">
 						<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
 						<div class="showDetails">
-							<h1>Event Name</h1>
-							<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-							<a class="btn">Buy Tickets</a>
-							<h3 class="progress">Sold:
-								<span class="sold">5</span>/<span class="needed">25</span>
-							</h3>
-						</div>
-					</div>
-					<div class="showBlock">
-						<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-						<div class="showDetails">
-							<h1>Event Name</h1>
-							<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-							<a class="btn">Buy Tickets</a>
-							<h3 class="progress">Sold:
-								<span class="sold">12</span>/<span class="needed">25</span>
-							</h3>
-						</div>
-					</div>
-					<div class="showBlock">
-						<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-						<div class="showDetails">
-							<h1>Event Name</h1>
-							<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+							<h1>{{event.eventName}}</h1>
+							<h3>{{event.ShowStarts}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
 							<a class="btn">Buy Tickets</a>
 							<h3 class="progress">Sold:
 								<span class="sold">5</span>/<span class="needed">25</span>
@@ -81,25 +60,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="showList availableShowsList">
-					<div class="showBlock">
+				<div class="showList availableShowsList" style="display: none">
+					<div *ngIf="ps.musicianObject.events.length <= 0">There are currently no possible shows.</div>
+					<div *ngFor="let event of ps.musicianObject.events" class="showBlock">
 						<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
 						<div class="showDetails">
-							<h1>Event Name</h1>
-							<a class="btn">Join Show</a>
-						</div>
-					</div>
-					<div class="showBlock">
-						<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
-						<div class="showDetails">
-							<h1>Event Name</h1>
-							<a class="btn">Join Show</a>
-						</div>
-					</div>
-					<div class="showBlock">
-						<a class="showImg" style="background-image: url('https://i.imgur.com/jZ0TnWs.jpg')"></a>
-						<div class="showDetails">
-							<h1>Event Name</h1>
+							<h1>{{event.eventName}}</h1>
 							<a class="btn">Join Show</a>
 						</div>
 					</div>

@@ -1,5 +1,5 @@
 // Angular imports
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // Custom imports
 import { BackendService } from "../backend/backend.service";
@@ -11,7 +11,7 @@ declare var $: any;
     selector: 'app',
     templateUrl: 'main.component.html'
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
     constructor(
     private backendService: BackendService,
     private ps: PersistentService
@@ -36,6 +36,21 @@ export class MainComponent {
                     scrollTop: $( $.attr(e.currentTarget, "href") ).offset().top
                 }, 500);
             });
+        });
+    }
+
+    ngOnInit() {
+        this.backendService.getGlobalTickets()
+        .subscribe((response) => {
+            if (response.status == "1") {
+                const tickets = response.tickets;
+                for (var i = 0; i < tickets.length; ++i) {
+                    this.backendService.getEventInfoFromID(tickets[i].EventId)
+                    .subscribe((response) => {
+                        this.ps.globalUserObject.events.push(response);
+                    });
+                }
+            }
         });
     }
 }
