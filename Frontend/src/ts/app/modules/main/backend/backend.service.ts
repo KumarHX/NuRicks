@@ -25,7 +25,7 @@ export class BackendService {
     }
 
     getMusician(id: string): Observable<any> {
-        return this.http.get(`${this.backendUrl}/musicians/getMusicianInfoFromID/${id}`, { withCredentials: true })
+        return this.http.get(`${this.backendUrl}/musicians/getMusicianInfoFromURL/${id}`, { withCredentials: true })
             .map(this.extractData)
             .catch(this.handleError);
     }

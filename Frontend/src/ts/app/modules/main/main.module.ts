@@ -13,7 +13,6 @@ import { PublicMusicianComponent } from './publicmusician/publicmusician.compone
 import { BackendService } from './backend/backend.service';
 import { PersistentService } from './main.global.ts';
 import { PublicMusicianService } from './publicmusician/publicmusician.component';
-import { EventService } from './musician/musician.component';
 
 @Injectable()
 class MusicianGuard implements CanActivate {
@@ -33,7 +32,7 @@ class MusicianGuard implements CanActivate {
 
 const appRoutes: Routes = [
     { path: "", component: MainComponent, resolve: { pers: PersistentService } },
-    { path: "dashboard", component: MusicianComponent, resolve: {evnt: EventService}, canActivate: [ MusicianGuard ] },
+    { path: "dashboard", component: MusicianComponent, canActivate: [ MusicianGuard ] },
     { path: "musician/:id", component: PublicMusicianComponent, resolve: { pers: PersistentService, mus: PublicMusicianService } }
 ];
 
@@ -59,8 +58,7 @@ const appRoutes: Routes = [
         BackendService,
         PersistentService,
         MusicianGuard,
-        PublicMusicianService,
-        EventService
+        PublicMusicianService
     ]
 })
 export class MainModule{}

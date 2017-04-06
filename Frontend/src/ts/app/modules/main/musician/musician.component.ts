@@ -15,22 +15,6 @@ import { PersistentService } from "../main.global";
 
 declare var $: any;
 
-@Injectable()
-export class EventService {
-    constructor(
-    private backendService: BackendService,
-    private ps: PersistentService,
-    private router: Router
-    ) {}
-
-    resolve(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ): Observable<any>|Promise<any>|any {
-        return true;
-    }
-}
-
 @Component({
     selector: "musician",
     templateUrl: "musician.component.html"
@@ -46,19 +30,19 @@ export class MusicianComponent implements OnInit {
 
             /* Profile info save
              */
-            $(".fa-edit").click(() => {
-                $(".fa-edit").fadeOut(200);
-                $(".fa-lock").fadeIn(200);
-                $(".fa-camera").fadeIn(250);
+            $(".edit").click(() => {
+                $(".edit").fadeOut(200);
+                $(".submit").fadeIn(200);
+                $(".uploadBanner").fadeIn(250);
                 $(".bioLinks").delay(200).fadeOut(200);
                 $(".bioEditLinks").delay(400).fadeIn(200);
                 $bio.find(".title, div").attr("contenteditable", "true");
             });
 
-            $(".fa-lock").click(() => {
-                $(".fa-camera").fadeOut(200);
-                $(".fa-lock").fadeOut(200);
-                $(".fa-edit").fadeIn(250);
+            $(".submit").click(() => {
+                $(".uploadBanner").fadeOut(200);
+                $(".submit").fadeOut(200);
+                $(".edit").fadeIn(250);
                 $(".bioEditLinks").delay(200).fadeOut(200);
                 $(".bioLinks").delay(400).fadeIn(200);
                 $bio.find(".title, div").attr("contenteditable", "false");
@@ -111,7 +95,9 @@ export class MusicianComponent implements OnInit {
         .subscribe((response: any) => {
             this.backendService.getPossibleEvents()
             .subscribe((response: any) => {
-                this.ps.musicianObject.possibleEvents = response;
+                if (response.status == "1") {
+                    this.ps.musicianObject.possibleEvents = response;
+                }
             });
             if (response.status == "1") {
                 const tickets = response.tickets;

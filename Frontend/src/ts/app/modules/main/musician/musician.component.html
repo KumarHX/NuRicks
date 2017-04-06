@@ -2,7 +2,7 @@
 	<div class="musicianWrapper">
 		<h1 class="musicianTitle">Musician Dashboard</h1>
 		<div class="bioBanner" [style.background-image]="'url('+ ps.musicianObject.picture_url +')'">
-			<i style="display: none" (click)="saveMusicianData()" class="fa fa-lock" aria-hidden="true"></i>
+			<span class="submit" (click)="saveMusicianData()" style="display: none">SAVE <i class="fa fa-lock" aria-hidden="true"></i></span>
 			<ul class="bioLinks">
 				<li *ngIf="ps.musicianObject.instagramLink != null && ps.musicianObject.instagramLink != ''">
 					<a [attr.href]="ps.musicianObject.instagramLink" target="_blank" [attr.data-url]="ps.musicianObject.instagramLink">
@@ -32,14 +32,14 @@
 				<input type="text" id="soundcloud-url" placeholder="Soundcloud">
 				<input type="text" id="profile-url" placeholder="Profile Picture URL">
 			</ul>
-			<i style="display: none" class="fa fa-camera edit" aria-hidden="true"></i>
-			<i class="fa fa-edit edit" aria-hidden="true" (click)="editSys()"></i>
+			<span class="uploadBanner" style="display: none">UPLOAD BANNER <i class="fa fa-camera" aria-hidden="true"></i></span>
+			<span class="edit" (click)="editSys()">EDIT <i class="fa fa-edit" aria-hidden="true"></i></span>
 		</div>
 		<div class="row">
 			<div class="container half bio">
 				<h1 id="stage-name" class="title">{{ps.musicianObject.stageName || ps.musicianObject.firstName + " " + ps.musicianObject.lastName}}</h1>
 				<div id="bio">{{ps.musicianObject.bio || bioFallback}}</div>
-				<a [routerLink]="'/musician/' + ps.musicianObject.fbid" target="_blank">http://www.nrshows.com/musician/{{ps.musicianObject.fbid}}</a>
+				<a [routerLink]="'/musician/' + ps.musicianObject.urlValue" target="_blank">http://www.nrshows.com/musician/{{ps.musicianObject.urlValue}}</a>
 			</div>
 			<div class="container half shows">
 				<span class="showTabs">

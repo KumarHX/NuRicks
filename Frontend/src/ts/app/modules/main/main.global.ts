@@ -23,6 +23,7 @@ interface musicianValidation {
     facebookLink: string;
     picture_url: string;
     verified: boolean;
+    urlValue: string;
     events: any;
     possibleEvents: any;
 }
@@ -52,6 +53,7 @@ export class PersistentService {
         facebookLink: "",
         picture_url: "",
         verified: false,
+        urlValue: "",
         events: [],
         possibleEvents: []
     }
@@ -95,6 +97,7 @@ export class PersistentService {
                 this.musicianObject.facebookLink = a.facebookLink;
                 this.musicianObject.picture_url = a.picture_url;
                 this.musicianObject.verified = a.verified;
+                this.musicianObject.urlValue = a.urlValue;
                 // exception for facebook weirdness
                 if (state.url == '/' || state.url == '/#_=_') {
                     this.router.navigate(['/dashboard']);
