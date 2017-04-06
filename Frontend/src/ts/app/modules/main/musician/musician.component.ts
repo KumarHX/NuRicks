@@ -1,5 +1,5 @@
 // Angular imports
-import { Component, Injectable, OnInit } from "@angular/core";
+import { Component, Injectable, OnInit, AfterViewChecked } from "@angular/core";
 import
 {
     Router,
@@ -19,7 +19,7 @@ declare var $: any;
     selector: "musician",
     templateUrl: "musician.component.html"
 })
-export class MusicianComponent implements OnInit {
+export class MusicianComponent implements OnInit, AfterViewChecked {
     bioFallback: string = "Edit your page to add a bio";
     constructor(
     private backendService: BackendService,
@@ -72,17 +72,6 @@ export class MusicianComponent implements OnInit {
                 }
             });
 
-            /* Join show modal
-             */
-            const $joinModal = $('.joinShowModal');
-            $('.availableShowsList').find('.btn').click((e: any) => {
-                $joinModal.fadeIn(250);
-            });
-
-            $joinModal.find('.exit').click((e: any) => {
-                $(e.currentTarget).parent().fadeOut(250);
-            });
-
             // $joinModal.find('h1').click((e: any) => {
             //     $(e.currentTarget).children('.fa-chevron-down').toggleClass('rotate');
             //     $(e.currentTarget).sibling('p').toggle(200);
@@ -96,7 +85,7 @@ export class MusicianComponent implements OnInit {
             this.backendService.getPossibleEvents()
             .subscribe((response: any) => {
                 if (response.status == "1") {
-                    this.ps.musicianObject.possibleEvents = response;
+                    this.ps.musicianObject.possibleEvents = response.events;
                 }
             });
             if (response.status == "1") {
@@ -110,6 +99,19 @@ export class MusicianComponent implements OnInit {
             } else {
 
             }
+        });
+    }
+
+    ngAfterViewChecked() {
+        /* Join show modal
+         */
+        const $joinModal = $('.joinShowModal');
+        $('.availableShowsList').find('.btn').click((e: any) => {
+            $joinModal.fadeIn(250);
+        });
+
+        $joinModal.find('.exit').click((e: any) => {
+            $(e.currentTarget).parent().fadeOut(250);
         });
     }
 
