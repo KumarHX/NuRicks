@@ -54,6 +54,7 @@ export class AdminPanelComponent implements OnInit {
         form.cost = parseInt(form.cost);
         form.extraAtDoor = parseInt(form.extraAtDoor);
         form.numberNeededToSell = parseInt(form.numberNeededToSell);
+        form.isPossibleEvent = form.isPossibleEvent == "" ? false : true;
         this.backendService.createEvent(form)
         .subscribe((response: any) => {
             if (response.status == "1") {

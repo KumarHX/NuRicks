@@ -112,7 +112,7 @@ export class BackendService {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });
         const body: string = JSON.stringify(formobj);
-        return this.http.post(`${this.backendUrl}/admins/createEvent`, body, options)
+        return this.http.post(`${this.backendUrl}/events/createEvent`, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
