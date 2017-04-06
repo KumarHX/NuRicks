@@ -1,0 +1,129 @@
+<div class="adminPanel">
+    <span class="adminTabs">
+        <span class="active" data-show="adminAllShows">All Shows</span>
+        <span data-show="adminAllArtists">All Artists</span>
+        <span data-show="addShowForm">Create Show</span>
+    </span>
+    <div class="adminAllShows">
+        <input type="text" placeholder="Search Shows" class="showSearch">
+        <div class="showgrid">
+            <div class="showBlock SBVertical">
+                <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+                <div class="showDetails">
+                    <h1>Event Name</h1>
+                    <h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+                    <a><i class="fa fa-pencil"></i> Edit</a>
+                </div>
+                <input type="text" placeholder="Public artists">
+            </div>
+            <div class="showBlock SBVertical">
+                <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+                <div class="showDetails">
+                    <h1>Event Name</h1>
+                    <h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+                    <a><i class="fa fa-pencil"></i> Edit</a>
+                </div>
+                <input type="text" placeholder="Public artists">
+            </div>
+            <div class="showBlock SBVertical">
+                <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+                <div class="showDetails">
+                    <h1>Event Name</h1>
+                    <h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+                    <a><i class="fa fa-pencil"></i> Edit</a>
+                </div>
+                <input type="text" placeholder="Public artists">
+            </div>
+            <div class="showBlock SBVertical">
+                <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+                <div class="showDetails">
+                    <h1>Event Name</h1>
+                    <h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+                    <a><i class="fa fa-pencil"></i> Edit</a>
+                </div>
+                <input type="text" placeholder="Public artists">
+            </div>
+        </div>
+    </div>
+    <div class="adminAllArtists">
+        <input type="text" placeholder="Search Artists" class="artistSearch">
+        <div class="artistGrid">
+            <div class="artistBlock">
+                <div class="artistImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></div>
+                <h1>Name:</h1>
+                <h2>Stage Name</h2>
+                <h2>FirstName LastName</h2>
+                <h1>Email: <a>example@email.com</a></h1>
+                <h1>Created: <span>Account/Creation/Date</span></h1>
+                <h1>Social:
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-soundcloud"></i></a>
+                    <a><i class="fa fa-instagram"></i></a>
+                    <a><i class="fa fa-youtube"></i></a>
+                </h1>
+            </div>
+            <div class="artistBlock">
+                <div class="artistImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></div>
+                <h1>Name:</h1>
+                <h2>Stage Name</h2>
+                <h2>FirstName LastName</h2>
+                <h1>Email: <a>example@email.com</a></h1>
+                <h1>Created: <span>Account/Creation/Date</span></h1>
+                <h1>Social:
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-soundcloud"></i></a>
+                    <a><i class="fa fa-instagram"></i></a>
+                    <a><i class="fa fa-youtube"></i></a>
+                </h1>
+            </div>
+            <div class="artistBlock">
+                <div class="artistImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></div>
+                <h1>Name:</h1>
+                <h2>Stage Name</h2>
+                <h2>FirstName LastName</h2>
+                <h1>Email: <a>example@email.com</a></h1>
+                <h1>Created: <span>Account/Creation/Date</span></h1>
+                <h1>Social:
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-soundcloud"></i></a>
+                    <a><i class="fa fa-instagram"></i></a>
+                    <a><i class="fa fa-youtube"></i></a>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <form action="" class="addShowForm">
+        <h1 class="title">Add a show</h1>
+        <h3>All fields are required.</h3>
+        <hr>
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" placeholder="Event name">
+        <h2>Event Image:</h2>
+        <button>Upload Image</button>
+        <h1>Event Time</h1>
+        <label for="doorsOpen">Doors Open:</label>
+        <input type="text" id="doorsOpen" placeholder="Doors open time" required>
+        <label for="showStarts">Show Starts:</label>
+        <input type="text" id="showStarts" placeholder="Show start time" required>
+        <h1>Event Location</h1>
+        <label for="eventStreet">Street:</label>
+        <input type="text" id="eventStreet" placeholder="Street" required>
+        <label for="eventZIP">ZIP Code:</label>
+        <input type="text" id="eventZIP" placeholder="ZIP code" required>
+        <label for="eventCity">City:</label>
+        <input type="text" id="eventCity" placeholder="City" required>
+        <label for="eventState">State:</label>
+        <input type="text" id="eventState" placeholder="State" required>
+        <h1>Ticket Info</h1>
+        <label for="eventCost">Ticket Cost:</label>
+        <span><p>$</p><input type="text" id="eventCost" placeholder="Event cost" required></span>
+        <label for="eventAtDoor">Extra Cost At Door:</label>
+        <span><p>$</p> <input type="text" id="eventAtDoor" placeholder="Extra cost at door" required></span>
+        <label for="ticketsRequired">Minimum Tickets:</label>
+        <input type="text" id="ticketsRequired" placeholder="Minimum tickets an artist must sell" required>
+        <label for="eventAge">Age Requirement:</label>
+        <input type="text" id="eventAge" placeholder="Age requirement" required>
+        <label for="availableEvent">Make event available to all artists? <input type="checkbox" id="availableEvent"></label>
+        <button type="submit">Add Event</button>
+    </form>
+</div>

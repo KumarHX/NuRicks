@@ -1,0 +1,29 @@
+.artistBlock {
+  display: inline-block;
+  width: 320pt;
+  margin: 16pt;
+  padding-bottom: 8pt;
+  transition: background .25s ease-in-out;
+  .artistImg {
+    display: block;
+    width: 100%;
+    height: 150pt;
+    background-size: cover;
+  }
+  h1 {
+    margin: 8pt 8pt 0;
+  }
+  h2 {
+    color: $dark-grey;
+    margin-left: 16pt;
+  }
+  a, span {
+    color: $red;
+  }
+  i {
+    margin: 0 4pt;
+  }
+  &:hover {
+    background: $darker-light-grey;
+  }
+}

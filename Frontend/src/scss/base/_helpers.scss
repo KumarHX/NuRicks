@@ -58,9 +58,7 @@
   transform: rotate(180deg);
 }
 
-@include screen('sm') {
-  .mobileHide {
-    opacity: 0;
-    position: absolute;
-  }
+.active {
+  background: $text-color;
+  color: $bg;
 }

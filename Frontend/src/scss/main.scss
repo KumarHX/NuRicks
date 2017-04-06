@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400,900|Open+Sans');
+
 // 1. Configuration and helpers
 @import
 'abstracts/variables',
@@ -27,23 +29,25 @@
 
 // 5. Components
 @import
-'components/form',
-'components/button',
-'components/toggle',
-'components/icon',
-'components/shadow',
+'components/artistBlock',
 'components/border',
-'components/hideshow',
+'components/button',
+'components/form',
 'components/hamburger',
-'components/lightbox',
-'components/tooltip',
-'components/showblock',
+'components/hideshow',
+'components/icon',
 'components/input',
+'components/lightbox',
+'components/modal',
 'components/progressBar',
-'components/modal';
+'components/shadow',
+'components/showblock',
+'components/toggle',
+'components/tooltip';
 
 // 6. Page-specific styles
 @import
+'pages/adminpanel',
 'pages/home',
 'pages/musicianpage';
 

@@ -90,6 +90,18 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    adminLogin(username: string, password: string): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify({
+            "username": username,
+            "password": password
+        })
+        return this.http.post(`${this.backendUrl}/admins/login`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     logout(): Observable<any> {
         return this.http.get(`${this.backendUrl}/auth/logout`, { withCredentials: true })
             .map(this.extractData)

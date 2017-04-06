@@ -33,6 +33,23 @@
   }
 }
 
+.SBVertical {
+  flex-flow: column;
+  align-items: center;
+  padding-bottom: 8pt;
+  text-align: center;
+  .showImg {
+    width: 100%;
+  }
+  .showDetails {
+    margin: 0;
+
+    .btn {
+      margin: 8pt auto;
+    }
+  }
+}
+
 @include screen('sm') {
   .showBlock {
     flex-flow: column;

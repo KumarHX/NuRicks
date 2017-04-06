@@ -87,6 +87,11 @@
       }
     }
     .shows {
+      .title {
+        font-size: 3em;
+        color: $red;
+        text-align: center;
+      }
       .showTabs {
         white-space: nowrap;
       }

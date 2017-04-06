@@ -71,6 +71,11 @@ export class PersistentService {
         events: []
     }
 
+    adminObject: any = {
+        u: "",
+        p: ""
+    }
+
     constructor(
     private backendService: BackendService,
     private router: Router

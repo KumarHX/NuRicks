@@ -1,0 +1,11 @@
+<div class="adminPanel">
+    <form class="adminLogin" #feedback="ngForm" (ngSubmit)="preLogin(feedback.value)">
+        <h3 class="warning"></h3>
+        <div style="margin-top: 100px"></div>
+        <label for="adminUsername">Username:</label>
+        <input type="text" name="adminusername" id="adminUsername" required ngModel>
+        <label for="adminPassword">Password:</label>
+        <input type="password" name="adminpassword" id="adminPassword" required ngModel>
+        <button>Login</button>
+    </form>
+</div>

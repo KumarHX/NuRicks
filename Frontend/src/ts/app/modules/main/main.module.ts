@@ -3,6 +3,7 @@ import { NgModule, Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule, Router, CanActivate } from '@angular/router';
 import { HttpModule } from "@angular/http";
+import { FormsModule } from '@angular/forms';
 
 // Custom Imports
 import { OutletComponent } from './main.component';
@@ -14,6 +15,9 @@ import { PublicMusicianComponent } from './publicmusician/publicmusician.compone
 import { BackendService } from './backend/backend.service';
 import { PersistentService } from './main.global.ts';
 import { PublicMusicianService } from './publicmusician/publicmusician.component';
+import { AdminLoginComponent } from './adminlogin/adminlogin.component';
+import { AdminGuard } from './adminlogin/adminlogin.component';
+import { AdminPanelComponent } from './adminpanel/adminpanel.component';
 
 @Injectable()
 class MusicianGuard implements CanActivate {
@@ -34,13 +38,16 @@ class MusicianGuard implements CanActivate {
 const appRoutes: Routes = [
     { path: "", component: MainComponent, resolve: { pers: PersistentService } },
     { path: "dashboard", component: MusicianComponent, canActivate: [ MusicianGuard ] },
-    { path: "musician/:id", component: PublicMusicianComponent, resolve: { pers: PersistentService, mus: PublicMusicianService } }
+    { path: "musician/:id", component: PublicMusicianComponent, resolve: { pers: PersistentService, mus: PublicMusicianService } },
+    { path: "adminlogin", component: AdminLoginComponent },
+    { path: "adminpanel", component: AdminPanelComponent, canActivate: [ AdminGuard ] }
 ];
 
 @NgModule({
     imports: [
         RouterModule,
         HttpModule,
+        FormsModule,
         BrowserModule,
         RouterModule.forRoot(appRoutes)
     ],
@@ -49,7 +56,9 @@ const appRoutes: Routes = [
         NavComponent,
         MainComponent,
         MusicianComponent,
-        PublicMusicianComponent
+        PublicMusicianComponent,
+        AdminLoginComponent,
+        AdminPanelComponent
     ],
     bootstrap: [
         NavComponent,
@@ -60,7 +69,8 @@ const appRoutes: Routes = [
         PersistentService,
         MusicianGuard,
         PublicMusicianService,
-        EventViewerService
+        EventViewerService,
+        AdminGuard
     ]
 })
 export class MainModule{}
