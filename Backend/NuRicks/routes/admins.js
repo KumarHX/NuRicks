@@ -3,11 +3,6 @@ var router = express.Router();
 var admin_models = require("../models/AdminModel");
 var AdminModel =  admin_models.AdminsModel;
 
-/*
- *  Create a ticket
- *
- *  ticket_info: info to create on
- */
 
 router.post('/login', function(req, res, next){
     var uname = req.body.username;

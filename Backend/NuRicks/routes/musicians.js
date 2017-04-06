@@ -28,6 +28,12 @@ router.get('/getMusicianInfoFromID/:fbid', function(req, res, next){
     MusiciansModel.getMusicianInfoFromID(res, search);
 });
 
+router.get('/searchMusicians/:search', function(req, res, next){
+    var search = req.params.search;
+    MusiciansModel.searchMusicians(res, search);
+});
+
+
 router.get('/getMusicianInfoFromURL/:url', function(req, res, next){
     var search = req.params.url;
     MusiciansModel.getMusicianInfoFromURL(res, search);

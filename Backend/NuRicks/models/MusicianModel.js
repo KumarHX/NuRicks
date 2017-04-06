@@ -236,6 +236,23 @@ MusiciansModel = {
         });
      },
 
+     searchMusicians: function(res, searchTerm){
+        Musicians.findAll({
+            }).then(function(result){
+            const foundMusicians = []
+            for (let i = 0; i < result.length; i++) {
+            // if search value not in fields, do not push too array
+              if (result[i].stageName.indexOf(searchTerm) !== -1) {
+                const data = result[i]
+                foundMusicians.push(data)
+              }
+            }
+          res.json({ status: 1, Musicians: foundMusicians })
+              }).catch(function(err){
+                  res.json({status: -1, errors:['Error with call', err]})
+              });
+     },
+
     updateMusicianInfoScreen: function (res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio){
         Musicians.findOne({
             where:{
