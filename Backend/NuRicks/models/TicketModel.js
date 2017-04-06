@@ -13,7 +13,7 @@ var Events = Event_models.Events;
 
 var Tickets = sequelize.define("Tickets", {
 
-    numberSold:{type: Sequelize.INTEGER, allowNull: false},
+    numberSold:{type: Sequelize.INTEGER, allowNull: false, default:0},
     isGlobal:{type: Sequelize.BOOLEAN, allowNull: false},
     numberNeededToSell:{type: Sequelize.INTEGER, allowNull: false},
 
@@ -54,6 +54,22 @@ TicketsModel = {
             res.json({status: -1, errors: ['Unable to find tickets', err]});
         })
     },
+
+    allTickets: function(res){
+        Tickets.findAll({
+            }).then(function(result){
+            if(!result){
+                res.json({status: -1, errors:['No Tickets']})
+            }
+            else
+            {
+                res.json({status: 1, numUsers: result.length, tickets: result})
+            }
+        }).catch(function(err){
+            res.json({status: -1, errors:['Error with call', err]})
+        });
+     },
+  
 
     queryTicketByMusician: function (res, search) {
         Tickets.findAll({

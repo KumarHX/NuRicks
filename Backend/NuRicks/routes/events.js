@@ -26,6 +26,11 @@ router.post('/createEvent', function(req, res, next){
     EventModel.createEvent(res, event_info);
 });
 
+router.get('/allEvents', function(req, res, next){
+    EventModel.allEvents(res);
+});
+
+
 router.get('/queryPossibleEvents', function(req, res, next){
     EventModel.queryPossibleEvents(res);
 });

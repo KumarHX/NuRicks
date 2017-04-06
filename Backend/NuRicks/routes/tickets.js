@@ -23,5 +23,9 @@ router.get('/queryTicketByMusician/:fbid', function(req, res, next){
     ticketModel.queryTicketByMusician(res, search);
 });
 
+router.get('/allTickets', function(req, res, next){
+    ticketModel.allTickets(res);
+});
+
 
 module.exports = router;

@@ -8,6 +8,8 @@ var Sequelize = sequelize_modules.Sequelize;
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 const util = require('util');
+var hash = require('custom-hash');
+hash.configure({ charSet: [ 'A', 'B', 'C', '1', '2', '3','4','5','6','7','8','9'], maxLength: 5 });
 
 /*  Musician's model
  *
@@ -60,6 +62,11 @@ const util = require('util');
     	type: Sequelize.STRING
     },
 
+    urlValue:{
+      type: Sequelize.STRING,
+      unique: true
+    },
+
     picture_url: { type: Sequelize.TEXT },
     verified: {type: Sequelize.BOOLEAN}
 });
@@ -72,15 +79,14 @@ passport.use('facebook-musicians', new FacebookStrategy({
     callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
     profileFields: ['id', 'name', 'picture','cover']  },
   function(accessToken, refreshToken, profile, cb) {
-    console.log("1: " + JSON.stringify(profile));
-    console.log("2 cover: " + JSON.stringify(profile.cover));
     const newMusician = Musicians.build({
       fbid: profile.id,
       firstName: profile.name.givenName,
       lastName: profile.name.familyName,
-      picture_url: profile.photos[0].value
+      picture_url: profile.photos[0].value,
+      urlValue: hash.digest(profile.id)
     });
-    console.log("At the current: " + newMusician.fbid);
+    console.log("At the current HERE: " + hash.digest(newMusician.fbid));
     //cb(null, newMusician, { message: 'Musician created!' });
     newMusician.save().then(user => {
       if (user) {
@@ -165,6 +171,24 @@ MusiciansModel = {
         });
     },
 
+    getMusicianInfoFromURL: function(res, search){
+        Musicians.findOne({
+            where:{
+                urlValue: search
+            }
+        }).then( function(musicianInfo){
+            if(musicianInfo){
+                res.json({status: "1", "musician_info": musicianInfo})
+            }
+            else{
+                res.json({status: -1, errors: ['Musician does not exist']})
+            }
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find musician', err]});
+        });
+    },
+
     loginMusician: function(res, search) {
       console.log(search);
         Musicians.findOne({
@@ -196,6 +220,21 @@ MusiciansModel = {
             res.json({status: -1, errors: ['Unable to delete Musician', err]});
         });
     },
+
+    allMusicians: function(res){
+        Musicians.findAll({
+            }).then(function(result){
+            if(!result){
+                res.json({status: -1, errors:['No Musicians']})
+            }
+            else
+            {
+                res.json({status: 1, numUsers: result.length, musicians: result})
+            }
+        }).catch(function(err){
+            res.json({status: -1, errors:['Error with call', err]})
+        });
+     },
 
     updateMusicianInfoScreen: function (res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio){
         Musicians.findOne({

@@ -56,6 +56,21 @@ EventsModel = {
         });
     },
 
+     allEvents: function(res){
+        Events.findAll({
+            }).then(function(result){
+            if(!result){
+                res.json({status: -1, errors:['No Events']})
+            }
+            else
+            {
+                res.json({status: 1, numUsers: result.length, events: result})
+            }
+        }).catch(function(err){
+            res.json({status: -1, errors:['Error with call', err]})
+        });
+     },
+
     queryPossibleEvents: function (res) {
         Events.findAll({
                 where: {

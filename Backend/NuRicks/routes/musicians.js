@@ -28,6 +28,11 @@ router.get('/getMusicianInfoFromID/:fbid', function(req, res, next){
     MusiciansModel.getMusicianInfoFromID(res, search);
 });
 
+router.get('/getMusicianInfoFromURL/:url', function(req, res, next){
+    var search = req.params.url;
+    MusiciansModel.getMusicianInfoFromURL(res, search);
+});
+
 /*
  *  Delete a musician
  *
@@ -39,6 +44,9 @@ router.get('/deleteMusician/:fbid', function(req, res, next){
     MusiciansModel.deleteMusician(res, search);
 });
 
+router.get('/allMusicians', function(req, res, next){
+    MusiciansModel.allMusicians(res);
+});
 
 
 router.get('/auth/facebook', passport.authenticate('facebook-musicians'));
