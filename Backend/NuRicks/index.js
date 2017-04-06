@@ -6,6 +6,7 @@ var auth = require('./routes/auth');
 var users = require('./routes/users');
 var events = require('./routes/events');
 var tickets = require('./routes/tickets');
+var admins = require('./routes/admins');
 var passport = require('passport');
 var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
@@ -46,6 +47,7 @@ app.use('/api/events', events);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/tickets', tickets);
+app.use('/api/admins', admins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
