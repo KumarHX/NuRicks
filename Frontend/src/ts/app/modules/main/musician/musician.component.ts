@@ -1,5 +1,5 @@
 // Angular imports
-import { Component, Injectable } from "@angular/core";
+import { Component, Injectable, OnInit } from "@angular/core";
 import
 {
     Router,
@@ -27,24 +27,7 @@ export class EventService {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any>|Promise<any>|any {
-        return this.backendService.getMusicianTickets(this.ps.musicianObject.fbid)
-        .map((response: any) => {
-            this.backendService.getPossibleEvents()
-            .map((response: any) => {
-                this.ps.musicianObject.possibleEvents = response;
-            });
-            if (response.status == "1") {
-                const tickets = response.tickets;
-                for (var i = 0; i < tickets.length; ++i) {
-                    this.backendService.getEventInfoFromID(tickets[i].EventId)
-                    .map((response) => {
-                        this.ps.musicianObject.events.push(response);
-                    });
-                }
-            } else {
-
-            }
-        });
+        return true;
     }
 }
 
@@ -52,7 +35,7 @@ export class EventService {
     selector: "musician",
     templateUrl: "musician.component.html"
 })
-export class MusicianComponent {
+export class MusicianComponent implements OnInit {
     bioFallback: string = "Edit your page to add a bio";
     constructor(
     private backendService: BackendService,
@@ -120,6 +103,27 @@ export class MusicianComponent {
             //     $(e.currentTarget).children('.fa-chevron-down').toggleClass('rotate');
             //     $(e.currentTarget).sibling('p').toggle(200);
             // });
+        });
+    }
+
+    ngOnInit() {
+        this.backendService.getMusicianTickets(this.ps.musicianObject.fbid)
+        .subscribe((response: any) => {
+            this.backendService.getPossibleEvents()
+            .subscribe((response: any) => {
+                this.ps.musicianObject.possibleEvents = response;
+            });
+            if (response.status == "1") {
+                const tickets = response.tickets;
+                for (var i = 0; i < tickets.length; ++i) {
+                    this.backendService.getEventInfoFromID(tickets[i].EventId)
+                    .subscribe((response) => {
+                        this.ps.musicianObject.events.push(response);
+                    });
+                }
+            } else {
+
+            }
         });
     }
 
