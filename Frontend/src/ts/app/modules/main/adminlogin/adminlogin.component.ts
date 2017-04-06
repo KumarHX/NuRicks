@@ -28,7 +28,6 @@ export class AdminGuard implements CanActivate {
     canActivate(): Observable<boolean> {
         return this.backendService.adminLogin(this.ps.adminObject.u, this.ps.adminObject.p)
         .map((response) => {
-            console.log(response);
             if (response.status == "1") {
                 return true;
             }

@@ -1,5 +1,5 @@
 // Angular imports
-import { Component, Injectable } from "@angular/core";
+import { Component, Injectable, OnInit } from "@angular/core";
 import
 {
     Router,
@@ -18,6 +18,7 @@ declare var $: any;
 @Injectable()
 export class PublicMusicianService {
     p_musicianObject: any = {
+        fbid: "",
         stageName: "",
         firstName: "",
         lastName: "",
@@ -29,6 +30,8 @@ export class PublicMusicianService {
         picture_url: "",
         verified: false
     }
+    urlid: string;
+    p_events: any = [];
 
     constructor(
     private backendService: BackendService,
@@ -40,10 +43,11 @@ export class PublicMusicianService {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<any>|Promise<any>|any {
-        return this.backendService.getMusician(route.params["id"])
+        return this.backendService.getMusician(this.urlid = route.params["id"])
         .map((response: any) => {
             if (response.status == "1" && response.musician_info) {
                 const a = response.musician_info;
+                this.p_musicianObject.fbid = a.fbid;
                 this.p_musicianObject.stageName = a.stageName;
                 this.p_musicianObject.firstName = a.firstName;
                 this.p_musicianObject.lastName = a.lastName;
@@ -65,13 +69,29 @@ export class PublicMusicianService {
     selector: "publicmusician",
     templateUrl: "publicmusician.component.html"
 })
-export class PublicMusicianComponent {
+export class PublicMusicianComponent implements OnInit {
     bioFallback: string = "This musician doesn't have a bio";
     constructor(
     private backendService: BackendService,
     private ps: PersistentService,
-    private pm: PublicMusicianService
+    private pm: PublicMusicianService,
+    private router: Router
     ) {
 
+    }
+
+    ngOnInit() {
+        this.backendService.getMusicianTickets(this.pm.p_musicianObject.fbid)
+        .subscribe((response: any) => {
+            if (response.status == "1") {
+                const tickets = response.tickets;
+                for (var i = 0; i < tickets.length; ++i) {
+                    this.backendService.getEventInfoFromID(tickets[i].EventId)
+                    .subscribe((response) => {
+                        this.pm.p_events.push(response.event_info);
+                    });
+                }
+            }
+        });
     }
 }

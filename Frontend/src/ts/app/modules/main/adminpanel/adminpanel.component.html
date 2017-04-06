@@ -1,4 +1,4 @@
-<div class="adminPanel">
+<div class="adminPanel" style="margin-top: 100px">
     <span class="adminTabs">
         <span class="active" data-show="adminAllShows">All Shows</span>
         <span data-show="adminAllArtists">All Artists</span>
@@ -7,123 +7,73 @@
     <div class="adminAllShows">
         <input type="text" placeholder="Search Shows" class="showSearch">
         <div class="showgrid">
-            <div class="showBlock SBVertical">
-                <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+
+            <div *ngFor="let event of as.events" class="showBlock SBVertical">
+                <a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
                 <div class="showDetails">
-                    <h1>Event Name</h1>
-                    <h3>March 18, 2017 &mdash; <span>$XX</span></h3>
+                    <h1>{{event.eventName}}</h1>
+                    <h3>{{event.eventDate}} &mdash; <span>${{event.cost}}</span></h3>
                     <a><i class="fa fa-pencil"></i> Edit</a>
                 </div>
                 <input type="text" placeholder="Public artists">
             </div>
-            <div class="showBlock SBVertical">
-                <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-                <div class="showDetails">
-                    <h1>Event Name</h1>
-                    <h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-                    <a><i class="fa fa-pencil"></i> Edit</a>
-                </div>
-                <input type="text" placeholder="Public artists">
-            </div>
-            <div class="showBlock SBVertical">
-                <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-                <div class="showDetails">
-                    <h1>Event Name</h1>
-                    <h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-                    <a><i class="fa fa-pencil"></i> Edit</a>
-                </div>
-                <input type="text" placeholder="Public artists">
-            </div>
-            <div class="showBlock SBVertical">
-                <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-                <div class="showDetails">
-                    <h1>Event Name</h1>
-                    <h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-                    <a><i class="fa fa-pencil"></i> Edit</a>
-                </div>
-                <input type="text" placeholder="Public artists">
-            </div>
+
         </div>
     </div>
-    <div class="adminAllArtists">
+    <div class="adminAllArtists" style="display: none">
         <input type="text" placeholder="Search Artists" class="artistSearch">
+
         <div class="artistGrid">
-            <div class="artistBlock">
+
+            <div *ngFor="let musician of as.musicians" class="artistBlock">
                 <div class="artistImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></div>
                 <h1>Name:</h1>
-                <h2>Stage Name</h2>
-                <h2>FirstName LastName</h2>
-                <h1>Email: <a>example@email.com</a></h1>
-                <h1>Created: <span>Account/Creation/Date</span></h1>
+                <h2>{{musician.stageName}}</h2>
+                <h2>{{musician.firstName}} {{musician.lastName}}</h2>
+                <h1>Email: <a>{{musician.email || "No Email"}}</a></h1>
+                <h1>Created: <span>{{musician.createdAt}}</span></h1>
                 <h1>Social:
-                    <a><i class="fa fa-twitter"></i></a>
-                    <a><i class="fa fa-soundcloud"></i></a>
-                    <a><i class="fa fa-instagram"></i></a>
-                    <a><i class="fa fa-youtube"></i></a>
+                    <a><i [attr.href]="musician.facebookLink" target="_blank" *ngIf="musician.facebookLink != null   && musician.facebookLink != ''"   class="fa fa-facebook"></i></a>
+                    <a><i [attr.href]="musician.soundcloudLink" target="_blank" *ngIf="musician.soundcloudLink != null && musician.soundcloudLink != ''" class="fa fa-soundcloud"></i></a>
+                    <a><i [attr.href]="musician.instagramLink" target="_blank" *ngIf="musician.instagramLink != null  && musician.instagramLink != ''"  class="fa fa-instagram"></i></a>
+                    <a><i [attr.href]="musician.youtubeLink" target="_blank" *ngIf="musician.youtubeLink != null    && musician.youtubeLink != ''"    class="fa fa-youtube"></i></a>
                 </h1>
             </div>
-            <div class="artistBlock">
-                <div class="artistImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></div>
-                <h1>Name:</h1>
-                <h2>Stage Name</h2>
-                <h2>FirstName LastName</h2>
-                <h1>Email: <a>example@email.com</a></h1>
-                <h1>Created: <span>Account/Creation/Date</span></h1>
-                <h1>Social:
-                    <a><i class="fa fa-twitter"></i></a>
-                    <a><i class="fa fa-soundcloud"></i></a>
-                    <a><i class="fa fa-instagram"></i></a>
-                    <a><i class="fa fa-youtube"></i></a>
-                </h1>
-            </div>
-            <div class="artistBlock">
-                <div class="artistImg" style="background-image: url('https://i.imgur.com/HyoQH9s.jpg')"></div>
-                <h1>Name:</h1>
-                <h2>Stage Name</h2>
-                <h2>FirstName LastName</h2>
-                <h1>Email: <a>example@email.com</a></h1>
-                <h1>Created: <span>Account/Creation/Date</span></h1>
-                <h1>Social:
-                    <a><i class="fa fa-twitter"></i></a>
-                    <a><i class="fa fa-soundcloud"></i></a>
-                    <a><i class="fa fa-instagram"></i></a>
-                    <a><i class="fa fa-youtube"></i></a>
-                </h1>
-            </div>
+
         </div>
     </div>
-    <form action="" class="addShowForm">
+    <form style="display: none" #form="ngForm" (ngSubmit)="addShow(form.value)" class="addShowForm">
         <h1 class="title">Add a show</h1>
         <h3>All fields are required.</h3>
         <hr>
         <label for="eventName">Event Name:</label>
-        <input type="text" id="eventName" placeholder="Event name">
+        <input name="eventName" type="text" id="eventName" placeholder="Event name" ngModel>
         <h2>Event Image:</h2>
-        <button>Upload Image</button>
+        <input name="image_url" type="text" id="imageUrl" placeholder="Image URL" ngModel>
         <h1>Event Time</h1>
         <label for="doorsOpen">Doors Open:</label>
-        <input type="text" id="doorsOpen" placeholder="Doors open time" required>
+        <input name="doorsOpen" type="text" id="doorsOpen" placeholder="Doors open time" required ngModel>
         <label for="showStarts">Show Starts:</label>
-        <input type="text" id="showStarts" placeholder="Show start time" required>
+        <input name="ShowStarts" type="text" id="showStarts" placeholder="Show start time" required ngModel>
         <h1>Event Location</h1>
         <label for="eventStreet">Street:</label>
-        <input type="text" id="eventStreet" placeholder="Street" required>
+        <input name="street_name" type="text" id="eventStreet" placeholder="Street" required ngModel>
         <label for="eventZIP">ZIP Code:</label>
-        <input type="text" id="eventZIP" placeholder="ZIP code" required>
+        <input name="zip_code" type="text" id="eventZIP" placeholder="ZIP code" required ngModel>
         <label for="eventCity">City:</label>
-        <input type="text" id="eventCity" placeholder="City" required>
+        <input name="city" type="text" id="eventCity" placeholder="City" required ngModel>
         <label for="eventState">State:</label>
-        <input type="text" id="eventState" placeholder="State" required>
+        <input name="state" type="text" id="eventState" placeholder="State" required ngModel>
         <h1>Ticket Info</h1>
         <label for="eventCost">Ticket Cost:</label>
-        <span><p>$</p><input type="text" id="eventCost" placeholder="Event cost" required></span>
+        <span><p>$</p><input name="cost" type="text" id="eventCost" placeholder="Event cost" required ngModel></span>
         <label for="eventAtDoor">Extra Cost At Door:</label>
-        <span><p>$</p> <input type="text" id="eventAtDoor" placeholder="Extra cost at door" required></span>
+        <span><p>$</p> <input name="extraAtDoor" type="text" id="eventAtDoor" placeholder="Extra cost at door" required ngModel></span>
         <label for="ticketsRequired">Minimum Tickets:</label>
-        <input type="text" id="ticketsRequired" placeholder="Minimum tickets an artist must sell" required>
+        <input name="numberNeededToSell" type="text" id="ticketsRequired" placeholder="Minimum tickets an artist must sell" required ngModel>
         <label for="eventAge">Age Requirement:</label>
-        <input type="text" id="eventAge" placeholder="Age requirement" required>
-        <label for="availableEvent">Make event available to all artists? <input type="checkbox" id="availableEvent"></label>
+        <input name="ageRequirement" type="text" id="eventAge" placeholder="Age requirement" required ngModel>
+        <label for="availableEvent">Make event available to all artists? <input name="isPossibleEvent" type="checkbox" id="availableEvent" ngModel></label>
         <button type="submit">Add Event</button>
     </form>
 </div>

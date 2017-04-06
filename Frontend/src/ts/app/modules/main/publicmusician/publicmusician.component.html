@@ -31,14 +31,16 @@
 			</div>
 			<div class="container half myShows">
 				<h1 class="title">Upcoming Shows</h1>
-				<div class="showBlock">
-					This musician currently has no shows.
-					<!-- <a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
-					<div class="showDetails">
-						<h1>Event Name</h1>
-						<h3>March 18, 2017 &mdash; <span>$XX</span></h3>
-						<a class="btn">Buy Tickets</a>
-					</div> -->
+				<div class="showList myShowsList">
+					<div *ngIf="pm.p_events.length <= 0">This musician currently does not have any shows.</div>
+					<div *ngFor="let event of pm.p_events" class="showBlock">
+						<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
+						<div class="showDetails">
+							<h1>{{event.eventName}}</h1>
+							<h3>{{event.eventDate}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
+							<a class="btn">Buy Tickets</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

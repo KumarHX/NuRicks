@@ -56,6 +56,12 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    getMusicianTicketsURL(url: string): Observable<any> {
+        return this.http.get(`${this.backendUrl}/tickets/queryTicketByMusicianURL/${url}`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     getGlobalTickets(): Observable<any> {
         return this.http.get(`${this.backendUrl}/tickets/queryGlobalTickets`)
             .map(this.extractData)
@@ -98,6 +104,27 @@ export class BackendService {
             "password": password
         })
         return this.http.post(`${this.backendUrl}/admins/login`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    createEvent(formobj: any): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify(formobj);
+        return this.http.post(`${this.backendUrl}/admins/createEvent`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getAllMusicians(): Observable<any> {
+        return this.http.get(`${this.backendUrl}/musicians/allMusicians`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getAllEvents(): Observable<any> {
+        return this.http.get(`${this.backendUrl}/events/allEvents`)
             .map(this.extractData)
             .catch(this.handleError);
     }

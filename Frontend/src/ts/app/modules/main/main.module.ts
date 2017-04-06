@@ -18,6 +18,7 @@ import { PublicMusicianService } from './publicmusician/publicmusician.component
 import { AdminLoginComponent } from './adminlogin/adminlogin.component';
 import { AdminGuard } from './adminlogin/adminlogin.component';
 import { AdminPanelComponent } from './adminpanel/adminpanel.component';
+import { AdminService } from './adminpanel/adminpanel.component';
 
 @Injectable()
 class MusicianGuard implements CanActivate {
@@ -70,6 +71,7 @@ const appRoutes: Routes = [
         MusicianGuard,
         PublicMusicianService,
         EventViewerService,
+        AdminService,
         AdminGuard
     ]
 })
