@@ -49,13 +49,13 @@
 				<div class="showList myShowsList">
 					<div *ngIf="ps.musicianObject.events.length <= 0">You are currently not apart of any shows.</div>
 					<div *ngFor="let event of ps.musicianObject.events" class="showBlock">
-						<a class="showImg" style="background-image: url('https://i.imgur.com/pvpxpbV.png')"></a>
+						<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
 						<div class="showDetails">
 							<h1>{{event.eventName}}</h1>
-							<h3>{{event.ShowStarts}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
+							<h3>{{event.eventDate}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
 							<a class="btn">Buy Tickets</a>
 							<h3 class="progress">Sold:
-								<span class="sold">5</span>/<span class="needed">25</span>
+								<span class="sold">{{event._ticketsSold}}</span>/<span class="needed">{{event.numberNeededToSell}}</span>
 							</h3>
 						</div>
 					</div>
@@ -66,7 +66,8 @@
 						<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
 						<div class="showDetails">
 							<h1>{{event.eventName}}</h1>
-							<a class="btn">Join Show</a>
+							<h3>{{event.eventDate}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
+							<a class="btn" (click)="viewShow($event)">Join Show</a>
 						</div>
 					</div>
 				</div>
@@ -80,7 +81,11 @@
 	<p>By joining this event you are agreeing to the Nu-Ricks terms of service. <a href="">Read TOS.</a></p>
 	<hr>
 	<h1><i class="fa fa-chevron-down"></i> Event Details</h1>
+	<h3 *ngIf="evs.event.ageRequirement">Must be over {{evs.event.ageRequirement}}</h3>
+	<h3>Located {{evs.event.street_name}} {{evs.event.city}}, {{evs.event.state}} {{evs.event.zip_code}}</h3>
+	<h3>Doors open at {{evs.event.doorsOpen}}</h3>
+	<h3>Show starts at {{evs.event.ShowStarts}}</h3>
 	<p></p>
 	<hr>
-	<button>Join Event</button>
+	<button (click)="submitCreateTicket()">Join Event</button>
 </div>

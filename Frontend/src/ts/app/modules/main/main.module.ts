@@ -9,6 +9,7 @@ import { OutletComponent } from './main.component';
 import { NavComponent } from './nav/nav.component';
 import { MainComponent } from './main/main.component';
 import { MusicianComponent } from './musician/musician.component';
+import { EventViewerService } from './musician/musician.component';
 import { PublicMusicianComponent } from './publicmusician/publicmusician.component';
 import { BackendService } from './backend/backend.service';
 import { PersistentService } from './main.global.ts';
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
         BackendService,
         PersistentService,
         MusicianGuard,
-        PublicMusicianService
+        PublicMusicianService,
+        EventViewerService
     ]
 })
 export class MainModule{}

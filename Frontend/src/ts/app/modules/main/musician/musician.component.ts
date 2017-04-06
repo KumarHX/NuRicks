@@ -15,6 +15,22 @@ import { PersistentService } from "../main.global";
 
 declare var $: any;
 
+export class EventViewerService {
+    event: any = {
+        eventName: "",
+        doorsOpen: "",
+        ShowStarts: "",
+        image_url: "",
+        eventDate: "",
+        street_name: "",
+        zip_code: 0,
+        city: "",
+        state: "",
+        ageRequirement: "",
+        cost: 0
+    }
+}
+
 @Component({
     selector: "musician",
     templateUrl: "musician.component.html"
@@ -23,7 +39,8 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
     bioFallback: string = "Edit your page to add a bio";
     constructor(
     private backendService: BackendService,
-    private ps: PersistentService
+    private ps: PersistentService,
+    private evs: EventViewerService
     ) {
         $(document).ready(function () {
             const $bio = $(".bio");
@@ -80,29 +97,51 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
     }
 
     ngOnInit() {
-        this.backendService.getMusicianTickets(this.ps.musicianObject.fbid)
+        this.backendService.getPossibleEvents()
         .subscribe((response: any) => {
-            this.backendService.getPossibleEvents()
-            .subscribe((response: any) => {
-                if (response.status == "1") {
-                    this.ps.musicianObject.possibleEvents = response.events;
-                }
-            });
             if (response.status == "1") {
-                const tickets = response.tickets;
-                for (var i = 0; i < tickets.length; ++i) {
-                    this.backendService.getEventInfoFromID(tickets[i].EventId)
-                    .subscribe((response) => {
-                        this.ps.musicianObject.events.push(response);
-                    });
-                }
-            } else {
+                this.ps.musicianObject.possibleEvents = response.events;
 
+                this.backendService.getMusicianTickets(this.ps.musicianObject.fbid)
+                .subscribe((response: any) => {
+                    if (response.status == "1") {
+                        const tickets = response.tickets;
+                        for (var i = 0; i < tickets.length; ++i) {
+                            const numberSold = tickets[i].numberSold;
+                            this.backendService.getEventInfoFromID(tickets[i].EventId)
+                            .subscribe((response) => {
+                                response.event_info._ticketsSold = numberSold;
+                                this.ps.musicianObject.events.push(response.event_info);
+                                // remove from possible events
+                                const pred = (x: any) => {
+                                    return x.id;
+                                }
+                                const remIndex = this.ps.musicianObject.possibleEvents.map(pred).indexOf(response.event_info.id);
+                                this.ps.musicianObject.possibleEvents.splice(remIndex, 1);
+                            });
+                        }
+                    }
+                });
             }
         });
     }
 
     ngAfterViewChecked() {
+        /* Remove active events from possible events
+         */
+        // var possibleEventIndex = this.ps.musicianObject.possibleEvents.length-1;
+        // var eventIndex = this.ps.musicianObject.events.length-1;
+        //
+        // for (let i = possibleEventIndex; i >= 0; --i) {
+        //     for (let j = eventIndex; j >= 0; --j) {
+        //         if(this.ps.musicianObject.possibleEvents[i].id ==
+        //            this.ps.musicianObject.events[j].id) {
+        //             this.ps.musicianObject.possibleEvents.splice(i, 1);
+        //             break;
+        //         }
+        //     }
+        // }
+
         /* Join show modal
          */
         const $joinModal = $('.joinShowModal');
@@ -112,6 +151,18 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
 
         $joinModal.find('.exit').click((e: any) => {
             $(e.currentTarget).parent().fadeOut(250);
+        });
+    }
+
+    viewShow(event: any): void {
+        const index = $(event.currentTarget).parent().parent().index();
+        this.evs.event = this.ps.musicianObject.possibleEvents[index];
+    }
+
+    submitCreateTicket(): void {
+        this.backendService.createTicket(<string>this.ps.musicianObject.fbid, <number>this.evs.event.id)
+        .subscribe((response) => {
+
         });
     }
 
