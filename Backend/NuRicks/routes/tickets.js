@@ -23,8 +23,8 @@ router.get('/queryTicketByMusician/:fbid', function(req, res, next){
     ticketModel.queryTicketByMusician(res, search);
 });
 
-router.get('/queryTicketByEventID/:fbid', function(req, res, next){
-	var search = req.params.fbid;
+router.get('/queryTicketByEventID/:eventID', function(req, res, next){
+	var search = req.params.eventID;
     ticketModel.queryTicketByEventID(res, search);
 });
 
