@@ -87,10 +87,10 @@ TicketsModel = {
         })
     },
 
-    queryTicketByMusicianURL: function (res, search) {
+    queryTicketByEventID: function (res, search) {
         Tickets.findAll({
                 where: {
-                    urlValue: search
+                    EventId: search
                 }
             })
             .then(function (foundTickets) {
