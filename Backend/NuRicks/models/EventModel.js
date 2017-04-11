@@ -31,6 +31,7 @@ const util = require('util');
     	allowNull: false
     },
     image_url: { type: Sequelize.STRING},
+    headliner: { type: Sequelize.STRING},
     eventDate: { type: Sequelize.STRING, allowNull: false},
     street_name: { type: Sequelize.STRING, allowNull: false},
     zip_code:{type: Sequelize.INTEGER, allowNull: false},
