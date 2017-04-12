@@ -18,7 +18,12 @@ input.inputError, input.inputError:focus {
   }
 }
 
-select:focus, select:active {
+select {
+  min-width: 40pt;
+  border-radius: 3px;
+}
+
+select:focus {
   box-shadow: 0 0 5px rgb(116, 226, 115);
   border: 1px solid rgb(116, 226, 115);
 }

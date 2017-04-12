@@ -18,6 +18,21 @@ export class AdminService {
     templateUrl: "adminpanel.component.html"
 })
 export class AdminPanelComponent implements OnInit {
+    private musicianView: any = {
+        email: "",
+        fbid: "",
+        stageName: "",
+        firstName: "",
+        lastName: "",
+        soundcloudLink: "",
+        bio: "",
+        instagramLink: "",
+        youtubeLink: "",
+        facebookLink: "",
+        picture_url: "",
+        verified: false,
+    };
+
     constructor(
     private ps: PersistentService,
     private backendService: BackendService,
@@ -30,6 +45,12 @@ export class AdminPanelComponent implements OnInit {
                 $(e.currentTarget).addClass('active');
                 $('.adminPanel > div,form').hide(150);
                 $(toShow).delay(150).show();
+            });
+            $('.artistBlock .exit').click(function() {
+                $(this).parent().fadeOut(150);
+            });
+            $('#createShow').click(function() {
+                $('.createShow').show();
             });
         });
     }
@@ -47,6 +68,11 @@ export class AdminPanelComponent implements OnInit {
                 this.as.events = response.events;
             }
         });
+    }
+
+    getMusician(idex: number): void {
+        this.musicianView = this.as.musicians[idex];
+        $('.artistBlock').fadeIn(150);
     }
 
     addShow(form: any): void {

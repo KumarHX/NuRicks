@@ -1,0 +1,44 @@
+.adminPanel {
+  .adminAllShows {
+    .showgrid {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+      padding: 16pt;
+
+      .showBlock {
+        position: relative;
+        width: 400pt;
+        margin: 16pt;
+        background: $darker-light-grey;
+        line-height: 1.6;
+        cursor: default;
+        .showDetails {
+          position: relative;
+          width: 100%;
+          a {
+            position: absolute;
+            top: 8pt;
+            right: 8pt;
+            &:hover {
+              color: $red;
+            }
+          }
+        }
+        input {
+          display: block;
+          width: 80%;
+          margin: 8pt auto;
+          box-shadow: 0 0 5px rgb(226, 84, 66);
+          border: 1px solid rgb(226, 84, 66);
+        }
+      }
+    }
+
+    @include screen('sm') {
+      .showgrid {
+        flex-flow: column nowrap;
+      }
+    }
+  }
+}

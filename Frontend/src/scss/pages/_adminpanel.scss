@@ -1,4 +1,18 @@
 .adminPanel {
+  .createSuccess {
+    position: fixed;
+    top: 16pt;
+    right: 16pt;
+    padding: 20pt;
+    font-size: $tM;
+    color: $bg;
+    border-radius: 3px;
+    background: #5a8d3e;
+    i {
+      top: 4pt;
+      right: 4pt;
+    }
+  }
   .adminTabs {
     span {
       display: inline-block;
@@ -15,74 +29,6 @@
     display: block;
     margin: 8pt auto;
     width: 50%;
-  }
-  .showgrid {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    padding: 16pt;
-
-    .showBlock {
-      width: 400pt;
-      cursor: default;
-      background: $darker-light-grey;
-      a:hover {
-        color: $red;
-      }
-      input {
-        display: block;
-        width: 80%;
-        margin: 8pt auto;
-        box-shadow: 0 0 5px rgb(226, 84, 66);
-        border: 1px solid rgb(226, 84, 66);
-      }
-    }
-  }
-
-  form {
-    width: 400pt;
-    margin: 16pt auto;
-    h3 {
-      text-align: center;
-      color: $dark-grey;
-    }
-    .title {
-      font-size: 2em;
-      text-align: center;
-    }
-    h1 {
-      margin-top: 16pt;
-      color: $red;
-      font-size: 1.6em;
-    }
-    label, h2 {
-      margin-top: 8pt;
-      font-weight: bold;
-    }
-    input, button {
-      max-width: 100vw;
-    }
-    span {
-      display: flex;
-      flex-flow: row nowrap;
-      align-items: center;
-      p {
-        color: $darker-mid-grey;
-        font-weight: bold;
-        margin-right: 4pt;
-      }
-      input {
-        flex-grow: 1;
-      }
-    }
-    button[type="submit"] {
-      margin-top: 16pt;
-    }
-  }
-
-  @include screen('sm') {
-    .showgrid {
-      flex-flow: column nowrap;
-    }
+    min-width: 240pt;
   }
 }

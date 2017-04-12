@@ -57,7 +57,7 @@ EventsModel = {
                 status:1, Event: results
             })
         }).catch(function(err){
-            onsole.log("fail " + err);
+            console.log("fail " + err);
             res.json({status: -1, errors:['Unable to create this Event',err]});
         });
     },

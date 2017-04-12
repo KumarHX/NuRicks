@@ -1,8 +1,23 @@
+<div class="artistBlock modal" style="display: none">
+    <i class="fa fa-times exit"></i>
+    <div class="artistImg" [style.background-image]="'url('+ musicianView.picture_url +')'"></div>
+    <h1>Name:</h1>
+    <h2>{{musicianView.stageName}}</h2>
+    <h2>{{musicianView.firstName}} {{musicianView.lastName}}</h2>
+    <h1>Email: <a>{{musicianView.email || "No Email"}}</a></h1>
+    <h1>Created: <span>{{musicianView.createdAt}}</span></h1>
+    <h1>Social:
+        <a><i [attr.href]="musicianView.facebookLink" target="_blank" *ngIf="musicianView.facebookLink != null   && musicianView.facebookLink != ''"   class="fa fa-facebook"></i></a>
+        <a><i [attr.href]="musicianView.soundcloudLink" target="_blank" *ngIf="musicianView.soundcloudLink != null && musicianView.soundcloudLink != ''" class="fa fa-soundcloud"></i></a>
+        <a><i [attr.href]="musicianView.instagramLink" target="_blank" *ngIf="musicianView.instagramLink != null  && musicianView.instagramLink != ''"  class="fa fa-instagram"></i></a>
+        <a><i [attr.href]="musicianView.youtubeLink" target="_blank" *ngIf="musicianView.youtubeLink != null    && musicianView.youtubeLink != ''"    class="fa fa-youtube"></i></a>
+    </h1>
+</div>
 <div class="adminPanel" style="margin-top: 100px">
     <span class="adminTabs">
         <span class="active" data-show="adminAllShows">All Shows</span>
         <span data-show="adminAllArtists">All Artists</span>
-        <span data-show="addShowForm">Create Show</span>
+        <span id="createShow" data-show="addShowForm">Create Show</span>
     </span>
     <div class="adminAllShows">
         <input type="text" placeholder="Search Shows" class="showSearch">
@@ -12,6 +27,8 @@
                 <a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
                 <div class="showDetails">
                     <h1>{{event.eventName}}</h1>
+                    <h2>Headliner: {{event.headliner}}</h2>
+                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
                     <h3>{{event.eventDate}} &mdash; <span>${{event.cost}}</span></h3>
                     <a><i class="fa fa-pencil"></i> Edit</a>
                 </div>
@@ -25,38 +42,103 @@
 
         <div class="artistGrid">
 
-            <div *ngFor="let musician of as.musicians" class="artistBlock">
-                <div class="artistImg" [style.background-image]="'url('+ musician.picture_url +')'"></div>
-                <h1>Name:</h1>
-                <h2>{{musician.stageName}}</h2>
-                <h2>{{musician.firstName}} {{musician.lastName}}</h2>
-                <h1>Email: <a>{{musician.email || "No Email"}}</a></h1>
-                <h1>Created: <span>{{musician.createdAt}}</span></h1>
-                <h1>Social:
-                    <a><i [attr.href]="musician.facebookLink" target="_blank" *ngIf="musician.facebookLink != null   && musician.facebookLink != ''"   class="fa fa-facebook"></i></a>
-                    <a><i [attr.href]="musician.soundcloudLink" target="_blank" *ngIf="musician.soundcloudLink != null && musician.soundcloudLink != ''" class="fa fa-soundcloud"></i></a>
-                    <a><i [attr.href]="musician.instagramLink" target="_blank" *ngIf="musician.instagramLink != null  && musician.instagramLink != ''"  class="fa fa-instagram"></i></a>
-                    <a><i [attr.href]="musician.youtubeLink" target="_blank" *ngIf="musician.youtubeLink != null    && musician.youtubeLink != ''"    class="fa fa-youtube"></i></a>
-                </h1>
+            <div (click)="getMusician(idex)" *ngFor="let musician of as.musicians; let idex = index">
+                <h1>{{musician.firstName}} {{musician.lastName}}</h1>
+                <h2>{{musician.fbid}}</h2>
             </div>
 
         </div>
     </div>
-    <form style="display: none" #form="ngForm" (ngSubmit)="addShow(form.value)" class="addShowForm">
+    <form style="display: none" #form="ngForm" (ngSubmit)="addShow(form.value)" class="createShow">
         <h1 class="title">Add a show</h1>
         <h3>All fields are required.</h3>
         <hr>
         <label for="eventName">Event Name:</label>
         <input name="eventName" type="text" id="eventName" placeholder="Event name" ngModel>
-        <label for="eventDate">Event Date:</label>
-        <input name="eventDate" type="text" id="eventDate" placeholder="Event Date" ngModel>
+        <label for="headliner">Headliner:</label>
+        <input name="headliner" type="text" id="headliner" placeholder="Headliner" ngModel>
+        <h2 for="eventDate">Event Date:</h2>
+        <div>
+            <select id="day">
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                <option value="4">04</option>
+                <option value="5">05</option>
+                <option value="6">06</option>
+                <option value="7">07</option>
+                <option value="8">08</option>
+                <option value="9">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+            </select>
+            <select id="month">
+                <option value="">January</option>
+                <option value="">February</option>
+                <option value="">March</option>
+                <option value="">April</option>
+                <option value="">May</option>
+                <option value="">June</option>
+                <option value="">July</option>
+                <option value="">August</option>
+                <option value="">September</option>
+                <option value="">October</option>
+                <option value="">November</option>
+                <option value="">December</option>
+            </select>
+            <select id="year">
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+            </select>
+        </div>
         <h2>Event Image:</h2>
         <input name="image_url" type="text" id="imageUrl" placeholder="Image URL" ngModel>
         <h1>Event Time</h1>
         <label for="doorsOpen">Doors Open:</label>
-        <input name="doorsOpen" type="text" id="doorsOpen" placeholder="Doors open time" required ngModel>
+        <span>
+            <input name="doorsOpen" type="text" id="doorsOpen" placeholder="Doors open time" required ngModel>
+            <select>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </span>
         <label for="showStarts">Show Starts:</label>
-        <input name="ShowStarts" type="text" id="showStarts" placeholder="Show start time" required ngModel>
+        <span>
+            <input name="ShowStarts" type="text" id="showStarts" placeholder="Show start time" required ngModel>
+            <select>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </span>
         <h1>Event Location</h1>
         <label for="eventStreet">Street:</label>
         <input name="street_name" type="text" id="eventStreet" placeholder="Street" required ngModel>

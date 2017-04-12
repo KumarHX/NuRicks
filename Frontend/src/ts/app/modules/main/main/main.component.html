@@ -22,16 +22,8 @@
 		<a href="#upcoming"><i class="fa fa-chevron-down"></i></a>
 	</div>
 	<div id="upcoming">
-		<h1 class="title">Upcoming Shows</h1>
+		<h1 class="title">Contact Us</h1>
 		<hr>
-		<div *ngFor="let event of ps.globalUserObject.events" class="showBlock">
-			<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
-			<div class="showDetails">
-				<h1>{{event.eventName}}</h1>
-				<h3>{{event.eventDate}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
-				<a class="btn">Buy Tickets</a>
-			</div>
-		</div>
 		<hr>
 	</div>
 </div>

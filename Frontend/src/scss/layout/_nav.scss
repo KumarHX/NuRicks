@@ -35,7 +35,7 @@ nav {
     position: fixed;
     top: 24pt;
     right: 24pt;
-    font-size: $tS;
+    font-size: $tL;
 
     li {
       display: inline-block;
@@ -43,8 +43,6 @@ nav {
       font-weight: 100;
       &:nth-of-type(3) {
         font-weight: 900;
-        &::before {
-        }
       }
 
       &:hover {

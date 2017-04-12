@@ -1,0 +1,22 @@
+.adminPanel {
+  .adminAllArtists {
+    .artistGrid {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      align-items: center;
+      div {
+        display: inline-block;
+        width: 240pt;
+        margin: 8pt;
+        text-align: center;
+        border: 2px solid $text-color;
+        cursor: pointer;
+
+        h2 {
+          color: $darker-mid-grey;
+        }
+      }
+    }
+  }
+}

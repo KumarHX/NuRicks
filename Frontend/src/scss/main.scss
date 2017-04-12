@@ -26,6 +26,12 @@
 'layout/grid',
 'layout/loginoverlay',
 'layout/footer';
+//admin layout
+@import
+'layout/adminpanel/adminlogin',
+'layout/adminpanel/adminallshows',
+'layout/adminpanel/adminallartists',
+'layout/adminpanel/admincreateshow';
 
 // 5. Components
 @import
