@@ -35,4 +35,24 @@ router.get('/queryPossibleEvents', function(req, res, next){
     EventModel.queryPossibleEvents(res);
 });
 
+router.post('/updateEventInfo', function(req, res, next){
+    var eventID = req.body.eventID;
+    var eventName = req.body.eventName;
+    var	doorsOpen = req.body.doorsOpen;
+    var	ShowStarts = req.body.ShowStarts;
+    var	image_url = req.body.image_url;
+    var	headliner = req.body.headliner;
+    var	eventDate = req.body.eventDate;
+    var	zip_code = req.body.zip_code;
+    var street_name = req.body.street_name;
+    var	city = req.body.city;
+    var	state = req.body.state;
+    var	ageRequirement = req.body.ageRequirement;
+    var cost = req.body.cost;
+    var	isPossibleEvent = req.body.isPossibleEvent;
+    var	extraAtDoor = req.body.extraAtDoor;
+    var	numberNeededToSell = req.body.numberNeededToSell;
+    EventModel.updateEventInfoScreen(res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, extraAtDoor, numberNeededToSell);
+});
+
 module.exports = router;

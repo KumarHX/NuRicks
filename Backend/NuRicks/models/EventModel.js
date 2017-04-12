@@ -112,8 +112,40 @@ EventsModel = {
             console.log("broke");
             res.json({status: -1, errors: ['Unable to find Event', err]});
         });
-    }
+    },
 
+    updateEventInfoScreen: function (res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, extraAtDoor, numberNeededToSell){
+        Events.findOne({
+            where:{
+                id: eventID
+            }
+        }).then(function(editEvent) {
+            editEvent.update({
+                eventName: eventName,
+                doorsOpen:  doorsOpen,
+                ShowStarts: ShowStarts,
+                image_url: image_url,
+                headliner: headliner,
+                venue: venue,
+                eventDate: eventDate,
+                zip_code: zip_code,
+                street_name: street_name,
+                city: city,
+                state: state,
+                ageRequirement: ageRequirement,
+                cost: cost,
+                isPossibleEvent: isPossibleEvent,
+                extraAtDoor: extraAtDoor,
+                numberNeededToSell: numberNeededToSell
+            }).then(function(eventInfo){
+                res.json({status: 1, eventInfo: eventInfo});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit event info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find event', err]});
+        })
+    }
 };
 
 
