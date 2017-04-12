@@ -81,6 +81,7 @@ export class AdminPanelComponent implements OnInit {
         form.extraAtDoor = parseInt(form.extraAtDoor);
         form.numberNeededToSell = parseInt(form.numberNeededToSell);
         form.isPossibleEvent = form.isPossibleEvent == "" ? false : true;
+        form.eventDate = new Date($("#day").val() + " " + $("#month").val() + " " + $("#year").val());
         this.backendService.createEvent(form)
         .subscribe((response: any) => {
             if (response.status == "1") {
