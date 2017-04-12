@@ -82,10 +82,13 @@ export class AdminPanelComponent implements OnInit {
         form.numberNeededToSell = parseInt(form.numberNeededToSell);
         form.isPossibleEvent = form.isPossibleEvent == "" ? false : true;
         form.eventDate = new Date($("#day").val() + " " + $("#month").val() + " " + $("#year").val());
+        form.ShowStarts = form.ShowStarts + " " + $("#startMeridian").val();
+        form.doorsOpen = form.doorsOpen + " " + $("#openMeridian").val();
         this.backendService.createEvent(form)
         .subscribe((response: any) => {
             if (response.status == "1") {
-
+                window.scrollTo(0,0);
+                $(".createSuccess").show().delay(2500).fadeOut();
             }
         });
     }

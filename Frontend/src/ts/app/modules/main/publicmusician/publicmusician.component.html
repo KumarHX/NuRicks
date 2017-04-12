@@ -37,7 +37,10 @@
 						<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
 						<div class="showDetails">
 							<h1>{{event.eventName}}</h1>
-							<h3>{{event.eventDate}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
+		                    <h2>Headliner: {{event.headliner}}</h2>
+		                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
+		                    <h3>Venue: {{event.venue}}</h3>
+							<h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
 							<a class="btn">Buy Tickets</a>
 						</div>
 					</div>

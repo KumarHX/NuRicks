@@ -52,7 +52,10 @@
 						<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
 						<div class="showDetails">
 							<h1>{{event.eventName}}</h1>
-							<h3>{{event.eventDate}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
+		                    <h2>Headliner: {{event.headliner}}</h2>
+		                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
+		                    <h3>Venue: {{event.venue}}</h3>
+							<h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
 							<a class="btn">Buy Tickets</a>
 							<h3 class="progress">Sold:
 								<span class="sold">{{event._ticketsSold}}</span>/<span class="needed">{{event.numberNeededToSell}}</span>
@@ -66,7 +69,10 @@
 						<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
 						<div class="showDetails">
 							<h1>{{event.eventName}}</h1>
-							<h3>{{event.eventDate}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
+		                    <h2>Headliner: {{event.headliner}}</h2>
+		                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
+		                    <h3>Venue: {{event.venue}}</h3>
+							<h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
 							<a class="btn" (click)="viewShow($event)">Join Show</a>
 						</div>
 					</div>
@@ -82,8 +88,9 @@
 	<hr>
 	<h1><i class="fa fa-chevron-down"></i> Event Details</h1>
 	<h3 *ngIf="evs.event.ageRequirement">Must be over {{evs.event.ageRequirement}}</h3>
+	<h3>Need to sell {{evs.event.numberNeededToSell}} tickets</h3>
 	<h3>Located {{evs.event.street_name}} {{evs.event.city}}, {{evs.event.state}} {{evs.event.zip_code}}</h3>
-	<h3>Doors open at {{evs.event.doorsOpen}}</h3>
+	<h3>Sound check at {{evs.event.doorsOpen}}</h3>
 	<h3>Show starts at {{evs.event.ShowStarts}}</h3>
 	<p></p>
 	<hr>

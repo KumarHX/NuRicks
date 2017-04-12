@@ -5,7 +5,7 @@
     <h2>{{musicianView.stageName}}</h2>
     <h2>{{musicianView.firstName}} {{musicianView.lastName}}</h2>
     <h1>Email: <a>{{musicianView.email || "No Email"}}</a></h1>
-    <h1>Created: <span>{{musicianView.createdAt}}</span></h1>
+    <h1>Created: <span>{{musicianView.createdAt | date: "yMMMMd"}}</span></h1>
     <h1>Social:
         <a><i [attr.href]="musicianView.facebookLink" target="_blank" *ngIf="musicianView.facebookLink != null   && musicianView.facebookLink != ''"   class="fa fa-facebook"></i></a>
         <a><i [attr.href]="musicianView.soundcloudLink" target="_blank" *ngIf="musicianView.soundcloudLink != null && musicianView.soundcloudLink != ''" class="fa fa-soundcloud"></i></a>
@@ -14,6 +14,10 @@
     </h1>
 </div>
 <div class="adminPanel" style="margin-top: 100px">
+    <span class="createSuccess dShadow" style="display: none">
+        <i class="fa fa-times exit"></i>
+        New show created
+    </span>
     <span class="adminTabs">
         <span class="active" data-show="adminAllShows">All Shows</span>
         <span data-show="adminAllArtists">All Artists</span>
@@ -29,7 +33,8 @@
                     <h1>{{event.eventName}}</h1>
                     <h2>Headliner: {{event.headliner}}</h2>
                     <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
-                    <h3>{{event.eventDate}} &mdash; <span>${{event.cost}}</span></h3>
+                    <h3>Venue: {{event.venue}}</h3>
+                    <h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}}</span></h3>
                     <a><i class="fa fa-pencil"></i> Edit</a>
                 </div>
                 <input type="text" placeholder="Public artists">
@@ -128,7 +133,7 @@
         <label for="doorsOpen">Doors Open:</label>
         <span>
             <input name="doorsOpen" type="text" id="doorsOpen" placeholder="Doors open time" required ngModel>
-            <select>
+            <select id="openMeridian">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
             </select>
@@ -136,7 +141,7 @@
         <label for="showStarts">Show Starts:</label>
         <span>
             <input name="ShowStarts" type="text" id="showStarts" placeholder="Show start time" required ngModel>
-            <select>
+            <select id="startMeridian">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
             </select>
