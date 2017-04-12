@@ -80,6 +80,12 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    getTicketFromEventID(id: string): Observable<any> {
+        return this.http.get(`${this.backendUrl}/tickets/queryTicketByEventID/${id}`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     createTicket(fbid: string, eventId: number): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });

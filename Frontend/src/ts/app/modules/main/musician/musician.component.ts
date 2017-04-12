@@ -101,7 +101,6 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
         .subscribe((response: any) => {
             if (response.status == "1") {
                 this.ps.musicianObject.possibleEvents = response.events;
-
                 this.backendService.getMusicianTickets(this.ps.musicianObject.fbid)
                 .subscribe((response: any) => {
                     if (response.status == "1") {

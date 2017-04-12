@@ -1,4 +1,4 @@
-<div class="artistBlock modal" style="display: none">
+<div class="artistBlock modal" id="musicianModal" style="display: none">
     <i class="fa fa-times exit"></i>
     <div class="artistImg" [style.background-image]="'url('+ musicianView.picture_url +')'"></div>
     <h1>Name:</h1>
@@ -12,6 +12,21 @@
         <a><i [attr.href]="musicianView.instagramLink" target="_blank" *ngIf="musicianView.instagramLink != null  && musicianView.instagramLink != ''"  class="fa fa-instagram"></i></a>
         <a><i [attr.href]="musicianView.youtubeLink" target="_blank" *ngIf="musicianView.youtubeLink != null    && musicianView.youtubeLink != ''"    class="fa fa-youtube"></i></a>
     </h1>
+</div>
+<div class="artistBlock modal" id="ticketModal" style="display: none">
+    <i class="fa fa-times exit"></i>
+    <h2 *ngIf="ticketView.length <= 0">No tickets available for this show.</h2>
+    <ul *ngIf="ticketView.length > 0">
+        <li *ngFor="let ticket of ticketView; let idex = index">
+            <h1>Ticket #{{idex+1}}</h1>
+            <h1>Name:</h1>
+            <h2>{{ticket.MusicianFbid}}</h2>
+            <h1>Tickets Sold:</h1>
+            <h2>{{ticket.numberSold}}</h2>
+            <h1>Created: <span>{{ticket.createdAt | date: "yMMMMd"}}</span></h1>
+            <hr>
+        </li>
+    </ul>
 </div>
 <div class="adminPanel" style="margin-top: 100px">
     <span class="createSuccess dShadow" style="display: none">
@@ -27,8 +42,8 @@
         <input type="text" placeholder="Search Shows" class="showSearch">
         <div class="showgrid">
 
-            <div *ngFor="let event of as.events" class="showBlock SBVertical">
-                <a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
+            <div *ngFor="let event of as.events; let idex = index" class="showBlock SBVertical">
+                <a (click)="getEvent(idex)" class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
                 <div class="showDetails">
                     <h1>{{event.eventName}}</h1>
                     <h2>Headliner: {{event.headliner}}</h2>

@@ -33,6 +33,12 @@ export class AdminPanelComponent implements OnInit {
         verified: false,
     };
 
+    private ticketView: any = {
+        "tickets": []
+    }
+
+    private index: number = 0;
+
     constructor(
     private ps: PersistentService,
     private backendService: BackendService,
@@ -66,13 +72,33 @@ export class AdminPanelComponent implements OnInit {
         .subscribe((response) => {
             if (response.status == "1") {
                 this.as.events = response.events;
+                for (this.index = 0; this.index < response.events.length; ++this.index) {
+                    const id = response.events[this.index].id;
+                    this.backendService.getTicketFromEventID(id)
+                    .subscribe((response) => {
+                        for (var j = 0; j < this.as.events.length; ++j) {
+                            if (response.tickets[0] && this.as.events[j].id == response.tickets[0].EventId) {
+                                this.as.events[j].tickets = response.tickets;
+                            }
+                            else {
+                                this.as.events[j].tickets = [];
+                            }
+                        }
+                        console.log(this.as.events);
+                    });
+                }
             }
         });
     }
 
     getMusician(idex: number): void {
         this.musicianView = this.as.musicians[idex];
-        $('.artistBlock').fadeIn(150);
+        $('#musicianModal').fadeIn(150);
+    }
+
+    getEvent(idex: number): void {
+        this.ticketView = this.as.events[idex].tickets;
+        $('#ticketModal').fadeIn(150);
     }
 
     addShow(form: any): void {
