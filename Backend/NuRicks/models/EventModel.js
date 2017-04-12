@@ -32,7 +32,7 @@ const util = require('util');
     },
     image_url: { type: Sequelize.STRING},
     headliner: { type: Sequelize.STRING},
-    venue: { type: Sequelize.STRING }
+    venue: { type: Sequelize.STRING },
     eventDate: { type: Sequelize.STRING, allowNull: false},
     street_name: { type: Sequelize.STRING, allowNull: false},
     zip_code:{type: Sequelize.INTEGER, allowNull: false},
