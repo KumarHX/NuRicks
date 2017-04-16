@@ -30,6 +30,10 @@ hash.configure({ charSet: [ 'A', 'B', 'C', '1', '2', '3','4','5','6','7','8','9'
         type: Sequelize.STRING,
     },
 
+    phoneNumber: {
+        type: Sequelize.STRING,
+    },
+
     stageName: {
     	type: Sequelize.STRING,
     },
