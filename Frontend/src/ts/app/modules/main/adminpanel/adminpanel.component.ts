@@ -111,6 +111,7 @@ export class AdminPanelComponent implements OnInit {
             this.ticketView.tickets[i].firstName = response.musician_info.firstName;
             this.ticketView.tickets[i].lastName  = response.musician_info.lastName;
             this.ticketView.tickets[i].stageName = response.musician_info.stageName;
+            this.ticketView.tickets[i].phoneNumber = response.musician_info.phoneNumber;
             ++i;
             if (i < this.ticketView.tickets.length) {
                 this.getMusician(i);
