@@ -51,7 +51,6 @@ export class BackendService {
             facebookLink:   musicianObject.facebookLink,
             picture_url:    musicianObject.picture_url
         });
-        console.log(body);
         return this.http.post(`${this.backendUrl}/musicians/updateMusicianInfo`, body, options)
             .map(this.extractData)
             .catch(this.handleError)
