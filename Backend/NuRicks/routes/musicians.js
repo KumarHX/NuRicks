@@ -86,7 +86,8 @@ router.post('/updateMusicianInfo', function(req, res, next){
     var	youtubeLink = req.body.youtubeLink;
     var	facebookLink = req.body.facebookLink;
     var picture_url = req.body.picture_url;
-    MusiciansModel.updateMusicianInfoScreen(res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio);
+    var phoneNumber = req.body.phoneNumber;
+    MusiciansModel.updateMusicianInfoScreen(res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio, phoneNumber);
 });
 
 router.get('/logout', (req, res) => {

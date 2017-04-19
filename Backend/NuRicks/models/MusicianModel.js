@@ -257,7 +257,7 @@ MusiciansModel = {
               });
      },
 
-    updateMusicianInfoScreen: function (res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio){
+    updateMusicianInfoScreen: function (res, fbid, email, stageName, soundcloudLink, instagramLink, youtubeLink, facebookLink, picture_url, bio, phoneNumber){
         Musicians.findOne({
             where:{
                 fbid: fbid
@@ -271,7 +271,8 @@ MusiciansModel = {
                 youtubeLink: youtubeLink,
                 facebookLink: facebookLink,
                 picture_url: picture_url,
-                bio: bio
+                bio: bio,
+                phoneNumber: phoneNumber
             }).then(function(musician){
                 res.json({status: 1, musician: musician});
             }).catch(function(err){
