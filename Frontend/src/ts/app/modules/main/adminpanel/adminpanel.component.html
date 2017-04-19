@@ -5,6 +5,7 @@
     <h2>{{musicianView.stageName}}</h2>
     <h2>{{musicianView.firstName}} {{musicianView.lastName}}</h2>
     <h1>Email: <a>{{musicianView.email || "No Email"}}</a></h1>
+    <h1>Phone Number: {{musicianView.phoneNumber}}</h1>
     <h1>Created: <span>{{musicianView.createdAt | date: "yMMMMd"}}</span></h1>
     <h1>Link: <a style="word-break: break-all;" [routerLink]="'/musician/' + musicianView.urlValue" target="_blank">http://www.nrshows.com/musician/{{musicianView.urlValue}}</a></h1>
     <h1>Social:
@@ -68,6 +69,7 @@
                 <h1>Ticket #{{idex+1}}</h1>
                 <h2>Stage Name: {{ticket.stageName}}</h2>
                 <h2>Real Name: {{ticket.firstName}} {{ticket.lastName}}</h2>
+                <h2>Phone Number: {{ticket.phoneNumber}}</h2>
                 <h2>Tickets Sold:</h2>
                 <h2>{{ticket.numberSold}}</h2>
                 <h1>Created: <span>{{ticket.createdAt | date: "yMMMMd"}}</span></h1>

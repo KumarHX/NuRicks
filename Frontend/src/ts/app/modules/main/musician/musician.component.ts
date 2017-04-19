@@ -58,14 +58,14 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
             $(".edit").click(() => {
                 $(".edit").fadeOut(200);
                 $(".submit").fadeIn(200);
-                $(".uploadBanner").fadeIn(250);
+                // $(".uploadBanner").fadeIn(250);
                 $(".bioLinks").delay(200).fadeOut(200);
                 $(".bioEditLinks").delay(400).fadeIn(200);
                 $bio.find(".title, div").attr("contenteditable", "true");
             });
 
             $(".submit").click(() => {
-                $(".uploadBanner").fadeOut(200);
+                // $(".uploadBanner").fadeOut(200);
                 $(".submit").fadeOut(200);
                 $(".edit").fadeIn(250);
                 $(".bioEditLinks").delay(200).fadeOut(200);
@@ -112,14 +112,16 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
                             const numberSold = tickets[i].numberSold;
                             this.backendService.getEventInfoFromID(tickets[i].EventId)
                             .subscribe((response) => {
-                                response.event_info._ticketsSold = numberSold;
-                                this.ps.musicianObject.events.push(response.event_info);
-                                // remove from possible events
-                                const pred = (x: any) => {
-                                    return x.id;
+                                if (response.event_info) {
+                                    response.event_info._ticketsSold = numberSold;
+                                    this.ps.musicianObject.events.push(response.event_info);
+                                    // remove from possible events
+                                    const pred = (x: any) => {
+                                        return x.id;
+                                    }
+                                    const remIndex = this.ps.musicianObject.possibleEvents.map(pred).indexOf(response.event_info.id);
+                                    this.ps.musicianObject.possibleEvents.splice(remIndex, 1);
                                 }
-                                const remIndex = this.ps.musicianObject.possibleEvents.map(pred).indexOf(response.event_info.id);
-                                this.ps.musicianObject.possibleEvents.splice(remIndex, 1);
                             });
                         }
                     }
