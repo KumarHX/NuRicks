@@ -30,12 +30,14 @@ export class AdminPanelComponent implements OnInit {
         youtubeLink: "",
         facebookLink: "",
         picture_url: "",
+        urlValue: "",
         verified: false,
     };
 
     private ticketView: any = {
-        "tickets": []
-    }
+        eventName: '',
+        tickets: []
+    };
 
     private index: number = 0;
 
@@ -49,6 +51,14 @@ export class AdminPanelComponent implements OnInit {
                 var toShow = "." + $(e.currentTarget).attr('data-show');
                 $('.adminTabs').children().removeClass('active');
                 $(e.currentTarget).addClass('active');
+                $('.adminPanel > div,form').hide(150);
+                $(toShow).delay(150).show();
+            });
+            $('.showImg').click(function (e: any) {
+                const ele = $('.adminTabs').children()[1];
+                const toShow = "." + $(ele).attr('data-show');
+                $('.adminTabs').children().removeClass('active');
+                $(ele).addClass('active');
                 $('.adminPanel > div,form').hide(150);
                 $(toShow).delay(150).show();
             });
@@ -84,7 +94,6 @@ export class AdminPanelComponent implements OnInit {
                                 this.as.events[j].tickets = [];
                             }
                         }
-                        console.log(this.as.events);
                     });
                 }
             }
@@ -96,9 +105,25 @@ export class AdminPanelComponent implements OnInit {
         $('#musicianModal').fadeIn(150);
     }
 
+    getMusicianNet(i: number) {
+        this.backendService.getMusicianFromFbid(this.ticketView.tickets[i].MusicianFbid)
+        .subscribe((response: any) => {
+            this.ticketView.tickets[i].firstName = response.musician_info.firstName;
+            this.ticketView.tickets[i].lastName  = response.musician_info.lastName;
+            this.ticketView.tickets[i].stageName = response.musician_info.stageName;
+            ++i;
+            if (i < this.ticketView.tickets.length) {
+                this.getMusician(i);
+            }
+        });
+    }
+
     getEvent(idex: number): void {
-        this.ticketView = this.as.events[idex].tickets;
-        $('#ticketModal').fadeIn(150);
+        this.ticketView.tickets = this.as.events[idex].tickets;
+        this.ticketView.eventName = this.as.events[idex].eventName;
+        if (this.ticketView.tickets && this.ticketView.tickets.length > 0) {
+            this.getMusicianNet(0);
+        }
     }
 
     addShow(form: any): void {

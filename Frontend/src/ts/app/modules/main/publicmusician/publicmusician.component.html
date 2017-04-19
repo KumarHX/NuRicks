@@ -1,7 +1,8 @@
 <div class="mainWrapper">
 	<div class="musicianWrapper">
-		<div class="bioBanner" [style.background-image]="'url('+ pm.p_musicianObject.picture_url +')'">
+		<div class="bioBanner" [style.background-image]="'url(res/banner.jpg)'">
 			<ul class="bioLinks">
+				<div class="bioPic" [style.background-image]="'url('+ pm.p_musicianObject.picture_url +')'"></div>
 				<li *ngIf="pm.p_musicianObject.instagramLink != null && pm.p_musicianObject.instagramLink != ''">
 					<a [attr.href]="pm.p_musicianObject.instagramLink" target="_blank" [attr.data-url]="pm.p_musicianObject.instagramLink">
 						<i class="fa fa-instagram"></i>
@@ -27,7 +28,7 @@
 		<div class="row">
 			<div class="container half bio">
 				<h1 id="stage-name" class="title">{{pm.p_musicianObject.stageName || pm.p_musicianObject.firstName + " " + pm.p_musicianObject.lastName}}</h1>
-				<div id="bio">{{pm.p_musicianObject.bio || bioFallback}}</div>
+				<div id="bio" [innerHTML]="ps.musicianObject.bio | embed | async"></div>
 			</div>
 			<div class="container half myShows">
 				<h1 class="title">Upcoming Shows</h1>

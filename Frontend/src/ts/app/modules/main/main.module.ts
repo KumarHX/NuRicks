@@ -1,24 +1,32 @@
 // Angular imports
-import { NgModule, Injectable } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule, Router, CanActivate } from '@angular/router';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from "@angular/common";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, Injectable } from '@angular/core';
+import {
+    Routes,
+    RouterModule,
+    Router,
+    CanActivate 
+} from '@angular/router';
 
 // Custom Imports
-import { OutletComponent } from './main.component';
+import { MainPipe } from './custom/custom.component';
+import { AdminGuard } from './adminlogin/adminlogin.component';
+import { AdminService } from './adminpanel/adminpanel.component';
 import { NavComponent } from './nav/nav.component';
 import { MainComponent } from './main/main.component';
-import { MusicianComponent } from './musician/musician.component';
-import { EventViewerService } from './musician/musician.component';
-import { PublicMusicianComponent } from './publicmusician/publicmusician.component';
+import { MarkdownModule } from 'angular2-markdown';
 import { BackendService } from './backend/backend.service';
+import { OutletComponent } from './main.component';
+import { MusicianComponent } from './musician/musician.component';
 import { PersistentService } from './main.global.ts';
-import { PublicMusicianService } from './publicmusician/publicmusician.component';
+import { EventViewerService } from './musician/musician.component';
 import { AdminLoginComponent } from './adminlogin/adminlogin.component';
-import { AdminGuard } from './adminlogin/adminlogin.component';
 import { AdminPanelComponent } from './adminpanel/adminpanel.component';
-import { AdminService } from './adminpanel/adminpanel.component';
+import { PublicMusicianService } from './publicmusician/publicmusician.component';
+import { PublicMusicianComponent } from './publicmusician/publicmusician.component';
 
 @Injectable()
 class MusicianGuard implements CanActivate {
@@ -50,7 +58,9 @@ const appRoutes: Routes = [
         HttpModule,
         FormsModule,
         BrowserModule,
-        RouterModule.forRoot(appRoutes)
+        MainPipe,
+        RouterModule.forRoot(appRoutes),
+        MarkdownModule.forRoot()
     ],
     declarations: [
         OutletComponent,

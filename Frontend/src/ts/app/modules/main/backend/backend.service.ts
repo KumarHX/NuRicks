@@ -30,12 +30,19 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    getMusicianFromFbid(id: string): Observable<any> {
+        return this.http.get(`${this.backendUrl}/musicians/getMusicianInfoFromID/${id}`, { withCredentials: true })
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     musicianSaveDashboard(musicianObject: any): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });
         const body: string = JSON.stringify({
             fbid:           musicianObject.fbid,
             email:          musicianObject.email,
+            phoneNumber:    musicianObject.phoneNumber,
             stageName:      musicianObject.stageName,
             bio:            musicianObject.bio,
             soundcloudLink: musicianObject.soundcloudLink,
@@ -44,7 +51,7 @@ export class BackendService {
             facebookLink:   musicianObject.facebookLink,
             picture_url:    musicianObject.picture_url
         });
-
+        console.log(body);
         return this.http.post(`${this.backendUrl}/musicians/updateMusicianInfo`, body, options)
             .map(this.extractData)
             .catch(this.handleError)

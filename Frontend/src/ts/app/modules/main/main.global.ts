@@ -12,6 +12,7 @@ import { BackendService } from "./backend/backend.service";
 
 interface musicianValidation {
     email: string;
+    phoneNumber: string;
     fbid: string;
     stageName: string;
     firstName: string;
@@ -42,6 +43,7 @@ interface userValidation {
 export class PersistentService {
     musicianObject: musicianValidation = {
         email: "",
+        phoneNumber: "",
         fbid: "",
         stageName: "",
         firstName: "",
@@ -91,6 +93,7 @@ export class PersistentService {
                 console.log("Musician");
                 const a = response.musician_info;
                 this.musicianObject.email = a.email;
+                this.musicianObject.phoneNumber = a.phoneNumber;
                 this.musicianObject.fbid = a.fbid;
                 this.musicianObject.stageName = a.stageName;
                 this.musicianObject.firstName = a.firstName;

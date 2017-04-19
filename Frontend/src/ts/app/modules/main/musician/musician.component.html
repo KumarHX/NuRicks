@@ -1,7 +1,8 @@
 <div class="mainWrapper">
 	<div class="musicianWrapper">
 		<h1 class="musicianTitle">Musician Dashboard</h1>
-		<div class="bioBanner" [style.background-image]="'url('+ ps.musicianObject.picture_url +')'">
+		<div class="bioBanner" [style.background-image]="'url(res/banner.jpg)'">
+			<div class="bioPic" [style.background-image]="'url('+ ps.musicianObject.picture_url +')'"></div>
 			<span class="submit" (click)="saveMusicianData()" style="display: none">SAVE <i class="fa fa-lock" aria-hidden="true"></i></span>
 			<ul class="bioLinks">
 				<li *ngIf="ps.musicianObject.instagramLink != null && ps.musicianObject.instagramLink != ''">
@@ -37,9 +38,14 @@
 		</div>
 		<div class="row">
 			<div class="container half bio">
-				<h1 id="stage-name" class="title">{{ps.musicianObject.stageName || ps.musicianObject.firstName + " " + ps.musicianObject.lastName}}</h1>
-				<div id="bio">{{ps.musicianObject.bio || bioFallback}}</div>
+				<h2>Share your profile with fans:</h2>
 				<a [routerLink]="'/musician/' + ps.musicianObject.urlValue" target="_blank">http://www.nrshows.com/musician/{{ps.musicianObject.urlValue}}</a>
+				<label>Email: </label>
+				<div id="artistEmail">{{ps.musicianObject.email}}</div>
+		        <label>Phone Number: </label>
+				<div id="artistPhone">{{ps.musicianObject.phoneNumber}}</div>
+				<h1 id="stage-name" class="title">{{ps.musicianObject.stageName || ps.musicianObject.firstName + " " + ps.musicianObject.lastName}}</h1>
+				<div id="bio" [innerHTML]="ps.musicianObject.bio | embed | async"></div>
 			</div>
 			<div class="container half shows">
 				<span class="showTabs">
@@ -64,18 +70,21 @@
 					</div>
 				</div>
 				<div class="showList availableShowsList" style="display: none">
-					<div *ngIf="ps.musicianObject.possibleEvents.length <= 0">There are currently no possible shows.</div>
-					<div *ngFor="let event of ps.musicianObject.possibleEvents" class="showBlock">
-						<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
-						<div class="showDetails">
-							<h1>{{event.eventName}}</h1>
-		                    <h2>Headliner: {{event.headliner}}</h2>
-		                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
-		                    <h3>Venue: {{event.venue}}</h3>
-							<h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
-							<a class="btn" (click)="viewShow($event)">Join Show</a>
+					<div *ngIf="!ps.musicianObject.phoneNumber || !ps.musicianObject.email">You must enter your email and phone number to be eligible for shows.</div>
+					<div *ngIf="ps.musicianObject.possibleEvents.length <= 0 && ps.musicianObject.phoneNumber && ps.musicianObject.email">There are currently no possible shows.</div>
+					<template *ngIf="ps.musicianObject.phoneNumber && ps.musicianObject.email">
+						<div *ngFor="let event of ps.musicianObject.possibleEvents" class="showBlock">
+							<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
+							<div class="showDetails">
+								<h1>{{event.eventName}}</h1>
+			                    <h2>Headliner: {{event.headliner}}</h2>
+			                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
+			                    <h3>Venue: {{event.venue}}</h3>
+								<h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
+								<a class="btn" (click)="viewShow($event)">Join Show</a>
+							</div>
 						</div>
-					</div>
+					</template>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,11 @@
 // Angular imports
-import { Component, Injectable, OnInit, AfterViewChecked } from "@angular/core";
+import {
+    Component,
+    Injectable,
+    OnInit,
+    AfterViewChecked,
+} from "@angular/core";
+
 import
 {
     Router,
@@ -7,6 +13,7 @@ import
     ActivatedRouteSnapshot,
     RouterStateSnapshot
 } from '@angular/router';
+
 import { Observable } from "rxjs/Rx";
 
 // Custom imports
@@ -14,6 +21,7 @@ import { BackendService } from "../backend/backend.service";
 import { PersistentService } from "../main.global";
 
 declare var $: any;
+declare var SC: any;
 
 export class EventViewerService {
     event: any = {
@@ -88,11 +96,6 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
                     $('.availableShowsList').delay(150).fadeIn(150);
                 }
             });
-
-            // $joinModal.find('h1').click((e: any) => {
-            //     $(e.currentTarget).children('.fa-chevron-down').toggleClass('rotate');
-            //     $(e.currentTarget).sibling('p').toggle(200);
-            // });
         });
     }
 
@@ -126,21 +129,6 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
     }
 
     ngAfterViewChecked() {
-        /* Remove active events from possible events
-         */
-        // var possibleEventIndex = this.ps.musicianObject.possibleEvents.length-1;
-        // var eventIndex = this.ps.musicianObject.events.length-1;
-        //
-        // for (let i = possibleEventIndex; i >= 0; --i) {
-        //     for (let j = eventIndex; j >= 0; --j) {
-        //         if(this.ps.musicianObject.possibleEvents[i].id ==
-        //            this.ps.musicianObject.events[j].id) {
-        //             this.ps.musicianObject.possibleEvents.splice(i, 1);
-        //             break;
-        //         }
-        //     }
-        // }
-
         /* Join show modal
          */
         const $joinModal = $('.joinShowModal');
@@ -181,6 +169,8 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
         this.ps.musicianObject.youtubeLink    = $("#youtube-url").val();
         this.ps.musicianObject.soundcloudLink = $("#soundcloud-url").val();
         this.ps.musicianObject.picture_url    = $("#profile-url").val();
+        this.ps.musicianObject.email          = $("#artistEmail").text();
+        this.ps.musicianObject.phoneNumber    = $("#artistPhone").text();
         this.ps.musicianObject.stageName      = $("#stage-name").text();
         this.ps.musicianObject.bio            = $("#bio").text();
         this.backendService.musicianSaveDashboard(this.ps.musicianObject)

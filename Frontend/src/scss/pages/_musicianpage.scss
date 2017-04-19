@@ -13,10 +13,20 @@
     margin: 0 auto;
     text-shadow: 2px 2px $text-color;
     color: $bg;
-    background-image: url("http://i.imgur.com/XjNSzYX.jpg");
+    background: $darker-light-grey;
     background-size: cover;
     background-position: center center;
     z-index: 0;
+    .bioPic {
+      @include abs-center;
+      width: 96pt;
+      height: 96pt;
+      border: 2px solid $bg;
+      border-radius: 100%;
+      background-image: url("http://i.imgur.com/XjNSzYX.jpg");
+      background-size: cover;
+      background-position: center center;
+    }
     .title {
       @include abs-center;
       font-size: 4em;
@@ -80,10 +90,15 @@
 
     .bio {
       a {
-        margin-top: 16pt;
+        margin-top: 4pt;
+        color: $red;
         &:hover {
-          color: $red;
+          color: $text-color;
         }
+      }
+
+      #artistBio {
+        margin-bottom: 24pt;
       }
     }
     .shows {

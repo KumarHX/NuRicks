@@ -6,6 +6,7 @@
     <h2>{{musicianView.firstName}} {{musicianView.lastName}}</h2>
     <h1>Email: <a>{{musicianView.email || "No Email"}}</a></h1>
     <h1>Created: <span>{{musicianView.createdAt | date: "yMMMMd"}}</span></h1>
+    <h1>Link: <a style="word-break: break-all;" [routerLink]="'/musician/' + musicianView.urlValue" target="_blank">http://www.nrshows.com/musician/{{musicianView.urlValue}}</a></h1>
     <h1>Social:
         <a><i [attr.href]="musicianView.facebookLink" target="_blank" *ngIf="musicianView.facebookLink != null   && musicianView.facebookLink != ''"   class="fa fa-facebook"></i></a>
         <a><i [attr.href]="musicianView.soundcloudLink" target="_blank" *ngIf="musicianView.soundcloudLink != null && musicianView.soundcloudLink != ''" class="fa fa-soundcloud"></i></a>
@@ -15,9 +16,9 @@
 </div>
 <div class="artistBlock modal" id="ticketModal" style="display: none">
     <i class="fa fa-times exit"></i>
-    <h2 *ngIf="ticketView.length <= 0">No tickets available for this show.</h2>
-    <ul *ngIf="ticketView.length > 0">
-        <li *ngFor="let ticket of ticketView; let idex = index">
+    <h2 *ngIf="ticketView.tickets.length <= 0">No tickets available for this show.</h2>
+    <ul *ngIf="ticketView.tickets.length > 0">
+        <li *ngFor="let ticket of ticketView.tickets; let idex = index">
             <h1>Ticket #{{idex+1}}</h1>
             <h1>Name:</h1>
             <h2>{{ticket.MusicianFbid}}</h2>
@@ -35,15 +36,16 @@
     </span>
     <span class="adminTabs">
         <span class="active" data-show="adminAllShows">All Shows</span>
-        <span data-show="adminAllArtists">All Artists</span>
-        <span id="createShow" data-show="addShowForm">Create Show</span>
+        <span data-show="adminAllArtistsB">Event Viewer</span>
+        <span data-show="_adminAllArtists">All Artists</span>
+        <span data-show="addShowForm" id="createShow">Create Show</span>
     </span>
     <div class="adminAllShows">
         <input type="text" placeholder="Search Shows" class="showSearch">
         <div class="showgrid">
 
             <div *ngFor="let event of as.events; let idex = index" class="showBlock SBVertical">
-                <a (click)="getEvent(idex)" class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
+                <a (click)="getEvent(idex)" data-show="adminAllArtists" class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
                 <div class="showDetails">
                     <h1>{{event.eventName}}</h1>
                     <h2>Headliner: {{event.headliner}}</h2>
@@ -57,7 +59,22 @@
 
         </div>
     </div>
-    <div class="adminAllArtists" style="display: none">
+    <div class="adminAllArtists adminAllArtistsB" id="eventArtist" style="display: none">
+        <h1 class="title" *ngIf="!ticketView.eventName">No event selected.</h1>
+        <h1 class="title">{{ticketView.eventName}}</h1>
+        <div class="artistGrid">
+            <div *ngIf="!ticketView.tickets.length && ticketView.eventName">No tickets for this event.</div>
+            <div *ngFor="let ticket of ticketView.tickets; let idex = index">
+                <h1>Ticket #{{idex+1}}</h1>
+                <h2>Stage Name: {{ticket.stageName}}</h2>
+                <h2>Real Name: {{ticket.firstName}} {{ticket.lastName}}</h2>
+                <h2>Tickets Sold:</h2>
+                <h2>{{ticket.numberSold}}</h2>
+                <h1>Created: <span>{{ticket.createdAt | date: "yMMMMd"}}</span></h1>
+            </div>
+        </div>
+    </div>
+    <div class="adminAllArtists _adminAllArtists" style="display: none">
         <input type="text" placeholder="Search Artists" class="artistSearch">
 
         <div class="artistGrid">
