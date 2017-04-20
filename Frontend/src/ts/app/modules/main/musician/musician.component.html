@@ -45,7 +45,7 @@
 		        <label>Phone Number: </label>
 				<div id="artistPhone">{{ps.musicianObject.phoneNumber}}</div>
 				<h1 id="stage-name" class="title">{{ps.musicianObject.stageName || ps.musicianObject.firstName + " " + ps.musicianObject.lastName}}</h1>
-				<div id="bio" [innerHTML]="ps.musicianObject.bio | embed | async"></div>
+				<div id="bio" style="white-space: pre-wrap" [innerHTML]="ps.musicianObject.bio | embed | async"></div>
 			</div>
 			<div class="container half shows">
 				<span class="showTabs">
