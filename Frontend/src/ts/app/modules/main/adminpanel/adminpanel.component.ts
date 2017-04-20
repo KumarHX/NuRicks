@@ -71,6 +71,18 @@ export class AdminPanelComponent implements OnInit {
         });
     }
 
+    eventCallback(index: number): void {
+        if (this.as.events[index]) {
+            this.backendService.getTicketFromEventID(this.as.events[index].id)
+            .subscribe((response: any) => {
+                if (response.status == "1") {
+                    this.as.events[index].tickets = response.tickets;
+                    this.eventCallback(index+1);
+                }
+            });
+        }
+    }
+
     ngOnInit() {
         this.backendService.getAllMusicians()
         .subscribe((response) => {
@@ -82,20 +94,7 @@ export class AdminPanelComponent implements OnInit {
         .subscribe((response) => {
             if (response.status == "1") {
                 this.as.events = response.events;
-                for (this.index = 0; this.index < response.events.length; ++this.index) {
-                    const id = response.events[this.index].id;
-                    this.backendService.getTicketFromEventID(id)
-                    .subscribe((response) => {
-                        for (var j = 0; j < this.as.events.length; ++j) {
-                            if (response.tickets[0] && this.as.events[j].id == response.tickets[0].EventId) {
-                                this.as.events[j].tickets = response.tickets;
-                            }
-                            else {
-                                this.as.events[j].tickets = [];
-                            }
-                        }
-                    });
-                }
+                this.eventCallback(0);
             }
         });
     }
