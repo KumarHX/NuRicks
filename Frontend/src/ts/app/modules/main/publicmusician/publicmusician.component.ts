@@ -88,7 +88,9 @@ export class PublicMusicianComponent implements OnInit {
                 for (var i = 0; i < tickets.length; ++i) {
                     this.backendService.getEventInfoFromID(tickets[i].EventId)
                     .subscribe((response) => {
-                        this.pm.p_events.push(response.event_info);
+                        if (response.status == "1") {
+                            this.pm.p_events.push(response.event_info);
+                        }
                     });
                 }
             }
