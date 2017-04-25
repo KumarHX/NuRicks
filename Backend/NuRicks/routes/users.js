@@ -19,6 +19,12 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook-users'),
     res.redirect('http://localhost:8001/');
 });
 
+router.post('/createPaymentInformation/:fbid', function(req, res, next){
+    var nonce = req.body.payment_method_nonce;
+    var fbid = req.params.fbid;
+    UsersModel.createPaymentInformation(res, fbid, nonce);
+});
+
 router.post('/updateCustomerPaymentInfo/:fbid', function(req, res, next){
     var nonce = req.body.payment_method_nonce;
     var fbid = req.params.fbid;

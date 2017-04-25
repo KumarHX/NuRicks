@@ -86,7 +86,28 @@ TransactionModel = {
         });
     },    
 
+    updateCustomerPaymentInfo: function(res, inputEmail, nonceFromTheClient) {
+        Users.findOne({
+            where:{
+                email: inputEmail
+            }
+        }).then(function(userInfo){
+            gateway.customer.update(userInfo.customer_id + "", {
+                email: inputEmail,
+                paymentMethodNonce: nonceFromTheClient
+            }, function (err, result) {
+                if(err != null)
+                {
+                    res.json({status: -1, "customer": "credit card info is fucked, cant update"});
+                }
+            });
+            res.json({status: 1, "customer": "customer updated"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find User', err]});
+        });
 
+    },
 
 };
 

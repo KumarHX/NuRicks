@@ -115,7 +115,7 @@ UsersModel = {
      *
      */
 
-    updatePaymentInformation: function(res, fbid, nonce){
+    createPaymentInformation: function(res, fbid, nonce){
         Users.findOne({
             where:{
                 fbid: fbid
@@ -146,6 +146,29 @@ UsersModel = {
         }).catch(function(err){
             res.json({status: -1, errors:['Error with Sequelize call', err]})
         });
+    },
+
+     updateCustomerPaymentInfo: function(res, fbid, nonceFromTheClient) {
+        Users.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(userInfo){
+            gateway.customer.update(userInfo.customer_id + "", {
+                email: inputEmail,
+                paymentMethodNonce: nonceFromTheClient
+            }, function (err, result) {
+                if(err != null)
+                {
+                    res.json({status: -1, "customer": "credit card info is fucked, cant update"});
+                }
+            });
+            res.json({status: 1, "customer": "customer updated"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find User', err]});
+        });
+
     },
 
 };
