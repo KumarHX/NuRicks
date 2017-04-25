@@ -27,6 +27,10 @@ var Transactions = sequelize.define("Transactions", {
         }
     },
 
+    customerId: {
+        type: Sequelize.STRING
+    },
+
     amount:{
         type: Sequelize.DOUBLE
     },
@@ -70,7 +74,7 @@ TransactionModel = {
             console.log("ERROR: " + err);
             console.log("RESULT: " + result);
             if(result.success){
-                Transactions.create({customer_id: params.customerId, merchant_id: 
+                Transactions.create({customerId: params.customerId, merchant_id: 
                 	"6mds2v6f73hfcfsk",
                 isUser: params.isUser, TicketId:params.ticketID,
                 transaction_id: result.transaction.id, amount: params.amount, status: "In-Progress", 
@@ -84,30 +88,7 @@ TransactionModel = {
                 res.json({status:-1, errors:['Error initializing transaction', err]})
             }
         });
-    },    
-
-    updateCustomerPaymentInfo: function(res, inputEmail, nonceFromTheClient) {
-        Users.findOne({
-            where:{
-                email: inputEmail
-            }
-        }).then(function(userInfo){
-            gateway.customer.update(userInfo.customer_id + "", {
-                email: inputEmail,
-                paymentMethodNonce: nonceFromTheClient
-            }, function (err, result) {
-                if(err != null)
-                {
-                    res.json({status: -1, "customer": "credit card info is fucked, cant update"});
-                }
-            });
-            res.json({status: 1, "customer": "customer updated"});
-        }).catch(function (err) {
-            console.log("broke");
-            res.json({status: -1, errors: ['Unable to find User', err]});
-        });
-
-    },
+    }
 
 };
 
