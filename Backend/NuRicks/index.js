@@ -4,6 +4,7 @@ var routes = require('./routes/siteRouter');
 var musicians = require('./routes/musicians');
 var auth = require('./routes/auth');
 var users = require('./routes/users');
+var transactions = require('./routes/transactions');
 var events = require('./routes/events');
 var tickets = require('./routes/tickets');
 var admins = require('./routes/admins');
@@ -48,6 +49,7 @@ app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/tickets', tickets);
 app.use('/api/admins', admins);
+app.use('/api/transactions', transactions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
