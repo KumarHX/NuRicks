@@ -12,7 +12,11 @@ var Event_models = require("./EventModel");
 var Events = Event_models.Events;
 
 var Tickets = sequelize.define("Tickets", {
-
+    id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
     numberSold:{type: Sequelize.INTEGER, allowNull: false, default:0},
     isGlobal:{type: Sequelize.BOOLEAN, allowNull: false}
 });

@@ -9,4 +9,10 @@ router.get("/getClientToken", function (req, res) {
     TransactionModel.getClientToken(res);
 });
 
+router.post("/initiateTransaction", function(req, res) {
+    var params = req.body;
+    console.log(params);
+    TransactionModel.initiateTransaction(res, params)
+});
+
 module.exports = router;

@@ -19,6 +19,11 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook-users'),
     res.redirect('http://localhost:8001/');
 });
 
+router.post('/updateCustomerPaymentInfo/:fbid', function(req, res, next){
+    var nonce = req.body.payment_method_nonce;
+    var fbid = req.params.fbid;
+    UsersModel.updateCustomerPaymentInfo(res, fbid, nonce);
+});
 
 router.get('/logout', (req, res) => {
     req.session = null;

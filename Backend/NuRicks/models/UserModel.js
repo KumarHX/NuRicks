@@ -3,6 +3,7 @@
  */
 
 var sequelize_modules = require("./init");
+var gateway = sequelize_modules.gateway;
 var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
 var passport = require('passport')
@@ -100,7 +101,52 @@ UsersModel = {
             console.log("broke");
             res.json({status: -1, errors: ['Unable to find User', err]});
         });
-    }
+    },
+
+    /*   Get requested in users.js
+     *
+     *   Given a user's email, as well as their payment method nonce, updates the user's
+     *   customer ID via creating a customer with the braintree API.
+     *
+     *   Arguments:
+     *     res: Response Object Used to respond to a request
+     *     user_email: The email corresponding to the User we wish to update
+     *     nonce: The payment method nonce from the braintree API.
+     *
+     */
+
+    updatePaymentInformation: function(res, fbid, nonce){
+        Users.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(result){
+            if(!result){
+                res.json({status: -1, errors:['User does not exist']})
+            }
+            else{
+                gateway.customer.create({
+                    firstName: result.firstName,
+                    lastName: result.lastName,
+                    email: result.email,
+                    paymentMethodNonce: nonce
+                }, function (err, braintree_result) {
+                    if(braintree_result.success) {
+                        result.update({
+                            customer_id: braintree_result.customer.id
+                        }).then(function (result) {
+                            res.json({status: 1, user: result});
+                        })
+                    }
+                    else{
+                        res.json({status: -1, errors:['Unable to create customer from nonce', err]})
+                    }
+                });
+            }
+        }).catch(function(err){
+            res.json({status: -1, errors:['Error with Sequelize call', err]})
+        });
+    },
 
 };
 

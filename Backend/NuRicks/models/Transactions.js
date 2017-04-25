@@ -26,13 +26,14 @@ var Transactions = sequelize.define("Transactions", {
         type: Sequelize.STRING
     },
 
-    ticketId:{
-        type: Sequelize.INTEGER
-    },
-
     serviceFeeAmount:{
         type: Sequelize.FLOAT
-    } 
+    },
+
+    transaction_id:{
+        type: Sequelize.STRING,
+        primaryKey: true
+    }, 
 });
 
 Users.belongsToMany(Tickets, { through: Transactions });
@@ -43,11 +44,43 @@ Transactions.sync();
 
 TransactionModel = {
 
-	 getClientToken: function(res){
+	getClientToken: function(res){
         gateway.clientToken.generate({}, function (err, response) {
             res.send(response.clientToken);
         });
     },
+
+    initiateTransaction: function(res, params){
+        gateway.transaction.sale({
+            // console.log(params);
+            amount: params.amount.toString(),
+            merchantAccountId: "Nuricks",
+            customerId: params.customerId
+            // serviceFeeAmount: serviceFee,
+        }, function (err, result) {
+            var serviceFee = (Math.round(100*(PERCENTAGE_FEE *  parseFloat(params.amount)))/100.0).toString()
+            // console.log(serviceFee);
+            console.log(result.success);
+            console.log("ERROR: " + err);
+            console.log("RESULT: " + result);
+            if(result.success){
+                Transactions.create({customer_id: params.customerId, merchant_id: 
+                	"6mds2v6f73hfcfsk",
+                UserFbid: params.userID, TicketId:params.ticketID,
+                transaction_id: result.transaction.id, amount: params.amount, status: "In-Progress", 
+                serviceFeeAmount: serviceFee
+                }).then(function(transaction){
+                	res.json({status: 1, "transaction": transaction})
+                })
+            }
+            else{
+                console.log("ERROR: " + err);
+                res.json({status:-1, errors:['Error initializing transaction', err]})
+            }
+        });
+    },    
+
+
 
 };
 
