@@ -14,8 +14,17 @@ var Tickets = Ticket_models.Tickets;
 
 var Transactions = sequelize.define("Transactions", {
 
-    customer_id:{
-        type: Sequelize.STRING
+    isUser:{
+        type: Sequelize.BOOLEAN
+    },
+
+    TicketId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+            model: Tickets,
+            key: 'id'
+        }
     },
 
     amount:{
@@ -35,9 +44,6 @@ var Transactions = sequelize.define("Transactions", {
         primaryKey: true
     }, 
 });
-
-Users.belongsToMany(Tickets, { through: Transactions });
-Tickets.belongsToMany(Users, { through: Transactions });
 
 
 Transactions.sync();
@@ -66,7 +72,7 @@ TransactionModel = {
             if(result.success){
                 Transactions.create({customer_id: params.customerId, merchant_id: 
                 	"6mds2v6f73hfcfsk",
-                UserFbid: params.userID, TicketId:params.ticketID,
+                isUser: params.isUser, TicketId:params.ticketID,
                 transaction_id: result.transaction.id, amount: params.amount, status: "In-Progress", 
                 serviceFeeAmount: serviceFee
                 }).then(function(transaction){
