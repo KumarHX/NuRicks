@@ -36,4 +36,14 @@ router.get('/logout', (req, res) => {
     res.redirect('http://localhost:8001/');
 });
 
+router.get('/getUserInfoFromID/:fbid', function(req, res, next){
+    var search = req.params.fbid;
+    UsersModel.getUserInfoFromID(res, search);
+});
+
+router.get('/getUserInfoFromCustomerID/:customerID', function(req, res, next){
+    var search = req.params.customerID;
+    UsersModel.getUserInfoFromCustomerID(res, search);
+});
+
 module.exports = router;

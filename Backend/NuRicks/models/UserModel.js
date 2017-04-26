@@ -171,6 +171,42 @@ UsersModel = {
 
     },
 
+    getUserInfoFromID: function(res, search){
+        Users.findOne({
+            where:{
+                fbid: search
+            }
+        }).then( function(userInfo){
+            if(userInfo){
+                res.json({status: "1", "user_info": userInfo})
+            }
+            else{
+                res.json({status: -1, errors: ['User does not exist']})
+            }
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find user', err]});
+        });
+    },
+
+    getUserInfoFromCustomerID: function(res, search){
+        Users.findOne({
+            where:{
+               customer_id : search
+            }
+        }).then( function(userInfo){
+            if(userInfo){
+                res.json({status: "1", "user_info": userInfo})
+            }
+            else{
+                res.json({status: -1, errors: ['User does not exist']})
+            }
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find user', err]});
+        });
+    },
+
 };
 
 module.exports.Users = Users;
