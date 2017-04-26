@@ -56,7 +56,7 @@ TransactionModel = {
 
 	getClientToken: function(res){
         gateway.clientToken.generate({}, function (err, response) {
-            res.send(response.clientToken);
+            res.send({tok: response.clientToken});
         });
     },
 
