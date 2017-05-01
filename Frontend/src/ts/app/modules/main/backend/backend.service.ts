@@ -36,6 +36,21 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    getClientToken(): Observable<any> {
+        return this.http.get(`${this.backendUrl}/transactions/getClientToken`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    createPaymentInformation(fbid: string, paymentObj: any): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify(paymentObj);
+        return this.http.post(`${this.backendUrl}/users/createPaymentInformation/${fbid}`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     musicianSaveDashboard(musicianObject: any): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });

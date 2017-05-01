@@ -46,7 +46,7 @@ var Transactions = sequelize.define("Transactions", {
     transaction_id:{
         type: Sequelize.STRING,
         primaryKey: true
-    }, 
+    },
 });
 
 
@@ -64,24 +64,25 @@ TransactionModel = {
         gateway.transaction.sale({
             // console.log(params);
             amount: params.amount.toString(),
-            merchantAccountId: "Nuricks",
             customerId: params.customerId
             // serviceFeeAmount: serviceFee,
         }, function (err, result) {
-            var serviceFee = (Math.round(100*(PERCENTAGE_FEE *  parseFloat(params.amount)))/100.0).toString()
+            // var serviceFee = (Math.round(100*(PERCENTAGE_FEE *  parseFloat(params.amount)))/100.0).toString()
             // console.log(serviceFee);
             console.log(result.success);
+            console.log(params);
             console.log("ERROR: " + err);
-            console.log("RESULT: " + result);
+            console.log("RESULT: " + JSON.stringify(result));
             if(result.success){
-                Transactions.create({customerId: params.customerId, merchant_id: 
-                	"6mds2v6f73hfcfsk",
-                isUser: params.isUser, TicketId:params.ticketID,
-                transaction_id: result.transaction.id, amount: params.amount, status: "In-Progress", 
-                serviceFeeAmount: serviceFee
-                }).then(function(transaction){
-                	res.json({status: 1, "transaction": transaction})
-                })
+                // Transactions.create({customerId: params.customerId,TicketId:params.ticketID,
+                // transaction_id: result.transaction.id, amount: params.amount
+                // }).then(function(transaction){
+                // 	res.json({status: 1, "transaction": transaction})
+                // })
+                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES ("2352352", true, 7, 2, 1, \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
+                ).then(function(transaction) {
+                    res.send({status: "1", transaction: transaction});
+                });
             }
             else {
                 console.log("ERROR: " + err);

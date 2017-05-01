@@ -4,6 +4,7 @@ import {
     Injectable,
     OnInit,
     AfterViewChecked,
+    OnDestroy
 } from "@angular/core";
 
 import
@@ -43,7 +44,7 @@ export class EventViewerService {
     selector: "musician",
     templateUrl: "musician.component.html"
 })
-export class MusicianComponent implements OnInit, AfterViewChecked {
+export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
     bioFallback: string = "Edit your page to add a bio";
     constructor(
     private backendService: BackendService,
@@ -99,7 +100,87 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
         });
     }
 
+    braintree = require('braintree-web');
+    clientKey = "";
+    integration: any;
+    submit: any;
+    form: any;
+
     ngOnInit() {
+        var c = this;
+
+        this.submit = document.querySelector('input[type="submit"]');
+        this.form   = document.querySelector('#checkout-form');
+
+            this.backendService.getClientToken()
+            .subscribe((response: any) => {
+                console.log(response);
+                this.clientKey = response.tok;
+                this.braintree.client.create(
+                {
+                    authorization: this.clientKey
+                }, function (clientErr: any, clientInstance: any) {
+                    if (clientErr) {
+                        return;
+                    }
+                    c.braintree.hostedFields.create({
+                        client: clientInstance,
+                        styles: {
+                            'input': {
+                                'font-size': '14pt'
+                            },
+                            'input.invalid': {
+                                'color': 'red'
+                            },
+                            'input.valid': {
+                                'color': 'green'
+                            }
+                        },
+                        fields: {
+                            number: {
+                                selector: '#card-number',
+                                placeholder: '4111 1111 1111 1111'
+                            },
+                            cvv: {
+                                selector: '#cvv',
+                                placeholder: '123'
+                            },
+                            expirationDate: {
+                                selector: '#expiration-date',
+                                placeholder: '10/2019'
+                            }
+                        }
+                    }, function (hostedFieldsErr: any, hostedFieldsInstance: any) {
+                        if (hostedFieldsErr) {
+                            // Handle error in Hosted Fields creation
+                            return;
+                        }
+
+                        c.submit.removeAttribute('disabled');
+                        c.form.addEventListener('submit', function (event: any) {
+                            event.preventDefault();
+
+                            hostedFieldsInstance.tokenize(function (tokenizeErr: any, payload: any) {
+                                if (tokenizeErr) {
+                                    // Handle error in Hosted Fields tokenization
+                                    return;
+                                }
+                                var u = {
+                                    payment_method_nonce: payload.nonce
+                                }
+
+                                c.backendService.createPaymentInformation(c.ps.musicianObject.fbid, u)
+                                .subscribe((response: any) => {
+                                    console.log(response);
+                                });
+                            });
+                        }, false);
+                    });
+                }
+                );
+            });
+
+
         this.backendService.getPossibleEvents()
         .subscribe((response: any) => {
             if (response.status == "1") {
@@ -141,6 +222,10 @@ export class MusicianComponent implements OnInit, AfterViewChecked {
         $joinModal.find('.exit').click((e: any) => {
             $(e.currentTarget).parent().fadeOut(250);
         });
+    }
+
+    ngOnDestroy() {
+        this.integration.teardown();
     }
 
     viewShow(event: any): void {

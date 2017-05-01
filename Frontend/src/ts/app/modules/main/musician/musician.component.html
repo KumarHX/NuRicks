@@ -105,3 +105,33 @@
 	<hr>
 	<button (click)="submitCreateTicket()">Join Event</button>
 </div>
+
+
+<div class="modal">
+	<!-- <label>Card number</label>
+	<input id="card-number">
+	<br />
+	<label>CVV</label>
+	<input id="cvv">
+	<br />
+	<label>Expiration Date</label>
+	<input id="expiration-date">
+	<br />
+	<button id="braintreeSubmit">Submit</button> -->
+	<form id="checkout-form" action="http://localhost:3000/api/transactions/initiateTransaction" method="post">
+		<div id="error-message"></div>
+
+		<label for="card-number">Card Number</label>
+		<div class="hosted-field" name="card-number" id="card-number"></div>
+
+		<label for="cvv">CVV</label>
+		<div class="hosted-field" name="cvv" id="cvv"></div>
+
+		<label for="expiration-date">Expiration Date</label>
+		<div class="hosted-field" name="expiration-date" id="expiration-date"></div>
+
+		<input type="hidden" name="payment_method_nonce">
+		<input type="submit" value="Pay $10" disabled>
+	</form>
+
+</div>

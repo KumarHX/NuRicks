@@ -80,7 +80,98 @@ export class PublicMusicianComponent implements OnInit {
 
     }
 
+    braintree = require('braintree-web');
+    clientKey = "";
+    integration: any;
+    submit: any;
+    form: any;
+
     ngOnInit() {
+        var c = this;
+
+        this.submit = document.querySelector('input[type="submit"]');
+        this.form   = document.querySelector('#checkout-form');
+
+            this.backendService.getClientToken()
+            .subscribe((response: any) => {
+                console.log(response);
+                this.clientKey = response.tok;
+                this.braintree.client.create(
+                {
+                    authorization: this.clientKey
+                }, function (clientErr: any, clientInstance: any) {
+                    if (clientErr) {
+                        return;
+                    }
+                    c.braintree.hostedFields.create({
+                        client: clientInstance,
+                        styles: {
+                            'input': {
+                                'font-size': '14pt'
+                            },
+                            'input.invalid': {
+                                'color': 'red'
+                            },
+                            'input.valid': {
+                                'color': 'green'
+                            }
+                        },
+                        fields: {
+                            number: {
+                                selector: '#card-number',
+                                placeholder: '4111 1111 1111 1111'
+                            },
+                            cvv: {
+                                selector: '#cvv',
+                                placeholder: '123'
+                            },
+                            expirationDate: {
+                                selector: '#expiration-date',
+                                placeholder: '10/2019'
+                            }
+                        }
+                    }, function (hostedFieldsErr: any, hostedFieldsInstance: any) {
+                        if (hostedFieldsErr) {
+                            // Handle error in Hosted Fields creation
+                            return;
+                        }
+
+                        c.submit.removeAttribute('disabled');
+                        c.form.addEventListener('submit', function (event: any) {
+                            event.preventDefault();
+
+                            hostedFieldsInstance.tokenize(function (tokenizeErr: any, payload: any) {
+                                if (tokenizeErr) {
+                                    // Handle error in Hosted Fields tokenization
+                                    return;
+                                }
+                                var u = {
+                                    payment_method_nonce: payload.nonce
+                                }
+
+                                c.backendService.createPaymentInformation(c.ps.userObject.fbid, u)
+                                .subscribe((response: any) => {
+                                    console.log(response);
+                                    if (response.status = "1") {
+                                        const customer_id = response.user.customer_id;
+                                        const b = {
+                                            customerId: customer_id,
+                                            isUser: true,
+                                            amount: 2
+                                        }
+                                        // c.backendService.initiateTransaction(b)
+                                        // .subscribe((response: any) => {
+                                        //
+                                        // });
+                                    }
+                                });
+                            });
+                        }, false);
+                    });
+                }
+                );
+            });
+
         this.backendService.getMusicianTickets(this.pm.p_musicianObject.fbid)
         .subscribe((response: any) => {
             if (response.status == "1") {
