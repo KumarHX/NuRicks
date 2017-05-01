@@ -139,7 +139,7 @@ UsersModel = {
                         })
                     }
                     else{
-                        res.json({status: -1, errors:['Unable to create customer from nonce', err]})
+                        res.json({status: -2, errors:['Unable to create customer from nonce', err]})
                     }
                 });
             }
@@ -166,7 +166,7 @@ UsersModel = {
             res.json({status: 1, "customer": "customer updated"});
         }).catch(function (err) {
             console.log("broke");
-            res.json({status: -1, errors: ['Unable to find User', err]});
+            res.json({status: -2, errors: ['Unable to find User', err]});
         });
 
     },
@@ -185,7 +185,7 @@ UsersModel = {
             }
         }).catch(function (err) {
             console.log("broke");
-            res.json({status: -1, errors: ['Unable to find user', err]});
+            res.json({status: -2, errors: ['Unable to find user', err]});
         });
     },
 
@@ -203,7 +203,7 @@ UsersModel = {
             }
         }).catch(function (err) {
             console.log("broke");
-            res.json({status: -1, errors: ['Unable to find user', err]});
+            res.json({status: -2, errors: ['Unable to find user', err]});
         });
     },
 

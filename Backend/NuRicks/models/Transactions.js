@@ -83,7 +83,7 @@ TransactionModel = {
                 	res.json({status: 1, "transaction": transaction})
                 })
             }
-            else{
+            else {
                 console.log("ERROR: " + err);
                 res.json({status:-1, errors:['Error initializing transaction', err]})
             }
