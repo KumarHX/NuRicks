@@ -41,9 +41,9 @@
 				<h2>Share your profile with fans:</h2>
 				<a [routerLink]="'/musician/' + ps.musicianObject.urlValue" target="_blank">http://www.nrshows.com/musician/{{ps.musicianObject.urlValue}}</a>
 				<label>Email: </label>
-				<div id="artistEmail">{{ps.musicianObject.email}}</div>
+				<div id="artistEmail" [innerHTML]="ps.musicianObject.email"></div>
 		        <label>Phone Number: </label>
-				<div id="artistPhone">{{ps.musicianObject.phoneNumber}}</div>
+				<div id="artistPhone" [innerHTML]="ps.musicianObject.phoneNumber"></div>
 				<h1 id="stage-name" class="title">{{ps.musicianObject.stageName || ps.musicianObject.firstName + " " + ps.musicianObject.lastName}}</h1>
 				<div id="bio" style="white-space: pre-wrap" [innerHTML]="ps.musicianObject.bio | embed | async"></div>
 			</div>
@@ -107,17 +107,7 @@
 </div>
 
 
-<div class="modal">
-	<!-- <label>Card number</label>
-	<input id="card-number">
-	<br />
-	<label>CVV</label>
-	<input id="cvv">
-	<br />
-	<label>Expiration Date</label>
-	<input id="expiration-date">
-	<br />
-	<button id="braintreeSubmit">Submit</button> -->
+<div class="modal" style="display: none">
 	<form id="checkout-form" action="http://localhost:3000/api/transactions/initiateTransaction" method="post">
 		<div id="error-message"></div>
 
@@ -133,5 +123,4 @@
 		<input type="hidden" name="payment_method_nonce">
 		<input type="submit" value="Pay $10" disabled>
 	</form>
-
 </div>
