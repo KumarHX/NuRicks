@@ -15,4 +15,14 @@ router.post("/initiateTransaction", function(req, res) {
     TransactionModel.initiateTransaction(res, params)
 });
 
+router.get('/getTransactionsByIDMusician/:customerID', function(req, res, next){
+    var search = req.params.email;
+    TransactionModel.getTransactionsFromIDMusician(res, search);
+});
+
+router.get('/getTransactionsByEmailUSER/:customerID', function(req, res, next){
+    var search = req.params.email;
+    TransactionModel.getTransactionsFromIDUser(res, search);
+});
+
 module.exports = router;

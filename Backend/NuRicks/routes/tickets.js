@@ -32,5 +32,10 @@ router.get('/allTickets', function(req, res, next){
     ticketModel.allTickets(res);
 });
 
+router.get('/deleteTicket/:ticketID', function(req, res, next){
+    var search = req.params.ticketID;
+    ticketModel.deleteEvent(res, search);
+});
+
 
 module.exports = router;

@@ -145,7 +145,19 @@ EventsModel = {
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find event', err]});
         })
-    }
+    },
+
+    deleteEvent: function(res, eventId){
+        Events.remove({
+            where: {
+                id: eventId
+            }
+        }).then(function(eventDelete){
+            res.json({status: "1", "deleted_event": eventDelete})
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to delete event', err]});
+        });
+    },
 };
 
 

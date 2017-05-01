@@ -89,7 +89,43 @@ TransactionModel = {
                 res.json({status:-1, errors:['Error initializing transaction', err]})
             }
         });
-    }
+    },
+
+    getTransactionsFromIDMusician: function(res, search){
+        Transactions.findAll({
+                where:{
+                    customerId: search,
+                    isUser: false
+                }
+            }).then(function(transaction){
+                var return_transactions = [];
+                for(var i = 0; i < transaction.length; i++)
+                {
+                    return_transactions.push(transaction[i].dataValues)
+                }
+                res.json({status: 1, transactions:return_transactions})
+            }).catch(function (err) {
+                res.json({status: -1, errors: ['Unable to find transaction', err]});
+            });
+    },
+
+    getTransactionsFromIDUser: function(res, search){
+        Transactions.findAll({
+            where:{
+                customerId: search,
+                isUser: true
+            }
+        }).then( function(transaction){
+            var return_transactions = [];
+            for(var i = 0; i < transaction.length; i++)
+            {
+                return_transactions.push(transaction[i].dataValues)
+            }
+            res.json({status: 1, transactions:return_transactions})
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find transaction', err]});
+        });
+    },
 
 };
 

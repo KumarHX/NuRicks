@@ -30,6 +30,10 @@ router.get('/allEvents', function(req, res, next){
     EventModel.allEvents(res);
 });
 
+router.get('/deleteEvent/:eventID', function(req, res, next){
+    var search = req.params.eventID;
+    EventModel.deleteEvent(res, search);
+});
 
 router.get('/queryPossibleEvents', function(req, res, next){
     EventModel.queryPossibleEvents(res);

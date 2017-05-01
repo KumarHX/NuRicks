@@ -107,7 +107,19 @@ TicketsModel = {
             }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find tickets', err]});
         })
-    }
+    },
+
+    deleteTicket: function(res, ticketId){
+        Tickets.remove({
+            where: {
+                id: ticketId
+            }
+        }).then(function(ticketDelete){
+            res.json({status: "1", "deleted_ticket": ticketDelete})
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to delete ticket', err]});
+        });
+    },
 
 };
 
