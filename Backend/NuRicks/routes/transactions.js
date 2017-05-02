@@ -20,7 +20,7 @@ router.get('/getTransactionsByIDMusician/:customerID', function(req, res, next){
     TransactionModel.getTransactionsFromIDMusician(res, search);
 });
 
-router.get('/getTransactionsByEmailUSER/:customerID', function(req, res, next){
+router.get('/getTransactionsByIDUSER/:customerID', function(req, res, next){
     var search = req.params.email;
     TransactionModel.getTransactionsFromIDUser(res, search);
 });
