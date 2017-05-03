@@ -72,7 +72,9 @@ hash.configure({ charSet: [ 'A', 'B', 'C', '1', '2', '3','4','5','6','7','8','9'
     },
 
     picture_url: { type: Sequelize.TEXT },
-    verified: {type: Sequelize.BOOLEAN}
+    verified: {type: Sequelize.BOOLEAN},
+
+    customer_id: {type: Sequelize.INTEGER}
 });
 
 Musicians.sync();
@@ -281,6 +283,62 @@ MusiciansModel = {
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find musician', err]});
         })
+    },
+
+    createPaymentInformation: function(res, fbid, nonce){
+        Musicians.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(result){
+            if(!result){
+                res.json({status: -1, errors:['User does not exist']})
+            }
+            else{
+                gateway.customer.create({
+                    firstName: result.firstName,
+                    lastName: result.lastName,
+                    email: result.email,
+                    paymentMethodNonce: nonce
+                }, function (err, braintree_result) {
+                    if(braintree_result.success) {
+                        result.update({
+                            customer_id: braintree_result.customer.id
+                        }).then(function (result) {
+                            res.json({status: 1, user: result});
+                        })
+                    }
+                    else{
+                        res.json({status: -2, errors:['Unable to create customer from nonce', err]})
+                    }
+                });
+            }
+        }).catch(function(err){
+            res.json({status: -1, errors:['Error with Sequelize call', err]})
+        });
+    },
+
+     updateCustomerPaymentInfo: function(res, fbid, nonceFromTheClient) {
+        Musicians.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(userInfo){
+            gateway.customer.update(userInfo.customer_id + "", {
+                email: inputEmail,
+                paymentMethodNonce: nonceFromTheClient
+            }, function (err, result) {
+                if(err != null)
+                {
+                    res.json({status: -1, "customer": "credit card info is fucked, cant update"});
+                }
+            });
+            res.json({status: 1, "customer": "customer updated"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -2, errors: ['Unable to find Musician', err]});
+        });
+
     },
 };
 

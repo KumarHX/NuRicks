@@ -54,6 +54,18 @@ router.get('/allMusicians', function(req, res, next){
     MusiciansModel.allMusicians(res);
 });
 
+router.post('/createPaymentInformation/:fbid', function(req, res, next){
+    var nonce = req.body.payment_method_nonce;
+    var fbid = req.params.fbid;
+    MusiciansModel.createPaymentInformation(res, fbid, nonce);
+});
+
+router.post('/updateCustomerPaymentInfo/:fbid', function(req, res, next){
+    var nonce = req.body.payment_method_nonce;
+    var fbid = req.params.fbid;
+    MusiciansModel.updateCustomerPaymentInfo(res, fbid, nonce);
+});
+
 
 router.get('/auth/facebook', passport.authenticate('facebook-musicians'));
 
