@@ -340,6 +340,29 @@ MusiciansModel = {
         });
 
     },
+
+    deleteCustomerPaymentInfo: function(res, search) {
+        Musicians.findOne({
+            where:{
+                fbid: search
+            }
+        }).then(function(musicianInfo){
+            gateway.customer.delete(musicianInfo.customer_id, function (err) {
+                err;
+
+                console.log("ERROR:" + err);
+                console.log("Does it work?");
+                // null
+            });
+            musicianInfo.update({
+                customer_id: null
+            });
+            res.json({status: 1, "musician": "musician deleted"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find Musician', err]});
+        });
+    },
 };
 
 module.exports.Musicians = Musicians;

@@ -28,6 +28,11 @@ router.get('/queryTicketByEventID/:eventID', function(req, res, next){
     ticketModel.queryTicketByEventID(res, search);
 });
 
+router.get('/queryTicketByTicketID/:ticketID', function(req, res, next){
+    var search = req.params.eventID;
+    ticketModel.queryTicketByTicketID(res, search);
+});
+
 router.get('/allTickets', function(req, res, next){
     ticketModel.allTickets(res);
 });

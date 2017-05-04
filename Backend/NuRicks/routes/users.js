@@ -46,4 +46,16 @@ router.get('/getUserInfoFromCustomerID/:customerID', function(req, res, next){
     UsersModel.getUserInfoFromCustomerID(res, search);
 });
 
+router.post('/updateUserInfo', function(req, res, next){
+    var fbid = req.body.fbid;
+    var email = req.body.email;
+    UsersModel.updateUserInfoScreen(res, fbid, email);
+});
+
+
+router.get('/deleteCustomerPaymentInfo/:fbid', function(req, res, next){
+    var search = req.params.fbid;
+    UsersModel.deleteCustomerPaymentInfo(res, search);
+});
+
 module.exports = router;

@@ -107,4 +107,9 @@ router.get('/logout', (req, res) => {
     res.redirect('http://localhost:8001/');
 });
 
+router.get('/deleteCustomerPaymentInfo/:fbid', function(req, res, next){
+    var search = req.params.fbid;
+    MusiciansModel.deleteCustomerPaymentInfo(res, search);
+});
+
 module.exports = router;

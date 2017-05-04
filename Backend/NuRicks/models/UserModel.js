@@ -207,6 +207,47 @@ UsersModel = {
         });
     },
 
+    updateUserInfoScreen: function (res, fbid, email){
+        Users.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(editUser) {
+            editUser.update({
+                email: email
+            }).then(function(user){
+                res.json({status: 1, user: user});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit user info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find user', err]});
+        })
+    },
+
+    deleteCustomerPaymentInfo: function(res, search) {
+        Users.findOne({
+            where:{
+                fbid: search
+            }
+        }).then(function(userInfo){
+            gateway.customer.delete(userInfo.customer_id, function (err) {
+                err;
+
+                console.log("ERROR:" + err);
+                console.log("Does it work?");
+                // null
+            });
+            userInfo.update({
+                customer_id: null
+            });
+            res.json({status: 1, "customer": "customer deleted"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find User', err]});
+        });
+    },
+
 };
 
 module.exports.Users = Users;
