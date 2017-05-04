@@ -1,0 +1,29 @@
+.userWrapper {
+  padding-top: 64pt;
+  .title {
+    margin-bottom: 16pt;
+    font-size: 3em;
+    color: $red;
+    text-align: center;
+  }
+  .userTabs {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+  }
+  .deleteProfile {
+    &:hover {
+      background: $red;
+    }
+  }
+
+  @include screen('sm') {
+    .userTabs {
+      max-width: 100%;
+      font-size: $tS;
+      .tab {
+        padding: 8pt;
+      }
+    }
+  }
+}

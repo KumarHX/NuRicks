@@ -107,31 +107,6 @@
         color: $red;
         text-align: center;
       }
-      .showTabs {
-        white-space: nowrap;
-      }
-      .myShows, .availableShows {
-        position: relative;
-        display: inline-block;
-        text-align: center;
-        width: 160pt;
-        padding: 8pt 0;
-        background: $bg;
-        border: 1px solid $text-color;
-        border-radius: 12pt 4pt 0 0;
-        font-weight: bold;
-        transition: all .15s ease;
-        cursor: pointer;
-        z-index: 0;
-      }
-      .availableShows {
-        margin-left: -8pt;
-      }
-      .activeTab {
-        color: $bg;
-        background: $text-color;
-        z-index: 1;
-      }
       .showBlock {
         flex-flow: column;
         align-items: center;
@@ -155,6 +130,14 @@
   }
 }
 
+@include screen('lg') {
+  .showTabs {
+    span {
+      max-width: 128pt;
+      font-size: $tM;
+    }
+  }
+}
 @include screen('md') {
   .musicianWrapper {
     padding: 120pt 8pt 40pt;
@@ -199,6 +182,15 @@
           display: none;
         }
       }
+    }
+    .showTabs {
+      span {
+        max-width: 50%;
+      }
+    }
+    .deleteProfile {
+      display: block;
+      margin: 0 auto;
     }
   }
 }

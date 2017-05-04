@@ -1,0 +1,22 @@
+.tab {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  padding: 2pt 16pt;
+  background: $bg;
+  border: 1px solid $text-color;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: all .15s ease;
+  cursor: pointer;
+  z-index: 0;
+  &:not(:first-of-type) {
+    margin-left: -4pt;
+  }
+}
+
+.activeTab {
+  color: $bg;
+  background: $text-color;
+  z-index: 1;
+}

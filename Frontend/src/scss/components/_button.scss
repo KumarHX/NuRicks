@@ -43,3 +43,17 @@
     display: inline-block;
   }
 }
+
+.optionBtn {
+  background: $bg;
+  padding: 8pt;
+  margin: 0 2pt;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 0 0 10px 2px rgba($mid-grey, 0.5);
+  transition: all .15s ease;
+  &:hover {
+    background: $text-color;
+    color: $bg;
+  }
+}

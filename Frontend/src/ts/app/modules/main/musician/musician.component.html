@@ -49,8 +49,8 @@
 			</div>
 			<div class="container half shows">
 				<span class="showTabs">
-					<span class="myShows activeTab">My Shows</span>
-					<span class="availableShows">Available Shows</span>
+					<span class="tab myShows activeTab">My Shows</span>
+					<span class="tab availableShows">Available Shows</span>
 				</span>
 				<div class="showList myShowsList">
 					<div *ngIf="ps.musicianObject.events.length <= 0">You are currently not apart of any shows.</div>
@@ -62,7 +62,7 @@
 		                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
 		                    <h3>Venue: {{event.venue}}</h3>
 							<h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
-							<a class="btn">Buy Tickets</a>
+							<a (click)="cardNewWindow()" class="btn">Buy Tickets</a>
 							<h3 class="progress">Sold:
 								<span class="sold">{{event._ticketsSold}}</span>/<span class="needed">{{event.numberNeededToSell}}</span>
 							</h3>
@@ -104,23 +104,4 @@
 	<p></p>
 	<hr>
 	<button (click)="submitCreateTicket()">Join Event</button>
-</div>
-
-
-<div class="modal" style="display: none">
-	<form id="checkout-form" action="http://localhost:3000/api/transactions/initiateTransaction" method="post">
-		<div id="error-message"></div>
-
-		<label for="card-number">Card Number</label>
-		<div class="hosted-field" name="card-number" id="card-number"></div>
-
-		<label for="cvv">CVV</label>
-		<div class="hosted-field" name="cvv" id="cvv"></div>
-
-		<label for="expiration-date">Expiration Date</label>
-		<div class="hosted-field" name="expiration-date" id="expiration-date"></div>
-
-		<input type="hidden" name="payment_method_nonce">
-		<input type="submit" value="Pay $10" disabled>
-	</form>
 </div>

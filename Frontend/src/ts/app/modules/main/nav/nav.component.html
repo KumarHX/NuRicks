@@ -9,7 +9,8 @@
 		<li><a>Tickets</a></li>
 		<li><a>Booking</a></li>
 		<li class="login" id="mLogin" *ngIf="ps.userObject.fbid == '' && ps.musicianObject.fbid == ''"><a>Login</a></li>
-        <li class="login" [routerLink]="['/dashboard']" *ngIf="ps.userObject.fbid != '' || ps.musicianObject.fbid != ''"><a>{{ps.userObject.firstName || ps.musicianObject.firstName}}</a></li>
+        <li class="login" [routerLink]="['/dashboard']" *ngIf="ps.musicianObject.fbid != ''"><a>{{ps.musicianObject.firstName}}</a></li>
+		<li class="login" [routerLink]="['/user']" *ngIf="ps.userObject.fbid != ''"><a>{{ps.userObject.firstName}}</a></li>
         <li *ngIf="ps.userObject.fbid != '' || ps.musicianObject.fbid != ''"><a (click)="logout()">logout</a></li>
 	</ul>
 </nav>

@@ -27,6 +27,7 @@ interface musicianValidation {
     urlValue: string;
     events: any;
     possibleEvents: any;
+    customer_id: any;
 }
 
 interface userValidation {
@@ -57,7 +58,8 @@ export class PersistentService {
         verified: false,
         urlValue: "",
         events: [],
-        possibleEvents: []
+        possibleEvents: [],
+        customer_id: ""
     }
 
     userObject: userValidation = {
@@ -106,6 +108,7 @@ export class PersistentService {
                 this.musicianObject.picture_url = a.picture_url;
                 this.musicianObject.verified = a.verified;
                 this.musicianObject.urlValue = a.urlValue;
+                this.musicianObject.customer_id = a.customer_id;
                 // exception for facebook weirdness
                 if (state.url == '/' || state.url == '/#_=_') {
                     this.router.navigate(['/dashboard']);

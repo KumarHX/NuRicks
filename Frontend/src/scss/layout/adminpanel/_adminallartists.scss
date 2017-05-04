@@ -20,4 +20,20 @@
       }
     }
   }
+  table {
+    margin: 32pt auto;
+    width: 100%;
+    border-collapse: collapse;
+    td, th {
+      padding: 8pt 8pt 0;
+      border: 1px solid $text-color;
+      &:first-of-type {
+        border: none;
+      }
+    }
+    th {
+      padding-bottom: 8pt;
+      font-weight: bold;
+    }
+  }
 }

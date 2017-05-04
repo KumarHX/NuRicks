@@ -1,0 +1,8 @@
+.emailConfirm {
+  max-width: 320pt;
+  margin: 16pt auto;
+
+  @include screen('sm') {
+    width: 100%;
+  }
+}

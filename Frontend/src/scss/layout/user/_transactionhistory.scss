@@ -1,0 +1,14 @@
+.userWrapper {
+  .transactionHistory {
+    width: 100%;
+    margin: 16pt auto;
+    th, td {
+      padding: 4pt 8pt;
+      border: 1px solid $text-color;
+    }
+
+    @include screen('sm') {
+      font-size: $tS;
+    }
+  }
+}

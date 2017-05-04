@@ -1,11 +1,21 @@
 nav {
   position: fixed;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  height: 48pt;
+  line-height: 48pt;
+  width: 100%;
+  min-width: 100%;
+  background: $bg;
   font-size: $mtL;
   z-index: 99;
   .navbar {
     display: none;
     position: fixed;
     width: 100%;
+    min-width: 100%;
+    padding: 0;
     height: 40pt;
     line-height: 40pt;
     color: $bg;
@@ -21,9 +31,8 @@ nav {
     }
   }
   .logo {
-    position: fixed;
-    top: 24pt;
-    left: 24pt;
+    margin-right: auto;
+    margin-left: 12pt;
     font-weight: 900;
     z-index: 99;
 
@@ -32,9 +41,6 @@ nav {
     }
   }
   .pages {
-    position: fixed;
-    top: 24pt;
-    right: 24pt;
     font-size: $tL;
 
     li {
@@ -66,7 +72,7 @@ nav {
   }
 }
 
-.navAbout, .navUpcoming {
+.navAbout, .navContact {
   position: fixed;
   top: 50%;
   float: left;
@@ -84,10 +90,14 @@ nav {
   transform: rotate(270deg) translateX(-50%);
   transform-origin: left center 0;
 }
-.navUpcoming {
+.navContact {
   right: 32pt;
   transform: rotate(90deg) translateX(50%);
   transform-origin: right center 0;
+}
+
+.collapsedNav {
+
 }
 
 @include screen('md') {
@@ -96,7 +106,7 @@ nav {
 @include screen('sm') {
   nav {
     .navbar {
-      display: inherit;
+      display: block;
     }
     .logo {
       top: 5pt;
@@ -108,7 +118,7 @@ nav {
     }
   }
 
-  .navAbout, .navUpcoming {
+  .navAbout, .navContact {
     display: none;
   }
 }

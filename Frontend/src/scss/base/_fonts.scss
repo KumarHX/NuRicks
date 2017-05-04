@@ -1,3 +1,10 @@
 // -----------------------------------------------------------------------------
 // This file contains all @font-face declarations, if any.
 // -----------------------------------------------------------------------------
+nav {
+  font-family: $title-font-stack;
+}
+
+.title {
+  font-family: $title-font-stack;
+}

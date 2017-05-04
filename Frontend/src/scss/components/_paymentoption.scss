@@ -1,0 +1,52 @@
+.paymentOption {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 100%;
+  max-width: 320pt;
+  margin: 8pt auto;
+  padding: 24pt 16pt;
+  border: 2px solid $text-color;
+  .deletePO {
+    position: absolute;
+    top: 4pt;
+    right: 4pt;
+    font-size: $tS;
+    cursor: pointer;
+    transition: color .15s ease;
+    &:hover {
+      color: $red;
+    }
+  }
+  h1 {
+    margin-bottom: 8pt;
+    color: $red;
+  }
+  .optionBtn {
+    width: 100%;
+  }
+
+  @include screen('sm') {
+    width: 100%;
+    padding: 16pt 12pt;
+    h1 {
+      font-size: $tM;
+    }
+    i {
+      font-size: $tS;
+    }
+  }
+}
+
+.newPO {
+  cursor: pointer;
+  transition: all .15s ease;
+  i {
+    font-size: $tL;
+  }
+  &:hover {
+    background: $text-color;
+    color: $bg;
+  }
+}
