@@ -79,14 +79,29 @@
     <div class="adminAllArtists _adminAllArtists" style="display: none">
         <input type="text" placeholder="Search Artists" class="artistSearch">
 
-        <div class="artistGrid">
-
+        <!-- <div class="artistGrid">
             <div (click)="getMusician(idex)" *ngFor="let musician of as.musicians; let idex = index">
                 <h1>{{musician.firstName}} {{musician.lastName}}</h1>
                 <h2>{{musician.fbid}}</h2>
             </div>
+        </div> -->
 
-        </div>
+        <table>
+            <tr>
+                <th></th>
+                <th>Artist Name</th>
+                <th>Joined</th>
+                <th>Artist ID</th>
+                <tr *ngFor="let musician of as.musicians; let idex = index">
+                    <td nowrap="">
+                        <!-- <i class="fa fa-times optionBtn"></i>
+                        <i class="fa fa-save optionBtn"></i> -->
+                    </td>
+                    <td><h2 contenteditable="false">{{musician.firstName}} {{musician.lastName}}</h2></td>
+                    <td><h2 contenteditable="false">{{musician.createdAt | date: "yMMMMd"}}</h2></td>
+                    <td><h2 contenteditable="false">{{musician.fbid}}</h2></td>
+            </tr>
+        </table>
     </div>
     <form style="display: none" #form="ngForm" (ngSubmit)="addShow(form.value)" class="createShow">
         <h1 class="title">Add a show</h1>
