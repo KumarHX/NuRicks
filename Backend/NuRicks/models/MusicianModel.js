@@ -3,6 +3,7 @@
  */
 
 var sequelize_modules = require("./init");
+var gateway = sequelize_modules.gateway;
 var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
 var passport = require('passport');

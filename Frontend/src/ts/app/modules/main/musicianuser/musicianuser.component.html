@@ -1,0 +1,46 @@
+<div class="userWrapper">
+    <h1 class="title">Account</h1>
+    <div class="userTabs" *ngIf="ps.musicianObject.customer_id">
+        <!-- <span class="tab activeTab">Settings</span> -->
+        <span data-show="_payment" class="tab activeTab">Payment</span>
+        <span data-show="_transactionhistory" class="tab">Transaction History</span>
+    </div>
+    <!-- <div class="userSettings" *ngIf="!ps.userObect?.customer_id">
+        <form id="nonceForm" action="" class="emailConfirm">
+            <h2>Please confirm your email before you can purchase tickets:</h2>
+            <input type="text">
+            <button type="submit">Submit</button>
+        </form>
+    </div> -->
+    <div class="paymentOptions _payment _userpanel">
+        <div class="paymentOption" *ngIf="ps.musicianObject.customer_id">
+            <span class="deletePO">DELETE</span>
+            <h1><i class="fa fa-cc-visa"></i> Card ending in 1234</h1>
+            <i class="fa fa-edit optionBtn"><span>EDIT</span></i>
+        </div>
+        <!-- <div class="paymentOption">
+            <span class="deletePO">DELETE</span>
+            <h1><i class="fa fa-paypal"></i> example@email.com</h1>
+            <i class="fa fa-edit optionBtn"><span>EDIT</span></i>
+        </div> -->
+        <div (click)="cardNewWindow()" *ngIf="!ps.musicianObject?.customer_id" class="paymentOption newPO">
+            <i class="fa fa-plus"></i>
+            <h2>Add Payment Option</h2>
+        </div>
+    </div>
+    <ng-container *ngIf="ps.musicianObject.customer_id">
+        <table class="transactionHistory _transactionhistory _userpanel" style="display: none;">
+            <tr>
+                <th>Event</th>
+                <th>Total</th>
+                <th>Order Placed</th>
+            </tr>
+            <tr *ngFor="let t of transactions">
+                <td>Event #1</td>
+                <td>{{t.amount}} + {{t.serviceFeeAmount ? t.serviceFeeAmount : 0}} Service Fee</td>
+                <td>April 23, 2017 8:37PM</td>
+            </tr>
+        </table>
+    </ng-container>
+    <button class="deleteProfile"><i class="fa fa-times-circle"></i> Delete Profile</button>
+</div>

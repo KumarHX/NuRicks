@@ -26,6 +26,7 @@ import { PersistentService } from './main.global.ts';
 import { EventViewerService } from './musician/musician.component';
 import { AdminLoginComponent } from './adminlogin/adminlogin.component';
 import { AdminPanelComponent } from './adminpanel/adminpanel.component';
+import { MusicianUserComponent} from './musicianuser/musicianuser.component';
 import { PublicMusicianService } from './publicmusician/publicmusician.component';
 import { PublicMusicianComponent } from './publicmusician/publicmusician.component';
 
@@ -53,7 +54,7 @@ class UserGuard implements CanActivate {
     ) {}
 
     canActivate() {
-        if (this.ps.userObject.fbid != '') {
+        if (this.ps.userObject.fbid != '' || this.ps.musicianObject.fbid != '') {
             return true;
         }
         this.router.navigate(['/']);
@@ -67,7 +68,8 @@ const appRoutes: Routes = [
     { path: "musician/:id", component: PublicMusicianComponent, resolve: { pers: PersistentService, mus: PublicMusicianService } },
     { path: "adminlogin", component: AdminLoginComponent },
     { path: "adminpanel", component: AdminPanelComponent, canActivate: [ AdminGuard ] },
-    { path: "user", component: UserComponent, canActivate: [ UserGuard ] }
+    { path: "user", component: UserComponent, canActivate: [ UserGuard ] },
+    { path: "musicianuser", component: MusicianUserComponent, canActivate: [ UserGuard ]}
 ];
 
 @NgModule({
@@ -88,7 +90,8 @@ const appRoutes: Routes = [
         PublicMusicianComponent,
         AdminLoginComponent,
         AdminPanelComponent,
-        UserComponent
+        UserComponent,
+        MusicianUserComponent
     ],
     bootstrap: [
         NavComponent,
