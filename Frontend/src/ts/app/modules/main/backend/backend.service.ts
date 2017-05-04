@@ -51,6 +51,16 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    initiateTransaction(amount: string, customerId: string): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify({amount: amount, customerId: customerId});
+        return this.http.post(`${this.backendUrl}/transactions/initiateTransaction/`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+
     deleteCustomerPaymentInfo(fbid: string): Observable<any> {
         return this.http.get(`${this.backendUrl}/users/deleteCustomerPaymentInfo/${fbid}`)
             .map(this.extractData)
