@@ -14,7 +14,7 @@
     </div> -->
     <div class="paymentOptions _payment _userpanel">
         <div class="paymentOption" *ngIf="ps.userObject.customer_id">
-            <span class="deletePO">DELETE</span>
+            <span class="deletePO" (click)="deletePaymentMethod()">DELETE</span>
             <h1><i class="fa fa-cc-visa"></i> Card ending in 1234</h1>
             <i class="fa fa-edit optionBtn"><span>EDIT</span></i>
         </div>

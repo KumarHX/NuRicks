@@ -143,4 +143,13 @@ export class UserComponent implements OnInit {
             });
         });
     }
+
+    deletePaymentMethod(): void {
+        this.backendService.deleteCustomerPaymentInfo(this.ps.userObject.fbid)
+        .subscribe((response: any) => {
+            if (response.status == "1") {
+                this.ps.userObject.customer_id = null;
+            }
+        })
+    }
 }

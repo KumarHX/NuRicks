@@ -143,4 +143,13 @@ export class MusicianUserComponent implements OnInit {
             });
         });
     }
+
+    deletePaymentMethod(): void {
+        this.backendService.musicianDeleteCustomerPaymentInfo(this.ps.musicianObject.fbid)
+        .subscribe((response) => {
+            if (response.status == "1") {
+                this.ps.musicianObject.customer_id = null;
+            }
+        })
+    }
 }
