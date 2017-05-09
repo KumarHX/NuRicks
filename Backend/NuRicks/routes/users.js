@@ -54,7 +54,7 @@ router.post('/updateUserInfo', function(req, res, next){
 
 router.post('/updateCardDigits', function(req, res, next){
     var fbid = req.body.fbid;
-    var email = req.body.digits;
+    var digits = req.body.digits;
     UsersModel.updateUserCardDigits(res, fbid, digits);
 });
 

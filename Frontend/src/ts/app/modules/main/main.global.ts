@@ -28,6 +28,7 @@ interface musicianValidation {
     events: any;
     possibleEvents: any;
     customer_id: any;
+    card_digits: string;
 }
 
 interface userValidation {
@@ -37,6 +38,7 @@ interface userValidation {
     firstName: string;
     lastName: string;
     picture_url: string;
+    card_digits: string;
 }
 
 // keep user logged in
@@ -59,7 +61,8 @@ export class PersistentService {
         urlValue: "",
         events: [],
         possibleEvents: [],
-        customer_id: ""
+        customer_id: "",
+        card_digits: ""
     }
 
     userObject: userValidation = {
@@ -68,7 +71,8 @@ export class PersistentService {
         customer_id: "",
         firstName: "",
         lastName: "",
-        picture_url: ""
+        picture_url: "",
+        card_digits: ""
     }
 
     globalUserObject: any = {
@@ -109,6 +113,7 @@ export class PersistentService {
                 this.musicianObject.verified = a.verified;
                 this.musicianObject.urlValue = a.urlValue;
                 this.musicianObject.customer_id = a.customer_id;
+                this.musicianObject.card_digits = a.card_digits;
                 // exception for facebook weirdness
                 if (state.url == '/' || state.url == '/#_=_') {
                     this.router.navigate(['/dashboard']);
@@ -123,6 +128,7 @@ export class PersistentService {
                 this.userObject.firstName = a.firstName;
                 this.userObject.lastName = a.lastName;
                 this.userObject.picture_url = a.picture_url;
+                this.userObject.card_digits = a.card_digits;
             }
         }).first();
     }
