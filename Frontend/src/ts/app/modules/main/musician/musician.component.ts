@@ -160,7 +160,7 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
         }
     }
 
-    cardNewWindow(): void {
+    cardNewWindow(idex: number): void {
         let t = (screen.height/2)-(250);
         let l = (screen.width/ 2)-(300);
         this.popup = window.open('', '_blank', 'location=0,toolbar=0,resizable=0,top='+t+',left='+l+',menubar=0,height=325,width=600');
@@ -170,12 +170,25 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.popup.document.close();
         this.popup_doc = this.popup.document;
         var c = this;
+        var eventId = this.ps.musicianObject.events[idex].id;
         this.popup["formcallback"] = function() {
             console.log(c.popup.document);
             var val = c.popup.document.forms["cardForm"][0].value;
-            c.backendService.initiateTransaction(val, c.ps.musicianObject.customer_id)
-            .subscribe((response: any) => {
-                console.log(response);
+            console.log(val);
+            c.backendService.getTicketFromEventID(eventId)
+            .subscribe((result: any) => {
+                var ticketId = -1;
+                for (var i = 0; i < result.length; ++i) {
+                    if (result.tickets[i].MusicianFbid == c.ps.musicianObject.fbid) {
+                        ticketId = result.tickets[i].id;
+                        break;
+                    }
+                }
+                c.backendService.initiateTransaction(val, c.ps.musicianObject.customer_id, !!c.ps.userObject.customer_id, ticketId)
+                .subscribe((response: any) => {
+                    console.log(response);
+                    c.popup.close();
+                });
             });
         };
     }

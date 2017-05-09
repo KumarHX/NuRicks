@@ -38,7 +38,7 @@ const util = require('util')
     },
 
     picture_url: { type: Sequelize.TEXT },
-    customer_id: {type: Sequelize.INTEGER}.
+    customer_id: {type: Sequelize.INTEGER},
     card_digits: {type: Sequelize.STRING}
 });
 

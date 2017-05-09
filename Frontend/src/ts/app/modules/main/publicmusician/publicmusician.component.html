@@ -34,7 +34,7 @@
 				<h1 class="title">Upcoming Shows</h1>
 				<div class="showList myShowsList">
 					<div *ngIf="pm.p_events.length <= 0">This musician currently does not have any shows.</div>
-					<div *ngFor="let event of pm.p_events" class="showBlock">
+					<div *ngFor="let event of pm.p_events; let idex = index" class="showBlock">
 						<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
 						<div class="showDetails">
 							<h1>{{event.eventName}}</h1>
@@ -42,7 +42,7 @@
 		                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
 		                    <h3>Venue: {{event.venue}}</h3>
 							<h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
-							<a (click)="ps.userObject.customer_id || ps.musicianObject.customer_id ? cardNewWindow() : linkToPayment()" class="btn">{{ps.userObject.customer_id || ps.musicianObject.customer_id ? "Buy Tickets" : "Enter a Payment Option"}}</a>
+							<a (click)="ps.userObject.customer_id || ps.musicianObject.customer_id ? cardNewWindow(idex) : linkToPayment()" class="btn">{{ps.userObject.customer_id || ps.musicianObject.customer_id ? "Buy Tickets" : "Enter a Payment Option"}}</a>
 						</div>
 					</div>
 				</div>
