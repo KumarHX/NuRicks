@@ -69,6 +69,14 @@ export class MusicianUserComponent implements OnInit {
         this.ngOnInit();
     }
 
+    updateCC(payload: any): void {
+        this.backendService.musicianUpdateCC(this.ps.musicianObject.fbid, payload.details.lastTwo)
+        .subscribe((response: any) => {
+            console.log(response);
+            this.zone.run(() => this.ps.musicianObject.card_digits = response.musician.card_digits);
+        })
+    }
+
     cardNewWindow(): void {
         let t = (screen.height/2)-(250);
         let l = (screen.width/ 2)-(300);
@@ -120,7 +128,7 @@ export class MusicianUserComponent implements OnInit {
                         }
                     }, function (hostedFieldsErr: any, hostedFieldsInstance: any) {
                         let form = c.popup_doc.querySelector("#cardForm");
-                        console.log($("#card-number").val());
+
                         if (hostedFieldsErr) {
                             // Handle error in Hosted Fields creation
                             return;
@@ -130,6 +138,8 @@ export class MusicianUserComponent implements OnInit {
                         form.addEventListener('submit', function (event: any) {
                             event.preventDefault();
                             hostedFieldsInstance.tokenize(function (tokenizeErr: any, payload: any) {
+                                var payState = payload;
+                                console.log(payload);
                                 if (tokenizeErr) {
                                     // Handle error in Hosted Fields tokenization
                                     return;
@@ -143,6 +153,7 @@ export class MusicianUserComponent implements OnInit {
                                     console.log(response);
                                     c.popup.close();
                                     c.updateCID(response.user.customer_id);
+                                    c.updateCC(payState);
                                 });
                             });
                         }, false);
