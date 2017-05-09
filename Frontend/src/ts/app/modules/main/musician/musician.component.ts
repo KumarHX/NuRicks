@@ -50,7 +50,8 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
     constructor(
     private backendService: BackendService,
     private ps: PersistentService,
-    private evs: EventViewerService
+    private evs: EventViewerService,
+    private router: Router
     ) {
         $(document).ready(function () {
             const $bio = $(".bio");
@@ -111,6 +112,8 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.backendService.getPossibleEvents()
         .subscribe((response: any) => {
             if (response.status == "1") {
+                // push is nasty
+                this.ps.musicianObject.events = [];
                 this.ps.musicianObject.possibleEvents = response.events;
                 this.backendService.getMusicianTickets(this.ps.musicianObject.fbid)
                 .subscribe((response: any) => {
@@ -170,11 +173,15 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.popup["formcallback"] = function() {
             console.log(c.popup.document);
             var val = c.popup.document.forms["cardForm"][0].value;
-            c.backendService.initiateTransaction(val, c.ps.userObject.customer_id || c.ps.musicianObject.customer_id)
+            c.backendService.initiateTransaction(val, c.ps.musicianObject.customer_id)
             .subscribe((response: any) => {
                 console.log(response);
             });
         };
+    }
+
+    linkToPayment(): void {
+        this.router.navigate(['/musicianuser']);
     }
 
     viewShow(event: any): void {

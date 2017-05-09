@@ -73,6 +73,12 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    deleteMusician(fbid: string): Observable<any> {
+        return this.http.get(`${this.backendUrl}/musicians/deleteMusician/${fbid}`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     musicianCreatePaymentInformation(fbid: string, paymentObj: any): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });

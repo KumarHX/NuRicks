@@ -55,7 +55,6 @@
                     <h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}}</span></h3>
                     <a><i class="fa fa-pencil"></i> Edit</a>
                 </div>
-                <input type="text" placeholder="Public artists">
             </div>
 
         </div>
@@ -94,8 +93,8 @@
                 <th>Artist ID</th>
                 <tr *ngFor="let musician of as.musicians; let idex = index">
                     <td nowrap="">
-                        <!-- <i class="fa fa-times optionBtn"></i>
-                        <i class="fa fa-save optionBtn"></i> -->
+                        <i (click)="deleteMusician(idex)" class="fa fa-times optionBtn"></i>
+                        <i class="fa fa-save optionBtn"></i>
                     </td>
                     <td><h2 contenteditable="false">{{musician.firstName}} {{musician.lastName}}</h2></td>
                     <td><h2 contenteditable="false">{{musician.createdAt | date: "yMMMMd"}}</h2></td>
