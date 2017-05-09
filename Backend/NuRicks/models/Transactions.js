@@ -64,7 +64,7 @@ TransactionModel = {
         });
     },
 
-    initiateTransaction: function(res, params, total){
+    initiateTransaction: function(res, params, total, numberSold){
         gateway.transaction.sale({
             amount: total,
             customerId: params.customerId
@@ -76,8 +76,25 @@ TransactionModel = {
             if(result.success){
                 sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + params.customerId +', ' + params.isUser + ', \''+ result.transaction.id +'\', '+ total +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
                 ).then(function(transaction) {
-                    res.send({status: "1", transaction: transaction});
-                });
+                    console.log("HEEEEEEREEEEEE: " + params.ticketId)
+                    Tickets.findOne({
+                        where: {
+                            id: parseInt(params.ticketId)
+                        }
+                    })
+                    .then(function (editTicket) {
+                        editTicket.update({
+                            numberSold: numberSold + editTicket.numberSold
+                        }).then(function(ticket){
+                        
+                        }).catch(function(err){
+                            res.json({status: -1, errors: ['Unable to edit ticket info', err]});
+                        });
+                    }).catch(function (err) {
+                    res.json({status: -1, errors: ['Unable to find ticket', err]});
+                })
+                  res.send({status: "1", transaction: transaction});
+                })
             }
             else {
                 console.log("ERROR: " + err);
@@ -102,7 +119,8 @@ TransactionModel = {
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find transaction', err]});
         });
-    }
+    },
+
 };
 
 module.exports.Transactions = Transactions;

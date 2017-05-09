@@ -13,7 +13,7 @@ router.post("/initiateTransaction", function(req, res) {
     var params = req.body;
     console.log(params);
     var total = params.amount * params.numberOfTickets;
-    TransactionModel.initiateTransaction(res, params, total);
+    TransactionModel.initiateTransaction(res, params, total, parseInt(params.numberOfTickets));
 });
 
 router.get('/getTransactionsByID/:customerID', function(req, res, next){

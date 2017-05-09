@@ -29,7 +29,7 @@ router.get('/queryTicketByEventID/:eventID', function(req, res, next){
 });
 
 router.get('/queryTicketByTicketID/:ticketID', function(req, res, next){
-    var search = req.params.eventID;
+    var search = req.params.ticketID;
     ticketModel.queryTicketByTicketID(res, search);
 });
 

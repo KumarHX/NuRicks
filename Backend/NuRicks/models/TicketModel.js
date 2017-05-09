@@ -110,20 +110,15 @@ TicketsModel = {
     },
 
     queryTicketByTicketID: function (res, search) {
-        Tickets.findAll({
+        Tickets.findOne({
                 where: {
-                    id: search
+                    id: parseInt(search)
                 }
             })
-            .then(function (foundTickets) {
-                var results = [];
-                for (var i = 0; i < foundTickets.length; i++) {
-                    var data = foundTickets[i];
-                    results.push(data);
-                }
-                res.json({status: "1", "tickets": results})
+            .then(function (foundTicket) {
+                res.json({status: "1", "ticket": foundTicket})
             }).catch(function (err) {
-            res.json({status: -1, errors: ['Unable to find tickets', err]});
+            res.json({status: -1, errors: ['Unable to find ticket', err]});
         })
     },
 
