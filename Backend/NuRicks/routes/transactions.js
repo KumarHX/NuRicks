@@ -16,14 +16,9 @@ router.post("/initiateTransaction", function(req, res) {
     TransactionModel.initiateTransaction(res, params, total);
 });
 
-router.get('/getTransactionsByIDMusician/:customerID', function(req, res, next){
-    var search = req.params.email;
-    TransactionModel.getTransactionsFromIDMusician(res, search);
-});
-
-router.get('/getTransactionsByIDUSER/:customerID', function(req, res, next){
-    var search = req.params.email;
-    TransactionModel.getTransactionsFromIDUser(res, search);
+router.get('/getTransactionsByIDM/:customerID', function(req, res, next){
+    var search = req.params.customerID;
+    TransactionModel.getTransactionsFromID(res, search);
 });
 
 module.exports = router;

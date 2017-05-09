@@ -86,42 +86,23 @@ TransactionModel = {
         });
     },
 
-    getTransactionsFromIDMusician: function(res, search){
-        Transactions.findAll({
-                where:{
-                    customerId: search,
-                    isUser: false
-                }
-            }).then(function(transaction){
-                var return_transactions = [];
-                for(var i = 0; i < transaction.length; i++)
-                {
-                    return_transactions.push(transaction[i].dataValues)
-                }
-                res.json({status: 1, transactions:return_transactions})
-            }).catch(function (err) {
-                res.json({status: -1, errors: ['Unable to find transaction', err]});
-            });
-    },
-
-    getTransactionsFromIDUser: function(res, search){
+    getTransactionsFromID: function(res, search){
         Transactions.findAll({
             where:{
-                customerId: search,
-                isUser: true
+                customerId: search
             }
         }).then( function(transaction){
             var return_transactions = [];
             for(var i = 0; i < transaction.length; i++)
             {
+                console.log(i + " here");
                 return_transactions.push(transaction[i].dataValues)
             }
             res.json({status: 1, transactions:return_transactions})
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find transaction', err]});
         });
-    },
-
+    }
 };
 
 module.exports.Transactions = Transactions;
