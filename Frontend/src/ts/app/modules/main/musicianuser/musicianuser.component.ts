@@ -4,7 +4,8 @@ import {
     Injectable,
     OnInit,
     AfterViewChecked,
-    OnDestroy
+    OnDestroy,
+    NgZone
 } from "@angular/core";
 
 import
@@ -30,7 +31,8 @@ declare var $: any;
 export class MusicianUserComponent implements OnInit {
     constructor(
     private ps: PersistentService,
-    private backendService: BackendService
+    private backendService: BackendService,
+    private zone: NgZone
     ){}
 
     private transactions: any = [];
@@ -61,6 +63,11 @@ export class MusicianUserComponent implements OnInit {
     form: any;
     popup: any;
     popup_doc: any;
+
+    updateCID(id: string): void {
+        this.zone.run(() => this.ps.musicianObject.customer_id = id);
+        this.ngOnInit();
+    }
 
     cardNewWindow(): void {
         let t = (screen.height/2)-(250);
@@ -133,8 +140,8 @@ export class MusicianUserComponent implements OnInit {
                                 c.backendService.musicianCreatePaymentInformation(c.ps.musicianObject.fbid, u)
                                 .subscribe((response: any) => {
                                     console.log(response);
-                                    c.ps.musicianObject.customer_id = response.user.customer_id;
                                     c.popup.close();
+                                    c.updateCID(response.user.customer_id);
                                 });
                             });
                         }, false);
@@ -148,7 +155,7 @@ export class MusicianUserComponent implements OnInit {
         this.backendService.musicianDeleteCustomerPaymentInfo(this.ps.musicianObject.fbid)
         .subscribe((response) => {
             if (response.status == "1") {
-                this.ps.musicianObject.customer_id = null;
+                this.updateCID(null);
             }
         })
     }

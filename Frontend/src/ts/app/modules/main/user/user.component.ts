@@ -4,7 +4,8 @@ import {
     Injectable,
     OnInit,
     AfterViewChecked,
-    OnDestroy
+    OnDestroy,
+    NgZone
 } from "@angular/core";
 
 import
@@ -30,7 +31,8 @@ declare var $: any;
 export class UserComponent implements OnInit {
     constructor(
     private ps: PersistentService,
-    private backendService: BackendService
+    private backendService: BackendService,
+    private zone: NgZone
     ){}
 
     private transactions: any = [];
@@ -49,7 +51,6 @@ export class UserComponent implements OnInit {
             this.backendService.getTransactionHistory(this.ps.userObject.customer_id)
             .subscribe((response) => {
                 this.transactions = response.transactions;
-                console.log(response.transactions);
             });
         }
     }
@@ -61,6 +62,11 @@ export class UserComponent implements OnInit {
     form: any;
     popup: any;
     popup_doc: any;
+
+    updateCID(id: string): void {
+        this.zone.run(() => this.ps.userObject.customer_id = id);
+        this.ngOnInit();
+    }
 
     cardNewWindow(): void {
         let t = (screen.height/2)-(250);
@@ -133,8 +139,8 @@ export class UserComponent implements OnInit {
                                 c.backendService.createPaymentInformation(c.ps.userObject.fbid, u)
                                 .subscribe((response: any) => {
                                     console.log(response);
-                                    c.ps.userObject.customer_id = response.user.customer_id;
                                     c.popup.close();
+                                    c.updateCID(response.user.customer_id);
                                 });
                             });
                         }, false);
@@ -148,7 +154,7 @@ export class UserComponent implements OnInit {
         this.backendService.deleteCustomerPaymentInfo(this.ps.userObject.fbid)
         .subscribe((response: any) => {
             if (response.status == "1") {
-                this.ps.userObject.customer_id = null;
+                this.updateCID(null);
             }
         })
     }
