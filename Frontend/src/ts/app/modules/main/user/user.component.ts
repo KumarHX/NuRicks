@@ -68,6 +68,14 @@ export class UserComponent implements OnInit {
         this.ngOnInit();
     }
 
+    updateCC(payload: any): void {
+        this.backendService.updateCC(this.ps.userObject.fbid, payload.details.lastTwo)
+        .subscribe((response: any) => {
+            console.log(response);
+            this.zone.run(() => this.ps.userObject.card_digits = response.user.card_digits);
+        })
+    }
+
     cardNewWindow(): void {
         let t = (screen.height/2)-(250);
         let l = (screen.width/ 2)-(300);
@@ -128,6 +136,7 @@ export class UserComponent implements OnInit {
                         form.addEventListener('submit', function (event: any) {
                             event.preventDefault();
                             hostedFieldsInstance.tokenize(function (tokenizeErr: any, payload: any) {
+                                var payState = payload;
                                 if (tokenizeErr) {
                                     // Handle error in Hosted Fields tokenization
                                     return;
@@ -141,6 +150,7 @@ export class UserComponent implements OnInit {
                                     console.log(response);
                                     c.popup.close();
                                     c.updateCID(response.user.customer_id);
+                                    c.updateCC(payState);
                                 });
                             });
                         }, false);

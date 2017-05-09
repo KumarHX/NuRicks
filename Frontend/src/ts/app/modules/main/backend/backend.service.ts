@@ -89,10 +89,11 @@ export class BackendService {
             .catch(this.handleError);
     }
 
-    updateCC(digits: string): Observable<any> {
+    updateCC(fbid: string, digits: string): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });
         const body: string = JSON.stringify({
+            fbid: fbid,
             digits: digits
         });
         return this.http.post(`${this.backendUrl}/users/updateCardDigits`, body, options)

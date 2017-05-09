@@ -73,7 +73,7 @@ export class MusicianUserComponent implements OnInit {
         this.backendService.musicianUpdateCC(this.ps.musicianObject.fbid, payload.details.lastTwo)
         .subscribe((response: any) => {
             console.log(response);
-            this.zone.run(() => this.ps.musicianObject.card_digits = response.user.card_digits);
+            this.zone.run(() => this.ps.musicianObject.card_digits = response.musician.card_digits);
         })
     }
 
