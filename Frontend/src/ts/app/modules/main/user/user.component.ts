@@ -150,6 +150,15 @@ export class UserComponent implements OnInit {
         });
     }
 
+    updateEmail(): void {
+        this.backendService.updateEmail(this.ps.userObject.fbid, $("#emailInput").val())
+        .subscribe((response: any) => {
+            if (response.status == "1") {
+                this.ps.userObject.email = response.user.email;
+            }
+        });
+    }
+
     deletePaymentMethod(): void {
         this.backendService.deleteCustomerPaymentInfo(this.ps.userObject.fbid)
         .subscribe((response: any) => {

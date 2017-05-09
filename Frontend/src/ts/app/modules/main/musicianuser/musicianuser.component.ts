@@ -120,6 +120,7 @@ export class MusicianUserComponent implements OnInit {
                         }
                     }, function (hostedFieldsErr: any, hostedFieldsInstance: any) {
                         let form = c.popup_doc.querySelector("#cardForm");
+                        console.log($("#card-number").val());
                         if (hostedFieldsErr) {
                             // Handle error in Hosted Fields creation
                             return;

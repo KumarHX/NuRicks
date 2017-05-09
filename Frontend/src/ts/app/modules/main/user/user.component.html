@@ -1,29 +1,22 @@
 <div class="userWrapper">
     <h1 class="title">Account</h1>
     <div class="userTabs" *ngIf="ps.userObject.customer_id">
-        <!-- <span class="tab activeTab">Settings</span> -->
         <span data-show="_payment" class="tab activeTab">Payment</span>
         <span data-show="_transactionhistory" class="tab">Transaction History</span>
     </div>
-    <!-- <div class="userSettings" *ngIf="!ps.userObect?.customer_id">
+    <div class="userSettings" *ngIf="!ps.userObect?.customer_id && !ps.userObject?.email">
         <form id="nonceForm" action="" class="emailConfirm">
             <h2>Please confirm your email before you can purchase tickets:</h2>
-            <input type="text">
-            <button type="submit">Submit</button>
+            <input id="emailInput" type="text">
+            <button (click)="updateEmail()">Submit</button>
         </form>
-    </div> -->
+    </div>
     <div class="paymentOptions _payment _userpanel">
         <div class="paymentOption" *ngIf="ps.userObject.customer_id">
             <span class="deletePO" (click)="deletePaymentMethod()">DELETE</span>
             <h1><i class="fa fa-cc-visa"></i> Card ending in 1234</h1>
-            <i class="fa fa-edit optionBtn"><span>EDIT</span></i>
         </div>
-        <!-- <div class="paymentOption">
-            <span class="deletePO">DELETE</span>
-            <h1><i class="fa fa-paypal"></i> example@email.com</h1>
-            <i class="fa fa-edit optionBtn"><span>EDIT</span></i>
-        </div> -->
-        <div (click)="cardNewWindow()" *ngIf="!ps.userObject?.customer_id" class="paymentOption newPO">
+        <div (click)="cardNewWindow()" *ngIf="!ps.userObject?.customer_id && ps.userObject?.email" class="paymentOption newPO">
             <i class="fa fa-plus"></i>
             <h2>Add Payment Option</h2>
         </div>

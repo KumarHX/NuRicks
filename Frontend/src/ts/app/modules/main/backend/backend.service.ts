@@ -65,6 +65,17 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    updateEmail(fbid: string, email: string): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify({
+            fbid: fbid,
+            email: email
+        });
+        return this.http.post(`${this.backendUrl}/users/updateUserInfo`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     deleteCustomerPaymentInfo(fbid: string): Observable<any> {
         return this.http.get(`${this.backendUrl}/users/deleteCustomerPaymentInfo/${fbid}`)

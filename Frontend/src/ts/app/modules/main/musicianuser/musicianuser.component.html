@@ -4,20 +4,17 @@
         <span data-show="_payment" class="tab activeTab">Payment</span>
         <span data-show="_transactionhistory" class="tab">Transaction History</span>
     </div>
-    <!-- <div class="userSettings" *ngIf="!ps.userObect?.customer_id">
+    <div class="userSettings" *ngIf="!ps.musicianObject?.customer_id && !ps.musicianObject?.email">
         <form id="nonceForm" action="" class="emailConfirm">
-            <h2>Please confirm your email before you can purchase tickets:</h2>
-            <input type="text">
-            <button type="submit">Submit</button>
+            <h2>Please confirm your email before you can purchase tickets</h2>
         </form>
-    </div> -->
+    </div>
     <div class="paymentOptions _payment _userpanel">
         <div class="paymentOption" *ngIf="ps.musicianObject.customer_id">
             <span class="deletePO" (click)="deletePaymentMethod()">DELETE</span>
             <h1><i class="fa fa-cc-visa"></i> Card ending in 1234</h1>
-            <i class="fa fa-edit optionBtn"><span>EDIT</span></i>
         </div>
-        <div (click)="cardNewWindow()" *ngIf="!ps.musicianObject?.customer_id" class="paymentOption newPO">
+        <div (click)="cardNewWindow()" *ngIf="!ps.musicianObject?.customer_id && ps.musicianObject?.email" class="paymentOption newPO">
             <i class="fa fa-plus"></i>
             <h2>Add Payment Option</h2>
         </div>
