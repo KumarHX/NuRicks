@@ -12,7 +12,8 @@ router.get("/getClientToken", function (req, res) {
 router.post("/initiateTransaction", function(req, res) {
     var params = req.body;
     console.log(params);
-    TransactionModel.initiateTransaction(res, params)
+    var total = params.amount * params.numberOfTickets;
+    TransactionModel.initiateTransaction(res, params, total);
 });
 
 router.get('/getTransactionsByIDMusician/:customerID', function(req, res, next){
@@ -26,3 +27,4 @@ router.get('/getTransactionsByIDUSER/:customerID', function(req, res, next){
 });
 
 module.exports = router;
+

@@ -47,6 +47,10 @@ var Transactions = sequelize.define("Transactions", {
         type: Sequelize.STRING,
         primaryKey: true
     },
+
+    numberOfTickets:{
+        type: Sequelize.INTEGER
+    }
 });
 
 
@@ -60,26 +64,17 @@ TransactionModel = {
         });
     },
 
-    initiateTransaction: function(res, params){
+    initiateTransaction: function(res, params, total){
         gateway.transaction.sale({
-            // console.log(params);
-            amount: params.amount.toString(),
+            amount: total,
             customerId: params.customerId
-            // serviceFeeAmount: serviceFee,
         }, function (err, result) {
-            // var serviceFee = (Math.round(100*(PERCENTAGE_FEE *  parseFloat(params.amount)))/100.0).toString()
-            // console.log(serviceFee);
             console.log(result.success);
             console.log(params);
             console.log("ERROR: " + err);
             console.log("RESULT: " + JSON.stringify(result));
             if(result.success){
-                // Transactions.create({customerId: params.customerId,TicketId:params.ticketID,
-                // transaction_id: result.transaction.id, amount: params.amount
-                // }).then(function(transaction){
-                // 	res.json({status: 1, "transaction": transaction})
-                // })
-                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + params.customerId +', ' + params.isUser + ', \''+ result.transaction.id +'\', '+ params.amount +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
+                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + params.customerId +', ' + params.isUser + ', \''+ result.transaction.id +'\', '+ total +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
                 ).then(function(transaction) {
                     res.send({status: "1", transaction: transaction});
                 });
