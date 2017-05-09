@@ -170,9 +170,6 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.popup.document.close();
         this.popup_doc = this.popup.document;
         var c = this;
-        this.popup.addEventListener("blur", function() {
-            c.popup.close();
-        }, true);
         this.popup["formcallback"] = function() {
             console.log(c.popup.document);
             var val = c.popup.document.forms["cardForm"][0].value;
