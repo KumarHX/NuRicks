@@ -187,7 +187,7 @@ export class BackendService {
 
     getTransactionHistory(customer_id: string): Observable<any> {
 
-        return this.http.get(`${this.backendUrl}/transactions/getTransactionsByIDM/${customer_id}`)
+        return this.http.get(`${this.backendUrl}/transactions/getTransactionsByID/${customer_id}`)
             .map(this.extractData)
             .catch(this.handleError);
     }
