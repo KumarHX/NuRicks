@@ -99,6 +99,16 @@ export class AdminPanelComponent implements OnInit {
         });
     }
 
+    deleteMusician(idex: number): void {
+        this.backendService.deleteMusician(this.as.musicians[idex].fbid)
+        .subscribe((response: any) => {
+            console.log(response);
+            if (response["status"] == "1") {
+                this.as.musicians.splice(idex, 1);
+            }
+        });
+    }
+
     getMusician(idex: number): void {
         this.musicianView = this.as.musicians[idex];
         $('#musicianModal').fadeIn(150);
