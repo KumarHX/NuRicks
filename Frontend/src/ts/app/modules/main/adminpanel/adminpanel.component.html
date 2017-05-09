@@ -1,3 +1,8 @@
+<style>
+[contenteditable=true] {
+    padding: 0px;
+}
+</style>
 <div class="artistBlock modal" id="musicianModal" style="display: none">
     <i class="fa fa-times exit"></i>
     <div class="artistImg" [style.background-image]="'url('+ musicianView.picture_url +')'"></div>
@@ -49,11 +54,11 @@
                 <a (click)="getEvent(idex)" data-show="adminAllArtists" class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
                 <div class="showDetails">
                     <h1>{{event.eventName}}</h1>
-                    <h2>Headliner: {{event.headliner}}</h2>
-                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
-                    <h3>Venue: {{event.venue}}</h3>
-                    <h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}}</span></h3>
-                    <a><i class="fa fa-pencil"></i> Edit</a>
+                    <h2>Headliner: <span contenteditable="true">{{event.headliner}}</span></h2>
+                    <h3>Address: <span contenteditable="true">{{event.street_name}}</span>, <span contenteditable="true">{{event.city}}</span>, <span contenteditable="true">{{event.state}}</span> <span contenteditable="true">{{event.zip_code}}</span></h3>
+                    <h3>Venue: <span contenteditable="true">{{event.venue}}</span></h3>
+                    <h3><span contenteditable="true">{{event.eventDate | date: "yMMMMd"}}</span> &mdash; <span contenteditable="true">${{event.cost}}</span></h3>
+                    <a><i class="fa fa-save"></i> Save</a>
                 </div>
             </div>
 
@@ -85,20 +90,26 @@
             </div>
         </div> -->
 
-        <table>
+        <table id="musicianTable">
             <tr>
-                <th></th>
+                <th>Delete/Edit</th>
                 <th>Artist Name</th>
+                <th>Stage Name</th>
+                <th>Email</th>
+                <th>Phone</th>
                 <th>Joined</th>
                 <th>Artist ID</th>
-                <tr *ngFor="let musician of as.musicians; let idex = index">
-                    <td nowrap="">
-                        <i (click)="deleteMusician(idex)" class="fa fa-times optionBtn"></i>
-                        <i class="fa fa-save optionBtn"></i>
-                    </td>
-                    <td><h2 contenteditable="false">{{musician.firstName}} {{musician.lastName}}</h2></td>
-                    <td><h2 contenteditable="false">{{musician.createdAt | date: "yMMMMd"}}</h2></td>
-                    <td><h2 contenteditable="false">{{musician.fbid}}</h2></td>
+            <tr *ngFor="let musician of as.musicians; let idex = index">
+                <td nowrap="">
+                    <i (click)="deleteMusician(idex)" style="background: #cc0000" class="fa fa-times optionBtn"></i>
+                    <i (click)="saveMusician(idex)" class="fa fa-save optionBtn"></i>
+                </td>
+                <td><h2><span contenteditable="true">{{musician.firstName}}</span> <span contenteditable="true">{{musician.lastName}}</span></h2></td>
+                <td><h2 contenteditable="true">{{musician.stageName || "Not Specified"}}</h2></td>
+                <td><h2 contenteditable="true">{{musician.email || "Not Specified"}}</h2></td>
+                <td><h2 contenteditable="true">{{musician.phoneNumber || "Not Specified"}}</h2></td>
+                <td><h2 contenteditable="false">{{musician.createdAt | date: "yMMMMd"}}</h2></td>
+                <td><h2 contenteditable="false">{{musician.fbid}}</h2></td>
             </tr>
         </table>
     </div>

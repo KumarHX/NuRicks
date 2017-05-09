@@ -114,6 +114,28 @@ export class AdminPanelComponent implements OnInit {
         $('#musicianModal').fadeIn(150);
     }
 
+    saveMusician(idex: number): void {
+        console.log(idex);
+        var mu = {
+            firstName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(1)`)[0].childNodes[0].data,
+            lastName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(2)`)[0].childNodes[0].data,
+            stageName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(3) h2`)[0].childNodes[0].data,
+            email: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(4) h2`)[0].childNodes[0].data,
+            phoneNumber: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(5) h2`)[0].childNodes[0].data,
+            fbid: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(7) h2`)[0].childNodes[0].data
+        }
+        if (mu.stageName == "Not Specified") {
+            mu.stageName = "";
+        }
+        if (mu.email == "Not Specified") {
+            mu.email = "";
+        }
+        if (mu.phoneNumber == "Not Specified") {
+            mu.phoneNumber = "";
+        }
+        console.log(mu);
+    }
+
     getMusicianNet(i: number) {
         this.backendService.getMusicianFromFbid(this.ticketView.tickets[i].MusicianFbid)
         .subscribe((response: any) => {
