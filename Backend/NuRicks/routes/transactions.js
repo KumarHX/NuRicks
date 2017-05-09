@@ -16,7 +16,7 @@ router.post("/initiateTransaction", function(req, res) {
     TransactionModel.initiateTransaction(res, params, total);
 });
 
-router.get('/getTransactionsByIDM/:customerID', function(req, res, next){
+router.get('/getTransactionsByID/:customerID', function(req, res, next){
     var search = req.params.customerID;
     TransactionModel.getTransactionsFromID(res, search);
 });
