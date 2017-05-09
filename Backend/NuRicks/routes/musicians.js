@@ -112,4 +112,10 @@ router.get('/deleteCustomerPaymentInfo/:fbid', function(req, res, next){
     MusiciansModel.deleteCustomerPaymentInfo(res, search);
 });
 
+router.post('/updateCardDigits', function(req, res, next){
+    var fbid = req.body.fbid;
+    var email = req.body.digits;
+    MusiciansModel.updateMusicianCardDigits(res, fbid, digits);
+});
+
 module.exports = router;

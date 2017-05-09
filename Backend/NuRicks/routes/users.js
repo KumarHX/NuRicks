@@ -52,6 +52,11 @@ router.post('/updateUserInfo', function(req, res, next){
     UsersModel.updateUserInfoScreen(res, fbid, email);
 });
 
+router.post('/updateCardDigits', function(req, res, next){
+    var fbid = req.body.fbid;
+    var email = req.body.digits;
+    UsersModel.updateUserCardDigits(res, fbid, digits);
+});
 
 router.get('/deleteCustomerPaymentInfo/:fbid', function(req, res, next){
     var search = req.params.fbid;

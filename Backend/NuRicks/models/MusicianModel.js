@@ -75,7 +75,8 @@ hash.configure({ charSet: [ 'A', 'B', 'C', '1', '2', '3','4','5','6','7','8','9'
     picture_url: { type: Sequelize.TEXT },
     verified: {type: Sequelize.BOOLEAN},
 
-    customer_id: {type: Sequelize.INTEGER}
+    customer_id: {type: Sequelize.INTEGER},
+    card_digits: {type: Sequelize.STRING}
 });
 
 Musicians.sync();
@@ -276,6 +277,24 @@ MusiciansModel = {
                 picture_url: picture_url,
                 bio: bio,
                 phoneNumber: phoneNumber
+            }).then(function(musician){
+                res.json({status: 1, musician: musician});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit musician info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find musician', err]});
+        })
+    },
+
+    updateMusicianCardDigits: function (res, fbid, digits){
+        Musicians.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(editMusician) {
+            editMusician.update({
+                card_digits: digits
             }).then(function(musician){
                 res.json({status: 1, musician: musician});
             }).catch(function(err){

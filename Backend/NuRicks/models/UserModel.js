@@ -38,7 +38,8 @@ const util = require('util')
     },
 
     picture_url: { type: Sequelize.TEXT },
-    customer_id: {type: Sequelize.INTEGER}
+    customer_id: {type: Sequelize.INTEGER}.
+    card_digits: {type: Sequelize.STRING}
 });
 
 Users.sync();
@@ -215,6 +216,24 @@ UsersModel = {
         }).then(function(editUser) {
             editUser.update({
                 email: email
+            }).then(function(user){
+                res.json({status: 1, user: user});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit user info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find user', err]});
+        })
+    },
+
+    updateUserCardDigits: function (res, fbid, digits){
+        Users.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(editUser) {
+            editUser.update({
+                card_digits: digits
             }).then(function(user){
                 res.json({status: 1, user: user});
             }).catch(function(err){
