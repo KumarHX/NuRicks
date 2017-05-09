@@ -51,11 +51,12 @@ export class BackendService {
             .catch(this.handleError);
     }
 
-    initiateTransaction(amount: string, customerId: string, isUser: boolean, ticketId: number): Observable<any> {
+    initiateTransaction(amount: string, price: number, customerId: string, isUser: boolean, ticketId: number): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });
         const body: string = JSON.stringify({
-            amount: amount,
+            numberOfTickets: amount,
+            amount: price,
             customerId: customerId,
             isUser: isUser,
             ticketId: ticketId
@@ -186,7 +187,7 @@ export class BackendService {
 
     getTransactionHistory(customer_id: string): Observable<any> {
 
-        return this.http.get(`${this.backendUrl}/transactions/getTransactionsByIDUSER/${customer_id}`)
+        return this.http.get(`${this.backendUrl}/transactions/getTransactionsByID/${customer_id}`)
             .map(this.extractData)
             .catch(this.handleError);
     }

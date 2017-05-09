@@ -138,6 +138,7 @@ export class PublicMusicianComponent implements OnInit {
         this.popup_doc = this.popup.document;
         var c = this;
         var eventId = this.pm.p_events[idex].id;
+        var eventCost = this.pm.p_events[idex].cost;
         this.popup["formcallback"] = function() {
             console.log(c.popup.document);
             var val = c.popup.document.forms["cardForm"][0].value;
@@ -152,7 +153,7 @@ export class PublicMusicianComponent implements OnInit {
                         break;
                     }
                 }
-                c.backendService.initiateTransaction(val, c.ps.userObject.customer_id || c.ps.musicianObject.customer_id, !!c.ps.userObject.customer_id, ticketId)
+                c.backendService.initiateTransaction(val, eventCost, c.ps.userObject.customer_id || c.ps.musicianObject.customer_id, !!c.ps.userObject.customer_id, ticketId)
                 .subscribe((response: any) => {
                     console.log(response);
                     c.popup.close();
