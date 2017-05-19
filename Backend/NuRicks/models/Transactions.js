@@ -11,6 +11,10 @@ var Users = User_models.Users;
 var Ticket_models = require("./TicketModel");
 var Tickets = Ticket_models.Tickets;
 
+var api_key = 'key-82b7d8d757bf41230899754267dbbcfb';
+var domain = 'sandbox654b8cff24ea4666bdc8cb515051b085.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+
 
 var Transactions = sequelize.define("Transactions", {
 
@@ -118,6 +122,25 @@ TransactionModel = {
             res.json({status: 1, transactions:return_transactions})
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find transaction', err]});
+        });
+    },
+
+     sendEmail: function(res){
+        var data = {
+            from: 'Mailgun Sandbox <postmaster@sandbox654b8cff24ea4666bdc8cb515051b085.mailgun.org>',
+            to: 'pranav98@gmail.com',
+            subject: 'Hello',
+            text: 'Testing some Mailgun awesomness!',
+            html: '<b>Hello world ?</b>' 
+        };
+
+        mailgun.messages().send(data, function (error, body) {
+            if(!error){
+                console.log("success")
+                res.json({status: 1})
+            } else {
+                res.json({status: -1, "error": error})
+            }
         });
     },
 

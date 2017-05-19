@@ -5,6 +5,12 @@ var router = express.Router();
 var transaction_model = require("../models/Transactions");
 var TransactionModel =  transaction_model.TransactionModel;
 
+
+router.get("/sendEmail", function (req, res) {
+    // setup email data with unicode symbols
+	TransactionModel.sendEmail(res);
+});
+
 router.get("/getClientToken", function (req, res) {
     TransactionModel.getClientToken(res);
 });
