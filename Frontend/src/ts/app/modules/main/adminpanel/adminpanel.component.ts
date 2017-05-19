@@ -115,15 +115,15 @@ export class AdminPanelComponent implements OnInit {
     }
 
     saveMusician(idex: number): void {
-        console.log(idex);
-        var mu = {
-            firstName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(1)`)[0].childNodes[0].data,
-            lastName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(2)`)[0].childNodes[0].data,
-            stageName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(3) h2`)[0].childNodes[0].data,
-            email: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(4) h2`)[0].childNodes[0].data,
-            phoneNumber: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(5) h2`)[0].childNodes[0].data,
-            fbid: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(7) h2`)[0].childNodes[0].data
-        }
+        var mu = this.as.musicians[idex];
+
+        mu.firstName = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(1)`)[0].childNodes[0].data;
+        mu.lastName = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(2)`)[0].childNodes[0].data;
+        mu.stageName = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(3) h2`)[0].childNodes[0].data;
+        mu.email = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(4) h2`)[0].childNodes[0].data;
+        mu.phoneNumber = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(5) h2`)[0].childNodes[0].data;
+        mu.fbid = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(7) h2`)[0].childNodes[0].data;
+
         if (mu.stageName == "Not Specified") {
             mu.stageName = "";
         }
@@ -133,7 +133,13 @@ export class AdminPanelComponent implements OnInit {
         if (mu.phoneNumber == "Not Specified") {
             mu.phoneNumber = "";
         }
-        console.log(mu);
+
+        this.backendService.musicianSaveDashboard(mu)
+        .subscribe((response: any) => {
+            if (response.status == "1") {
+                console.log("UPDATE OK");
+            }
+        });
     }
 
     getMusicianNet(i: number) {

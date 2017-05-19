@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 var webpackConfig = {
     output:{
@@ -28,12 +29,20 @@ var webpackConfig = {
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app','vendor', 'polyfills']
         }),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: false,
-        //     mangle: {
-        //         keep_fnames: true
-        //     }
-        // })
+    //     new UglifyJsPlugin({
+    //     compress: {
+    //       warnings: false,
+    //       screw_ie8: true,
+    //       conditionals: true,
+    //       unused: true,
+    //       comparisons: true,
+    //       sequences: true,
+    //       dead_code: true,
+    //       evaluate: true,
+    //       if_return: true,
+    //       join_vars: true,
+    //     },
+    //   })
     ]
 };
 
