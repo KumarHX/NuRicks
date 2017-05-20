@@ -142,6 +142,26 @@ export class AdminPanelComponent implements OnInit {
         });
     }
 
+    editEvent(idex: number): void {
+        var event = this.as.events[idex];
+        event.eventName = $(`.showBlock:nth-child(${idex+1}) h1`)[0].innerHTML;
+        event.headliner = $(`.showBlock:nth-child(${idex+1}) span`)[0].innerHTML;
+        event.street_name = $(`.showBlock:nth-child(${idex+1}) span`)[1].innerHTML;
+        event.venue = $(`.showBlock:nth-child(${idex+1}) span`)[2].innerHTML;
+        event.city = $(`.showBlock:nth-child(${idex+1}) span`)[3].innerHTML
+        event.state = $(`.showBlock:nth-child(${idex+1}) span`)[4].innerHTML
+        event.zip_code = $(`.showBlock:nth-child(${idex+1}) span`)[5].innerHTML
+        event.eventDate = new Date($(`.showBlock:nth-child(${idex+1}) span`)[6].innerHTML);
+        event.cost = ($(`.showBlock:nth-child(${idex+1}) span`)[7].innerHTML).slice(1);
+
+        this.backendService.updateEventInfo(event)
+        .subscribe((response: any) => {
+            if (response.status == "1") {
+                console.log("EVENT UPDATE OK");
+            }
+        });
+    }
+
     getMusicianNet(i: number) {
         this.backendService.getMusicianFromFbid(this.ticketView.tickets[i].MusicianFbid)
         .subscribe((response: any) => {

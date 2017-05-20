@@ -71,8 +71,9 @@
 				</div>
 				<div class="showList availableShowsList" style="display: none">
 					<div *ngIf="!ps.musicianObject.phoneNumber || !ps.musicianObject.email">You must enter your email and phone number to be eligible for shows.</div>
+					<div *ngIf="ps.musicianObject.events.length">You can only be a part of one show at a time.</div>
 					<div *ngIf="ps.musicianObject.possibleEvents.length <= 0 && ps.musicianObject.phoneNumber && ps.musicianObject.email">There are currently no possible shows.</div>
-					<ng-container *ngIf="ps.musicianObject.phoneNumber && ps.musicianObject.email">
+					<ng-container *ngIf="ps.musicianObject.phoneNumber && ps.musicianObject.email && !ps.musicianObject.events.length">
 						<div *ngFor="let event of ps.musicianObject.possibleEvents" class="showBlock">
 							<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
 							<div class="showDetails">
