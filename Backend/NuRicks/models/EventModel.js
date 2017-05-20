@@ -115,11 +115,7 @@ EventsModel = {
     },
 
     updateEventInfoScreen: function (res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, extraAtDoor, numberNeededToSell){
-        Events.findOne({
-            where:{
-                id: eventID
-            }
-        }).then(function(editEvent) {
+        Events.findOne(eventID).then(function(editEvent) {
             editEvent.update({
                 eventName: eventName,
                 doorsOpen:  doorsOpen,

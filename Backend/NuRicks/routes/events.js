@@ -49,6 +49,7 @@ router.post('/updateEventInfo', function(req, res, next){
     var	eventDate = req.body.eventDate;
     var	zip_code = req.body.zip_code;
     var street_name = req.body.street_name;
+    var venue = req.body.venue;
     var	city = req.body.city;
     var	state = req.body.state;
     var	ageRequirement = req.body.ageRequirement;
