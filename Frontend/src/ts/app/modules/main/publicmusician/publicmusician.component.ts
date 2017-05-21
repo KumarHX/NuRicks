@@ -139,6 +139,7 @@ export class PublicMusicianComponent implements OnInit {
         var c = this;
         const party = c.ps.userObject || c.ps.musicianObject;
         const event = this.pm.p_events[idex];
+        const musc = this.pm.p_musicianObject.stageName;
         var eventId = this.pm.p_events[idex].id;
         var eventCost = this.pm.p_events[idex].cost;
         this.popup["formcallback"] = function() {
@@ -160,7 +161,7 @@ export class PublicMusicianComponent implements OnInit {
                 c.backendService.initiateTransaction(val, eventCost, party.customer_id, !!c.ps.userObject.customer_id, ticketId)
                 .subscribe((response: any) => {
                     console.log(response);
-                    c.backendService.sendEmail(event, party, ticket.stageName, val)
+                    c.backendService.sendEmail(event, party, musc, val)
                     .subscribe((response: any) => {
                         if (status == "1") {
                             console.log("Email Sent");
