@@ -209,10 +209,10 @@ export class BackendService {
             musicianName: musician,
             eventDate: event.eventDate,
             doorsOpen: event.doorsOpen,
-            ageRestriction: event.ageRestriction,
+            ageRestriction: event.ageRequirement,
             venueName: event.venue,
-            streetName: event.streetName,
-            address: event.address,
+            streetName: event.street_name,
+            address: `${event.city}, ${event.state} ${event.zip_code}`,
             eventURL: event.image_url,
             guestName: `${user.firstName} ${user.lastName}`,
             numberInParty: num
