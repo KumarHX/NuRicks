@@ -29,15 +29,14 @@ Tickets.sync();
 
 TicketsModel = {
 
-	createTicket: function(res, fields){
+	createTicket: function(res, fields, eventID){
         Tickets.create(fields).then(function(results){
-            res.json({
-                status:1, Ticket: results
-            })
+             res.json({status:1, Ticket: results})
         }).catch(function(err){
             res.json({status: -1, errors:['Unable to create this Ticket',err]});
         });
     },
+
 
     queryGlobalTickets: function (res) {
         Tickets.findAll({

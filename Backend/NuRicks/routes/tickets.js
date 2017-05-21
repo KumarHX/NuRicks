@@ -11,7 +11,8 @@ var ticketModel =  ticket_models.TicketsModel;
 
 router.post('/createTicket', function(req, res, next){
     var ticket_info = req.body;
-    ticketModel.createTicket(res, ticket_info);
+    var eventID = req.body.EventId;
+    ticketModel.createTicket(res, ticket_info, eventID);
 });
 
 router.get('/queryGlobalTickets', function(req, res, next){

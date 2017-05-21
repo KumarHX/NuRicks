@@ -42,6 +42,7 @@ const util = require('util');
     cost:{type: Sequelize.INTEGER, allowNull: false},
     isPossibleEvent:{type: Sequelize.BOOLEAN, allowNull: false},
     extraAtDoor:{type: Sequelize.INTEGER},
+    numberOfArtists:{type: Sequelize.INTEGER},
     numberNeededToSell:{type: Sequelize.INTEGER, allowNull: false}
 });
 
