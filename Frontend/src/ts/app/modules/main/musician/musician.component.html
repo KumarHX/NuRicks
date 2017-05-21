@@ -62,7 +62,8 @@
 		                    <h3>Address: {{event.street_name}}, {{event.city}}, {{event.state}} {{event.zip_code}}</h3>
 		                    <h3>Venue: {{event.venue}}</h3>
 							<h3>{{event.eventDate | date: "yMMMMd"}} &mdash; <span>${{event.cost}} + ${{event.extraAtDoor}} at door</span></h3>
-							<a (click)="ps.musicianObject.customer_id ? cardNewWindow(idex) : linkToPayment()" class="btn">{{ps.musicianObject.customer_id ? "Buy Tickets" : "Enter a Payment Option"}}</a>
+							<a (click)="ps.musicianObject.customer_id ? cardNewWindow(idex, 0) : linkToPayment()" class="btn">{{ps.musicianObject.customer_id ? "Buy Tickets" : "Enter a Payment Option"}}</a>
+							<a (click)="ps.musicianObject.customer_id ? cardNewWindow(idex, event.numberNeededToSell - event._ticketsSold) : linkToPayment()" *ngIf="ps.musicianObject.customer_id" class="btn">Buyout Tickets</a>
 							<h3 class="progress">Sold:
 								<span class="sold">{{event._ticketsSold}}</span>/<span class="needed">{{event.numberNeededToSell}}</span>
 							</h3>
@@ -71,8 +72,9 @@
 				</div>
 				<div class="showList availableShowsList" style="display: none">
 					<div *ngIf="!ps.musicianObject.phoneNumber || !ps.musicianObject.email">You must enter your email and phone number to be eligible for shows.</div>
+					<div *ngIf="ps.musicianObject.events.length">You can only be a part of one show at a time.</div>
 					<div *ngIf="ps.musicianObject.possibleEvents.length <= 0 && ps.musicianObject.phoneNumber && ps.musicianObject.email">There are currently no possible shows.</div>
-					<ng-container *ngIf="ps.musicianObject.phoneNumber && ps.musicianObject.email">
+					<ng-container *ngIf="ps.musicianObject.phoneNumber && ps.musicianObject.email && !ps.musicianObject.events.length">
 						<div *ngFor="let event of ps.musicianObject.possibleEvents" class="showBlock">
 							<a class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
 							<div class="showDetails">

@@ -1,6 +1,7 @@
 <div class="userWrapper">
     <h1 class="title">Account</h1>
     <div class="userTabs" *ngIf="ps.userObject.customer_id">
+        <span data-show="_settings" class="tab">Settings</span>
         <span data-show="_payment" class="tab activeTab">Payment</span>
         <span data-show="_transactionhistory" class="tab">Transaction History</span>
     </div>
@@ -8,6 +9,13 @@
         <form id="nonceForm" action="" class="emailConfirm">
             <h2>Please confirm your email before you can purchase tickets:</h2>
             <input id="emailInput" type="text">
+            <button (click)="updateEmail()">Submit</button>
+        </form>
+    </div>
+    <div class="userSettings _settings _userpanel" *ngIf="ps.userObject.customer_id" style="display: none;">
+        <form id="nonceForm" action="" class="emailConfirm">
+            <h2>Update Email</h2>
+            <input id="emailInput" type="text" [attr.value]="ps.userObject.email">
             <button (click)="updateEmail()">Submit</button>
         </form>
     </div>
@@ -35,5 +43,5 @@
             </tr>
         </table>
     </ng-container>
-    <button class="deleteProfile"><i class="fa fa-times-circle"></i> Delete Profile</button>
+    <button class="deleteProfile" (click)="deleteAccount()"><i class="fa fa-times-circle"></i> Delete Profile</button>
 </div>

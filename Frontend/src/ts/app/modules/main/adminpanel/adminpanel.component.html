@@ -2,6 +2,9 @@
 [contenteditable=true] {
     padding: 0px;
 }
+span {
+    cursor: text;
+}
 </style>
 <div class="artistBlock modal" id="musicianModal" style="display: none">
     <i class="fa fa-times exit"></i>
@@ -53,12 +56,12 @@
             <div *ngFor="let event of as.events; let idex = index" class="showBlock SBVertical">
                 <a (click)="getEvent(idex)" data-show="adminAllArtists" class="showImg" [style.background-image]="'url('+ event.image_url +')'"></a>
                 <div class="showDetails">
-                    <h1>{{event.eventName}}</h1>
+                    <h1><span contenteditable="true">{{event.eventName}}</span></h1>
                     <h2>Headliner: <span contenteditable="true">{{event.headliner}}</span></h2>
                     <h3>Address: <span contenteditable="true">{{event.street_name}}</span>, <span contenteditable="true">{{event.city}}</span>, <span contenteditable="true">{{event.state}}</span> <span contenteditable="true">{{event.zip_code}}</span></h3>
                     <h3>Venue: <span contenteditable="true">{{event.venue}}</span></h3>
                     <h3><span contenteditable="true">{{event.eventDate | date: "yMMMMd"}}</span> &mdash; <span contenteditable="true">${{event.cost}}</span></h3>
-                    <a><i class="fa fa-save"></i> Save</a>
+                    <a (click)="editEvent(idex)"><i class="fa fa-save"></i> Save</a>
                 </div>
             </div>
 

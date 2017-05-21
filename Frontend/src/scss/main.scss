@@ -70,4 +70,11 @@
 
 body {
   overflow-x: hidden;
+
+  &.drop {
+    .navAbout, .navContact {
+      opacity: 0;
+      transition: opacity .2s ease-out;
+    }
+  }
 }

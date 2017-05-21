@@ -12,8 +12,16 @@
     justify-content: center;
   }
   .deleteProfile {
+    display: block;
+    margin: 16pt auto;
     &:hover {
       background: $red;
+    }
+  }
+  a {
+    color: $red;
+    &:hover {
+      color: $text-color;
     }
   }
 

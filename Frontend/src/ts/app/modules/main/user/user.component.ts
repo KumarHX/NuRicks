@@ -169,6 +169,10 @@ export class UserComponent implements OnInit {
         });
     }
 
+    deleteAccount(): void {
+        
+    }
+
     deletePaymentMethod(): void {
         this.backendService.deleteCustomerPaymentInfo(this.ps.userObject.fbid)
         .subscribe((response: any) => {

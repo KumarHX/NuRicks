@@ -21,6 +21,7 @@
     "braintree-web": "^3.14.0",
     "core-js": "^2.4.1",
     "express": "^4.14.0",
+    "gulp-uglify": "^1.5.4",
     "rxjs": "5.0.2",
     "zone.js": "^0.7.6"
   },

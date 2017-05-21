@@ -115,15 +115,15 @@ export class AdminPanelComponent implements OnInit {
     }
 
     saveMusician(idex: number): void {
-        console.log(idex);
-        var mu = {
-            firstName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(1)`)[0].childNodes[0].data,
-            lastName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(2)`)[0].childNodes[0].data,
-            stageName: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(3) h2`)[0].childNodes[0].data,
-            email: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(4) h2`)[0].childNodes[0].data,
-            phoneNumber: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(5) h2`)[0].childNodes[0].data,
-            fbid: $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(7) h2`)[0].childNodes[0].data
-        }
+        var mu = this.as.musicians[idex];
+
+        mu.firstName = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(1)`)[0].childNodes[0].data;
+        mu.lastName = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(2) h2 span:nth-child(2)`)[0].childNodes[0].data;
+        mu.stageName = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(3) h2`)[0].childNodes[0].data;
+        mu.email = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(4) h2`)[0].childNodes[0].data;
+        mu.phoneNumber = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(5) h2`)[0].childNodes[0].data;
+        mu.fbid = $(`#musicianTable tbody tr:nth-child(${idex+2}) td:nth-child(7) h2`)[0].childNodes[0].data;
+
         if (mu.stageName == "Not Specified") {
             mu.stageName = "";
         }
@@ -133,7 +133,34 @@ export class AdminPanelComponent implements OnInit {
         if (mu.phoneNumber == "Not Specified") {
             mu.phoneNumber = "";
         }
-        console.log(mu);
+
+        this.backendService.musicianSaveDashboard(mu)
+        .subscribe((response: any) => {
+            if (response.status == "1") {
+                console.log("UPDATE OK");
+            }
+        });
+    }
+
+    editEvent(idex: number): void {
+        var event = this.as.events[idex];
+        event.eventName = $(`.showBlock:nth-child(${idex+1}) span`)[0].innerHTML;
+        event.headliner = $(`.showBlock:nth-child(${idex+1}) span`)[1].innerHTML;
+        event.street_name = $(`.showBlock:nth-child(${idex+1}) span`)[2].innerHTML;
+        event.city = $(`.showBlock:nth-child(${idex+1}) span`)[3].innerHTML;
+        event.state = $(`.showBlock:nth-child(${idex+1}) span`)[4].innerHTML;
+        event.zip_code = $(`.showBlock:nth-child(${idex+1}) span`)[5].innerHTML;
+        event.venue = $(`.showBlock:nth-child(${idex+1}) span`)[6].innerHTML;
+        event.eventDate = new Date($(`.showBlock:nth-child(${idex+1}) span`)[7].innerHTML);
+        event.cost = ($(`.showBlock:nth-child(${idex+1}) span`)[8].innerHTML).slice(1);
+        event.updatedAt = new Date();
+
+        this.backendService.updateEventInfo(event)
+        .subscribe((response: any) => {
+            if (response.status == "1") {
+                console.log("EVENT UPDATE OK");
+            }
+        });
     }
 
     getMusicianNet(i: number) {

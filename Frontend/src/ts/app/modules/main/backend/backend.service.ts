@@ -102,6 +102,15 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    updateEventInfo(event: any): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify(event);
+        return this.http.post(`${this.backendUrl}/events/updateEventInfo`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     deleteCustomerPaymentInfo(fbid: string): Observable<any> {
         return this.http.get(`${this.backendUrl}/users/deleteCustomerPaymentInfo/${fbid}`)
             .map(this.extractData)
@@ -188,6 +197,27 @@ export class BackendService {
     getTransactionHistory(customer_id: string): Observable<any> {
 
         return this.http.get(`${this.backendUrl}/transactions/getTransactionsByID/${customer_id}`)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    sendEmail(event: any, user: any, musician: any, num: any): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify({
+            headliner: event.headliner,
+            musicianName: musician,
+            eventDate: event.eventDate,
+            doorsOpen: event.doorsOpen,
+            ageRestriction: event.ageRestriction,
+            venueName: event.venue,
+            streetName: event.streetName,
+            address: event.address,
+            eventURL: event.image_url,
+            guestName: `${user.firstName} ${user.lastName}`,
+            numberInParty: num
+        })
+        return this.http.post(`${this.backendUrl}/transactions/sendEmail`, body, options)
             .map(this.extractData)
             .catch(this.handleError);
     }
