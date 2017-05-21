@@ -5,4 +5,8 @@
   "engines": {
     "node": "6.9.5"
   }
+  "scripts:" {
+    "start": "cd Frontend && npm install && node ./node_modules/gulp/bin/gulp.js init& && cd ../Backend && npm install && node NuRicks/index.js&"
+  }
 }
+
