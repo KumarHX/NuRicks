@@ -19,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "braintree": "^2.0.2",
+    "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.1",
     "cors": "^2.8.1",
     "custom-hash": "^0.9.0",
