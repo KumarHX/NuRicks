@@ -192,7 +192,7 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
                 c.backendService.initiateTransaction(val, eventCost, c.ps.musicianObject.customer_id, !!c.ps.userObject.customer_id, ticketId)
                 .subscribe((response: any) => {
                     console.log(response);
-                    this.backendService.sendEmail(event, party, ticket.stageName, val)
+                    c.backendService.sendEmail(event, party, ticket.stageName, val)
                     .subscribe((response: any) => {
                         if (status == "1") {
                             console.log("Email Sent");
