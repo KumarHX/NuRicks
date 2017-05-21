@@ -170,6 +170,8 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.popup.document.close();
         this.popup_doc = this.popup.document;
         var c = this;
+        const party = c.ps.musicianObject;
+        const event = this.ps.musicianObject.events[idex];
         var eventId = this.ps.musicianObject.events[idex].id;
         var eventCost = this.ps.musicianObject.events[idex].cost;
         this.popup["formcallback"] = function() {
@@ -179,15 +181,23 @@ export class MusicianComponent implements OnInit, AfterViewChecked, OnDestroy {
             c.backendService.getTicketFromEventID(eventId)
             .subscribe((result: any) => {
                 var ticketId = -1;
+                var ticket: any;
                 for (var i = 0; i < result.length; ++i) {
                     if (result.tickets[i].MusicianFbid == c.ps.musicianObject.fbid) {
                         ticketId = result.tickets[i].id;
+                        ticket = result.tickets[i];
                         break;
                     }
                 }
                 c.backendService.initiateTransaction(val, eventCost, c.ps.musicianObject.customer_id, !!c.ps.userObject.customer_id, ticketId)
                 .subscribe((response: any) => {
                     console.log(response);
+                    this.backendService.sendEmail(event, party, ticket.stageName, val)
+                    .subscribe((response: any) => {
+                        if (status == "1") {
+                            console.log("Email Sent");
+                        }
+                    });
                     c.popup.close();
                 });
             });

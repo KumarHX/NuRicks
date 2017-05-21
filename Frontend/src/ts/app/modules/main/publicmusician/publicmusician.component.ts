@@ -137,6 +137,8 @@ export class PublicMusicianComponent implements OnInit {
         this.popup.document.close();
         this.popup_doc = this.popup.document;
         var c = this;
+        const party = c.ps.userObject || c.ps.musicianObject;
+        const event = this.pm.p_events[idex];
         var eventId = this.pm.p_events[idex].id;
         var eventCost = this.pm.p_events[idex].cost;
         this.popup["formcallback"] = function() {
@@ -147,15 +149,23 @@ export class PublicMusicianComponent implements OnInit {
             .subscribe((result: any) => {
                 console.log(result);
                 var ticketId = -1;
+                var ticket: any;
                 for (var i = 0; i < result.tickets.length; ++i) {
                     if (result.tickets[String(i)].MusicianFbid == c.pm.p_musicianObject.fbid) {
                         ticketId = result.tickets[String(i)].id;
+                        ticket = result.tickets[String(i)];
                         break;
                     }
                 }
-                c.backendService.initiateTransaction(val, eventCost, c.ps.userObject.customer_id || c.ps.musicianObject.customer_id, !!c.ps.userObject.customer_id, ticketId)
+                c.backendService.initiateTransaction(val, eventCost, party.customer_id, !!c.ps.userObject.customer_id, ticketId)
                 .subscribe((response: any) => {
                     console.log(response);
+                    this.backendService.sendEmail(event, party, ticket.stageName, val)
+                    .subscribe((response: any) => {
+                        if (status == "1") {
+                            console.log("Email Sent");
+                        }
+                    });
                     c.popup.close();
                 });
             });

@@ -201,6 +201,27 @@ export class BackendService {
             .catch(this.handleError);
     }
 
+    sendEmail(event: any, user: any, musician: any, num: any): Observable<any> {
+        let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
+        let options: RequestOptions = new RequestOptions({ headers: headers });
+        const body: string = JSON.stringify({
+            headliner: event.headliner,
+            musicianName: musician,
+            eventDate: event.eventDate,
+            doorsOpen: event.doorsOpen,
+            ageRestriction: event.ageRestriction,
+            venueName: event.venue,
+            streetName: event.streetName,
+            address: event.address,
+            eventURL: event.image_url,
+            guestName: `${user.firstName} ${user.lastName}`,
+            numberInParty: num
+        })
+        return this.http.post(`${this.backendUrl}/transactions/sendEmail`, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     createTicket(fbid: string, eventId: number): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });
