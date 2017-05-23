@@ -23,7 +23,8 @@ if (process.env.DATABASE_URL) {
   console.log("hello");
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect:  'mysql',
-    logging:  true //false
+    logging:  true, //false
+    port: process.env.PORT
   });
 } 
 else {
