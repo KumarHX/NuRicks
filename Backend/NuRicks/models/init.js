@@ -16,7 +16,7 @@ var Sequelize = require('sequelize');
     //dialect: 'mysql'
 //});
 
-console.log(process.env.DATABASE_URL);
+console.log("THE DB URL: " + process.env.DATABASE_URL);
 
 if (process.env.DATABASE_URL) {
   // the application is executed on Heroku ... use the postgres database
