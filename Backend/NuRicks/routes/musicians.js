@@ -77,7 +77,7 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook-musicians'
     // res.cookie('jwt', token);
     req.session.key = token;
     // Successfully authenticated, redirect.
-    res.redirect('http://localhost:8001/');
+    res.redirect('https://aaruel.github.io/nuricks-frontend/');
   })
 
 router.get('/auth/test', (req, res) => {
@@ -85,7 +85,7 @@ router.get('/auth/test', (req, res) => {
     const token = jwt.encode(payload, secret);
     // res.cookie('jwt', token);
     req.session.key = token;
-    res.redirect('http://localhost:8001/')
+    res.redirect('https://aaruel.github.io/nuricks-frontend/')
 })
 
 router.post('/updateMusicianInfo', function(req, res, next){
@@ -104,7 +104,7 @@ router.post('/updateMusicianInfo', function(req, res, next){
 
 router.get('/logout', (req, res) => {
     req.session = null;
-    res.redirect('http://localhost:8001/');
+    res.redirect('https://aaruel.github.io/nuricks-frontend/');
 });
 
 router.get('/deleteCustomerPaymentInfo/:fbid', function(req, res, next){
