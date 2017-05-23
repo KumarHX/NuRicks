@@ -21,11 +21,11 @@ console.log("THE DB URL: " + process.env.DATABASE_URL);
 if (process.env.DATABASE_URL) {
   // the application is executed on Heroku ... use the postgres database
   console.log("hello");
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect:  'mysql',
-    logging:  true, //false
-    port: process.env.PORT
-  });
+   	sequelize = new Sequelize('nuricks', 'root', '11fire', {
+    	host: process.env.DATABASE_URL,
+    	port: process.env.PORT,
+    	dialect: 'mysql'
+	});
 } 
 else {
 	console.log("hello233333333");
