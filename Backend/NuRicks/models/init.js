@@ -22,7 +22,8 @@ if (process.env.DATABASE_URL) {
   // the application is executed on Heroku ... use the postgres database
   console.log("hello43333");
    	sequelize = new Sequelize(process.env.DATABASE_URL, {
-    	logging: false
+    	logging: false,
+    	port: process.env.PORT
 	});
 } 
 else {
