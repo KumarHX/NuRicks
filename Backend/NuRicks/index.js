@@ -26,7 +26,7 @@ app.use(passport.session());
 // Helmet defaults
 app.use(helmet());
 app.use(cors({
-    origin: "http://localhost:8001",
+    origin: "https://aaruel.github.io/",
     credentials: true
 }));
 
