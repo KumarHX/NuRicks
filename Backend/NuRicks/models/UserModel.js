@@ -47,7 +47,7 @@ Users.sync();
 passport.use('facebook-users', new FacebookStrategy({
     clientID: '222498668155227',
     clientSecret:  '7e600563610f0c8d21240afb25d44447',
-    callbackURL: "http://localhost:3000/api/users/auth/facebook/callback",
+    callbackURL: "http://nuricks.herokuapp.com/api/users/auth/facebook/callback",
     profileFields: ['id', 'name', 'profileUrl']  },
   function(accessToken, refreshToken, profile, cb) {
     console.log("1: " + profile.id);

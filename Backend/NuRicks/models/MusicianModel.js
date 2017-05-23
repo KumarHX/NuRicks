@@ -84,7 +84,7 @@ Musicians.sync();
 passport.use('facebook-musicians', new FacebookStrategy({
     clientID: '222498668155227',
     clientSecret:  '7e600563610f0c8d21240afb25d44447',
-    callbackURL: "http://localhost:3000/api/musicians/auth/facebook/callback",
+    callbackURL: "http://nuricks.herokuapp.com/api/musicians/auth/facebook/callback",
     profileFields: ['id', 'name', 'picture','cover']  },
   function(accessToken, refreshToken, profile, cb) {
     const newMusician = Musicians.build({
