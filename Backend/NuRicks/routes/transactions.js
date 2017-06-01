@@ -19,7 +19,8 @@ router.post("/sendEmail", function (req, res) {
     var eventURL = req.body.eventURL;
     var guestName = req.body.guestName;
     var numberInParty = req.body.numberInParty;
-	TransactionModel.sendEmail(res,headliner, musicianName, eventDate, doorsOpen, ageRestriction, venueName, streetName, address, eventURL, guestName, numberInParty);
+    var transaction_id = req.body.transaction_id;
+	TransactionModel.sendEmail(res,headliner, musicianName, eventDate, doorsOpen, ageRestriction, venueName, streetName, address, eventURL, guestName, numberInParty, transaction_id);
 });
 
 
