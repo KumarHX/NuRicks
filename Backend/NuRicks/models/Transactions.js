@@ -125,7 +125,7 @@ TransactionModel = {
         });
     },
 
-     sendEmail: function(res, headliner, musicianName, eventDate, doorsOpen, ageRestriction, venueName, streetName, address, eventURL, guestName, numberInPartym transaction_id){
+     sendEmail: function(res, headliner, musicianName, eventDate, doorsOpen, ageRestriction, venueName, streetName, address, eventURL, guestName, numberInParty, transaction_id){
         var data = {
             from: 'Nuricks Ticket <postmaster@sandbox654b8cff24ea4666bdc8cb515051b085.mailgun.org>',
             to: 'pranav98@gmail.com',
