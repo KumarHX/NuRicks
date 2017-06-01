@@ -97,7 +97,7 @@ TransactionModel = {
                     }).catch(function (err) {
                     res.json({status: -1, errors: ['Unable to find ticket', err]});
                 })
-                  res.send({status: "1", transaction: transaction});
+                  res.send({status: "1", transaction: transaction, transaction_id: result.transaction.id});
                 })
             }
             else {
