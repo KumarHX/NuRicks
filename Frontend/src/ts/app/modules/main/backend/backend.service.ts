@@ -201,7 +201,7 @@ export class BackendService {
             .catch(this.handleError);
     }
 
-    sendEmail(event: any, user: any, musician: any, num: any, t_id): Observable<any> {
+    sendEmail(event: any, user: any, musician: any, num: any, t_id: any): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });
         const body: string = JSON.stringify({
