@@ -10,7 +10,7 @@ import "rxjs/add/operator/do";
 
 @Injectable()
 export class BackendService {
-    backendUrl: string = "http://localhost:3000/api";
+    backendUrl: string = "https://nuricks.herokuapp.com/api";
 
     constructor(
         private http: Http
@@ -201,7 +201,7 @@ export class BackendService {
             .catch(this.handleError);
     }
 
-    sendEmail(event: any, user: any, musician: any, num: any): Observable<any> {
+    sendEmail(event: any, user: any, musician: any, num: any, t_id): Observable<any> {
         let headers = new Headers({ "Content-Type": "application/json", "Accept": "application/json" });
         let options: RequestOptions = new RequestOptions({ headers: headers });
         const body: string = JSON.stringify({
@@ -215,6 +215,7 @@ export class BackendService {
             address: `${event.city}, ${event.state} ${event.zip_code}`,
             eventURL: event.image_url,
             guestName: `${user.firstName} ${user.lastName}`,
+            transaction_id: t_id,
             numberInParty: num
         })
         return this.http.post(`${this.backendUrl}/transactions/sendEmail`, body, options)

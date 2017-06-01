@@ -161,7 +161,7 @@ export class PublicMusicianComponent implements OnInit {
                 c.backendService.initiateTransaction(val, eventCost, party.customer_id, !!c.ps.userObject.customer_id, ticketId)
                 .subscribe((response: any) => {
                     console.log(response);
-                    c.backendService.sendEmail(event, party, musc, val)
+                    c.backendService.sendEmail(event, party, musc, val, response.transaction_id)
                     .subscribe((response: any) => {
                         if (status == "1") {
                             console.log("Email Sent");
