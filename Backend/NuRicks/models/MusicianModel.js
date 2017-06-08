@@ -218,7 +218,7 @@ MusiciansModel = {
     },
 
     deleteMusician: function(res, fbid){
-        Musicians.remove({
+        Musicians.destroy({
             where: {
                 fbid: fbid
             }
