@@ -305,6 +305,24 @@ MusiciansModel = {
         })
     },
 
+     updateMusicianVerified: function (res, fbid){
+        Musicians.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(editMusician) {
+            editMusician.update({
+                verified: true
+            }).then(function(musician){
+                res.json({status: 1, musician: musician});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit musician verified', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find musician', err]});
+        })
+    },
+
     createPaymentInformation: function(res, fbid, nonce){
         Musicians.findOne({
             where:{

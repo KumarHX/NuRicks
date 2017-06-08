@@ -66,6 +66,11 @@ router.post('/updateCustomerPaymentInfo/:fbid', function(req, res, next){
     MusiciansModel.updateCustomerPaymentInfo(res, fbid, nonce);
 });
 
+router.get('/updateMusicianTOS/:fbid', function(req, res, next){
+    var fbid = req.params.fbid;
+    MusiciansModel.updateMusicianVerified(res, fbid);
+});
+
 
 router.get('/auth/facebook', passport.authenticate('facebook-musicians'));
 
