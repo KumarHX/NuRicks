@@ -90,7 +90,7 @@ router.get('/auth/test', (req, res) => {
     const token = jwt.encode(payload, secret);
     // res.cookie('jwt', token);
     req.session.key = token;
-    res.redirect('https://aaruel.github.io/nuricks-frontend/')
+    res.redirect('https://nrtickets.com/nuricks-frontend/');
 })
 
 router.post('/updateMusicianInfo', function(req, res, next){
@@ -109,7 +109,7 @@ router.post('/updateMusicianInfo', function(req, res, next){
 
 router.get('/logout', (req, res) => {
     req.session = null;
-    res.redirect('https://aaruel.github.io/nuricks-frontend/');
+    res.redirect('https://nrtickets.com/nuricks-frontend/');
 });
 
 router.get('/deleteCustomerPaymentInfo/:fbid', function(req, res, next){
