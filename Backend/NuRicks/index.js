@@ -26,7 +26,7 @@ app.use(passport.session());
 // Helmet defaults
 app.use(helmet());
 app.use(cors({
-    origin: "https://aaruel.github.io",
+    origin: "https://nrtickets.com",
     credentials: true
 }));
 

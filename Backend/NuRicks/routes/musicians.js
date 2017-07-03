@@ -82,7 +82,7 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook-musicians'
     // res.cookie('jwt', token);
     req.session.key = token;
     // Successfully authenticated, redirect.
-    res.redirect('https://aaruel.github.io/nuricks-frontend/');
+    res.redirect('https://nrtickets.com/nuricks-frontend/');
   })
 
 router.get('/auth/test', (req, res) => {
