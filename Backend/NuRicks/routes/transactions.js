@@ -31,7 +31,7 @@ router.get("/getClientToken", function (req, res) {
 router.post("/initiateTransactionSTRIPE", function(req, res) {
     var params = req.body;
     console.log(params);
-    var total = params.amount * params.numberOfTickets;
+    var total = params.amount * params.numberOfTickets * 100;
     TransactionModel.initiateTransactionSTRIPE(res, params, total, parseInt(params.numberOfTickets));
 });
 
