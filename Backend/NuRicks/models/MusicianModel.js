@@ -75,7 +75,7 @@ hash.configure({ charSet: [ 'A', 'B', 'C', '1', '2', '3','4','5','6','7','8','9'
     picture_url: { type: Sequelize.TEXT },
     verified: {type: Sequelize.BOOLEAN},
 
-    customer_id: {type: Sequelize.INTEGER},
+    customer_id: {type: Sequelize.STRING},
     card_digits: {type: Sequelize.STRING}
 });
 
@@ -321,6 +321,38 @@ MusiciansModel = {
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find musician', err]});
         })
+    },
+
+    createPaymentInformationSTRIPE: function(res, fbid, nonce){
+        Musicians.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(result){
+            if(!result){
+                res.json({status: -1, errors:['User does not exist']})
+            }
+            else{
+                stripe.customers.create({
+                    description: 'Customer for ' + result.firstName + " " + result.lastName + " " + result.email,
+                    source: nonce // obtained with Stripe.js
+                }, function(err, customer) {
+                    // asynchronously called
+                    if(customer) {
+                        result.update({
+                            customer_id: customer.id
+                        }).then(function (result) {
+                            res.json({status: 1, user: result});
+                        })
+                    }
+                    else{
+                        res.json({status: -2, errors:['Unable to create customer from nonce', err]})
+                    }
+                });
+            }
+        }).catch(function(err){
+            res.json({status: -1, errors:['Error with Sequelize call', err]})
+        });
     },
 
     createPaymentInformation: function(res, fbid, nonce){

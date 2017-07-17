@@ -10,6 +10,11 @@ var braintree = require("braintree");
 
 var Sequelize = require('sequelize');
 
+
+var stripe = require("stripe")(
+  "sk_test_CbkY0tX7oPaWHwlsAzOEMR3D"
+);
+
 //var sequelize = new Sequelize('nuricks', 'root', '11fire', {
   //  host: 'localhost',
     //port: 3306,
@@ -50,3 +55,4 @@ sequelize.sync();
 module.exports.Sequelize = Sequelize;
 module.exports.sequelize = sequelize;
 module.exports.gateway = gateway;
+module.exports.stripe = stripe;

@@ -54,6 +54,20 @@ router.get('/allMusicians', function(req, res, next){
     MusiciansModel.allMusicians(res);
 });
 
+router.post('/createPaymentInformationSTRIPE/:fbid', function(req, res, next){
+    var nonce = req.body.payment_method_nonce;
+    var fbid = req.params.fbid;
+    MusiciansModel.createPaymentInformationSTRIPE(res, fbid, nonce);
+});
+
+router.post('/updateCustomerPaymentInfoSTRIPE/:fbid', function(req, res, next){
+    var nonce = req.body.payment_method_nonce;
+    var fbid = req.params.fbid;
+    MusiciansModel.updateCustomerPaymentInfoSTRIPE(res, fbid, nonce);
+});
+
+
+
 router.post('/createPaymentInformation/:fbid', function(req, res, next){
     var nonce = req.body.payment_method_nonce;
     var fbid = req.params.fbid;
