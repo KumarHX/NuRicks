@@ -69,22 +69,20 @@ TransactionModel = {
         });
     },
 
-
-
     initiateTransactionSTRIPE: function(res, params, total, numberSold){
         stripe.charges.create({
         amount: total,
         currency: "usd",
-        source: params.customerId, // obtained with Stripe.js
+        customer: params.customerId, // obtained with Stripe.js
         description: "Charge for " + params.customerId 
         }, function(err, charge) {
           // asynchronously called
-          console.log(result.success);
+          console.log(charge.success);
             console.log(params);
             console.log("ERROR: " + err);
             console.log("RESULT: " + JSON.stringify(result));
-            if(result.success){
-                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + params.customerId +', ' + params.isUser + ', \''+ result.transaction.id +'\', '+ total +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
+            if(charge.success){
+                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + params.customerId +', ' + params.isUser + ', \''+ charge.transaction.id +'\', '+ total +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
                 ).then(function(transaction) {
                     console.log("HEEEEEEREEEEEE: " + params.ticketId)
                     Tickets.findOne({
