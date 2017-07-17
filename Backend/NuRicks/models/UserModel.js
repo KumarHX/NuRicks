@@ -6,6 +6,7 @@ var sequelize_modules = require("./init");
 var gateway = sequelize_modules.gateway;
 var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
+var stripe = sequelize_modules.stripe;
 var passport = require('passport')
 var FacebookStrategy = require('passport-facebook').Strategy
 const util = require('util')
@@ -38,7 +39,7 @@ const util = require('util')
     },
 
     picture_url: { type: Sequelize.TEXT },
-    customer_id: {type: Sequelize.INTEGER},
+    customer_id: {type: Sequelize.STRING},
     card_digits: {type: Sequelize.STRING}
 });
 
@@ -104,6 +105,38 @@ UsersModel = {
         });
     },
 
+    createPaymentInformationSTRIPE: function(res, fbid, nonce){
+        Users.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(result){
+            if(!result){
+                res.json({status: -1, errors:['User does not exist']})
+            }
+            else{
+                stripe.customers.create({
+                    description: 'Customer for ' + result.firstName + " " + result.lastName + " " + result.email,
+                    source: nonce // obtained with Stripe.js
+                }, function(err, customer) {
+                    // asynchronously called
+                    if(customer) {
+                        result.update({
+                            customer_id: customer.id
+                        }).then(function (result) {
+                            res.json({status: 1, user: result});
+                        })
+                    }
+                    else{
+                        res.json({status: -2, errors:['Unable to create customer from nonce', err]})
+                    }
+                });
+            }
+        }).catch(function(err){
+            res.json({status: -1, errors:['Error with Sequelize call', err]})
+        });
+    },
+
     /*   Get requested in users.js
      *
      *   Given a user's email, as well as their payment method nonce, updates the user's
@@ -147,6 +180,30 @@ UsersModel = {
         }).catch(function(err){
             res.json({status: -1, errors:['Error with Sequelize call', err]})
         });
+    },
+
+    updateCustomerPaymentInfoSTRIPE: function(res, fbid, nonceFromTheClient) {
+        Users.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(userInfo){
+            stripe.customers.update(userInfo.customer_id + "", {
+            description: "Customer for ava.robinson@example.com",
+            source: nonceFromTheClient
+            }, function(err, customer) {
+            // asynchronously called
+                if(err != null)
+                {
+                    res.json({status: -1, "customer": "credit card info is fucked, cant update"});
+                }
+        });
+            res.json({status: 1, "customer": "customer updated"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -2, errors: ['Unable to find User', err]});
+        });
+
     },
 
      updateCustomerPaymentInfo: function(res, fbid, nonceFromTheClient) {
@@ -242,6 +299,27 @@ UsersModel = {
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find user', err]});
         })
+    },
+
+    deleteCustomerPaymentInfoSTRIPE: function(res, search) {
+        Users.findOne({
+            where:{
+                fbid: search
+            }
+        }).then(function(userInfo){
+            stripe.customers.del(userInfo.customer_id, function (err, confirmation) {
+                console.log("ERROR:" + err);
+                console.log("Does it work?");
+                // null
+            });
+            userInfo.update({
+                customer_id: null
+            });
+            res.json({status: 1, "user": "user deleted"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find User', err]});
+        });
     },
 
     deleteCustomerPaymentInfo: function(res, search) {

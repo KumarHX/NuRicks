@@ -19,11 +19,26 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook-users'),
     res.redirect('https://nrtickets.com/nuricks-frontend/');
 });
 
+
+router.post('/createPaymentInformationSTRIPE/:fbid', function(req, res, next){
+    var nonce = req.body.payment_method_nonce;
+    var fbid = req.params.fbid;
+    UsersModel.createPaymentInformationSTRIPE(res, fbid, nonce);
+});
+
+
 router.post('/createPaymentInformation/:fbid', function(req, res, next){
     var nonce = req.body.payment_method_nonce;
     var fbid = req.params.fbid;
     UsersModel.createPaymentInformation(res, fbid, nonce);
 });
+
+router.post('/updateCustomerPaymentInfoSTRIPE/:fbid', function(req, res, next){
+    var nonce = req.body.payment_method_nonce;
+    var fbid = req.params.fbid;
+    UsersModel.updateCustomerPaymentInfoSTRIPE(res, fbid, nonce);
+});
+
 
 router.post('/updateCustomerPaymentInfo/:fbid', function(req, res, next){
     var nonce = req.body.payment_method_nonce;
@@ -57,6 +72,12 @@ router.post('/updateCardDigits', function(req, res, next){
     var digits = req.body.digits;
     UsersModel.updateUserCardDigits(res, fbid, digits);
 });
+
+router.get('/deleteCustomerPaymentInfoSTRIPE/:fbid', function(req, res, next){
+    var search = req.params.fbid;
+    UsersModel.deleteCustomerPaymentInfoSTRIPE(res, search);
+});
+
 
 router.get('/deleteCustomerPaymentInfo/:fbid', function(req, res, next){
     var search = req.params.fbid;
