@@ -4,6 +4,7 @@ var sequelize_modules = require("./init");
 var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
 var gateway = sequelize_modules.gateway;
+var stripe = sequelize_modules.stripe;
 var PERCENTAGE_FEE = 0.10;
 
 var User_models = require("./UserModel");
