@@ -28,6 +28,13 @@ router.get("/getClientToken", function (req, res) {
     TransactionModel.getClientToken(res);
 });
 
+router.post("/initiateTransactionSTRIPE", function(req, res) {
+    var params = req.body;
+    console.log(params);
+    var total = params.amount * params.numberOfTickets;
+    TransactionModel.initiateTransactionSTRIPE(res, params, total, parseInt(params.numberOfTickets));
+});
+
 router.post("/initiateTransaction", function(req, res) {
     var params = req.body;
     console.log(params);

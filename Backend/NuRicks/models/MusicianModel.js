@@ -347,7 +347,7 @@ MusiciansModel = {
                         })
                     }
                     else{
-                        res.json({status: -2, errors:['Unable to create customer from nonce', err]})
+                        res.json({status: -2, errors:['Unable to create customer from token', err]})
                     }
                 });
             }
@@ -434,6 +434,27 @@ MusiciansModel = {
             res.json({status: -2, errors: ['Unable to find Musician', err]});
         });
 
+    },
+
+     deleteCustomerPaymentInfoSTRIPE: function(res, search) {
+        Musicians.findOne({
+            where:{
+                fbid: search
+            }
+        }).then(function(musicianInfo){
+            stripe.customers.del(musicianInfo.customer_id, function (err, confirmation) {
+                console.log("ERROR:" + err);
+                console.log("Does it work?");
+                // null
+            });
+            musicianInfo.update({
+                customer_id: null
+            });
+            res.json({status: 1, "musician": "musician deleted"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -1, errors: ['Unable to find Musician', err]});
+        });
     },
 
     deleteCustomerPaymentInfo: function(res, search) {
