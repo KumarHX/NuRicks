@@ -96,7 +96,7 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook-musicians'
     // res.cookie('jwt', token);
     req.session.key = token;
     // Successfully authenticated, redirect.
-    res.redirect('https://nrtickets.com/nuricks-frontend/');
+    res.redirect('https://nrtickets.com/');
   })
 
 router.get('/auth/test', (req, res) => {
@@ -104,7 +104,7 @@ router.get('/auth/test', (req, res) => {
     const token = jwt.encode(payload, secret);
     // res.cookie('jwt', token);
     req.session.key = token;
-    res.redirect('https://nrtickets.com/nuricks-frontend/');
+    res.redirect('https://nrtickets.com/');
 })
 
 router.post('/updateMusicianInfo', function(req, res, next){
@@ -123,7 +123,7 @@ router.post('/updateMusicianInfo', function(req, res, next){
 
 router.get('/logout', (req, res) => {
     req.session = null;
-    res.redirect('https://nrtickets.com/nuricks-frontend/');
+    res.redirect('https://nrtickets.com/');
 });
 
 router.get('/deleteCustomerPaymentInfo/:fbid', function(req, res, next){

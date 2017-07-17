@@ -16,7 +16,7 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook-users'),
     // res.cookie('jwt', token);
     req.session.key = token;
     // Successfully authenticated, redirect.
-    res.redirect('https://nrtickets.com/nuricks-frontend/');
+    res.redirect('https://nrtickets.com/');
 });
 
 
@@ -48,7 +48,7 @@ router.post('/updateCustomerPaymentInfo/:fbid', function(req, res, next){
 
 router.get('/logout', (req, res) => {
     req.session = null;
-    res.redirect('https://nrtickets.com/nuricks-frontend/');
+    res.redirect('https://nrtickets.com/');
 });
 
 router.get('/getUserInfoFromID/:fbid', function(req, res, next){
