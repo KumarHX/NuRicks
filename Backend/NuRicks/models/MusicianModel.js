@@ -7,6 +7,7 @@ var gateway = sequelize_modules.gateway;
 var sequelize = sequelize_modules.sequelize;
 var Sequelize = sequelize_modules.Sequelize;
 var passport = require('passport');
+var stripe = sequelize_modules.stripe;
 var FacebookStrategy = require('passport-facebook').Strategy;
 const util = require('util');
 var hash = require('custom-hash');
@@ -386,6 +387,30 @@ MusiciansModel = {
         }).catch(function(err){
             res.json({status: -1, errors:['Error with Sequelize call', err]})
         });
+    },
+
+     updateCustomerPaymentInfoSTRIPE: function(res, fbid, nonceFromTheClient) {
+        Musicians.findOne({
+            where:{
+                fbid: fbid
+            }
+        }).then(function(userInfo){
+            stripe.customers.update(userInfo.customer_id + "", {
+            description: "Customer for ava.robinson@example.com",
+            source: nonceFromTheClient
+            }, function(err, customer) {
+            // asynchronously called
+                if(err != null)
+                {
+                    res.json({status: -1, "customer": "credit card info is fucked, cant update"});
+                }
+        });
+            res.json({status: 1, "customer": "customer updated"});
+        }).catch(function (err) {
+            console.log("broke");
+            res.json({status: -2, errors: ['Unable to find User', err]});
+        });
+
     },
 
      updateCustomerPaymentInfo: function(res, fbid, nonceFromTheClient) {
