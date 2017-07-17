@@ -78,10 +78,11 @@ TransactionModel = {
         description: "Charge for " + params.customerId 
         }, function(err, charge) {
           // asynchronously called
-          console.log(charge.success);
+          console.log(err);
+          console.log(charge);
             console.log(params);
             console.log("ERROR: " + err);
-            console.log("RESULT: " + JSON.stringify(result));
+            console.log("RESULT: " + JSON.stringify(charge));
             if(charge.success){
                 sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + params.customerId +', ' + params.isUser + ', \''+ charge.transaction.id +'\', '+ total +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
                 ).then(function(transaction) {
