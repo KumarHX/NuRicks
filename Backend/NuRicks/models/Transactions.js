@@ -84,7 +84,7 @@ TransactionModel = {
             console.log("ERROR: " + err);
             console.log("RESULT: " + JSON.stringify(charge));
             if(charge){
-                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + (params.customerId +"")+', ' + params.isUser + ', \''+ charge.id +'\', '+ (total*0.01) +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
+                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES ("' + params.customerId +'", ' + params.isUser + ', \''+ charge.id +'\', '+ (total*0.01) +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
                 ).then(function(transaction) {
                     console.log("HEEEEEEREEEEEE: " + params.ticketId)
                     Tickets.findOne({
