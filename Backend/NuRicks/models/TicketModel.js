@@ -90,6 +90,24 @@ TicketsModel = {
         })
     },
 
+    updateTicketsSold: function (res, id, number){
+        Tickets.findOne({
+            where:{
+                id: id
+            }
+        }).then(function(editTicket) {
+            editTicket.update({
+                numberSold: number
+            }).then(function(ticket){
+                res.json({status: 1, ticket: ticket});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit ticket info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find ticket', err]});
+        })
+    },
+
     queryTicketByEventID: function (res, search) {
         Tickets.findAll({
                 where: {

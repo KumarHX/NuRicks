@@ -19,6 +19,13 @@ router.get('/queryGlobalTickets', function(req, res, next){
     ticketModel.queryGlobalTickets(res);
 });
 
+router.post('/updateTicketsSold', function(req, res, next){
+    var id = req.body.ticketID;
+    var number = req.body.numberSold;
+    ticketModel.updateUserInfoScreen(res, id, number);
+});
+
+
 router.get('/queryTicketByMusician/:fbid', function(req, res, next){
 	var search = req.params.fbid;
     ticketModel.queryTicketByMusician(res, search);
