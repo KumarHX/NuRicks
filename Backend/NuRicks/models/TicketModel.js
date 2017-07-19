@@ -140,7 +140,7 @@ TicketsModel = {
     },
 
     deleteTicket: function(res, ticketId){
-        Tickets.remove({
+        Tickets.destroy({
             where: {
                 id: ticketId
             }
