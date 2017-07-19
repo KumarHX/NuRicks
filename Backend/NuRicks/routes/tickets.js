@@ -22,7 +22,7 @@ router.get('/queryGlobalTickets', function(req, res, next){
 router.post('/updateTicketsSold', function(req, res, next){
     var id = req.body.ticketID;
     var number = req.body.numberSold;
-    ticketModel.updateUserInfoScreen(res, id, number);
+    ticketModel.updateTicketsSold(res, id, number);
 });
 
 
