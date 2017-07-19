@@ -145,7 +145,7 @@ EventsModel = {
     },
 
     deleteEvent: function(res, eventId){
-        Events.remove({
+        Events.destroy({
             where: {
                 id: eventId
             }
