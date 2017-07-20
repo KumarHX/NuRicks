@@ -6,6 +6,7 @@ var Sequelize = sequelize_modules.Sequelize;
 var gateway = sequelize_modules.gateway;
 var stripe = sequelize_modules.stripe;
 var PERCENTAGE_FEE = 0.10;
+var dateTime = require('node-datetime');
 
 var User_models = require("./UserModel");
 var Users = User_models.Users;
@@ -122,8 +123,10 @@ TransactionModel = {
             console.log(params);
             console.log("ERROR: " + err);
             console.log("RESULT: " + JSON.stringify(result));
+            var dt = dateTime.create();
+            var formatted = dt.format('Y-m-d H:M:S');
             if(result.success){
-                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + params.customerId +', ' + params.isUser + ', \''+ result.transaction.id +'\', '+ total +', '+ params.ticketId +', \'2017-04-06 07:30:28\', \'2017-04-06 07:30:28\');'
+                sequelize.query('INSERT INTO Transactions (customerId, isUser, transaction_id, amount, ticketId, createdAt, updatedAt) VALUES (' + params.customerId +', ' + params.isUser + ', \''+ result.transaction.id +'\', '+ total +', '+ params.ticketId +', ' + formatted + ', \'2017-04-06 07:30:28\');'
                 ).then(function(transaction) {
                     console.log("HEEEEEEREEEEEE: " + params.ticketId)
                     Tickets.findOne({
