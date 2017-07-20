@@ -122,7 +122,7 @@ UsersModel = {
                     // asynchronously called
                     if(customer) {
                         result.update({
-                            customer_id: customer.id
+                            customer_id: customer.id,
                             card_digits: digits
                         }).then(function (result) {
                             res.json({status: 1, user: result});
