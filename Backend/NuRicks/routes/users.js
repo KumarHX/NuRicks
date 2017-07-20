@@ -23,7 +23,8 @@ router.get('/auth/facebook/callback', passport.authenticate('facebook-users'),
 router.post('/createPaymentInformationSTRIPE/:fbid', function(req, res, next){
     var nonce = req.body.payment_method_nonce;
     var fbid = req.params.fbid;
-    UsersModel.createPaymentInformationSTRIPE(res, fbid, nonce);
+    var digits = req.body.digits;
+    UsersModel.createPaymentInformationSTRIPE(res, fbid, nonce, digits);
 });
 
 

@@ -324,7 +324,7 @@ MusiciansModel = {
         })
     },
 
-    createPaymentInformationSTRIPE: function(res, fbid, nonce){
+    createPaymentInformationSTRIPE: function(res, fbid, nonce, digits){
         Musicians.findOne({
             where:{
                 fbid: fbid
@@ -341,7 +341,8 @@ MusiciansModel = {
                     // asynchronously called
                     if(customer) {
                         result.update({
-                            customer_id: customer.id
+                            customer_id: customer.id,
+                            card_digits: digits
                         }).then(function (result) {
                             res.json({status: 1, user: result});
                         })
@@ -356,7 +357,7 @@ MusiciansModel = {
         });
     },
 
-    createPaymentInformation: function(res, fbid, nonce){
+    createPaymentInformation: function(res, fbid, nonce, digits){
         Musicians.findOne({
             where:{
                 fbid: fbid
@@ -370,7 +371,7 @@ MusiciansModel = {
                     firstName: result.firstName,
                     lastName: result.lastName,
                     email: result.email,
-                    paymentMethodNonce: nonce
+                    paymentMethodNonce: nonce,
                 }, function (err, braintree_result) {
                     if(braintree_result.success) {
                         result.update({

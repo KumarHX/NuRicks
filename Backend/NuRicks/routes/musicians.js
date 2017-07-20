@@ -57,7 +57,8 @@ router.get('/allMusicians', function(req, res, next){
 router.post('/createPaymentInformationSTRIPE/:fbid', function(req, res, next){
     var nonce = req.body.payment_method_nonce;
     var fbid = req.params.fbid;
-    MusiciansModel.createPaymentInformationSTRIPE(res, fbid, nonce);
+    var digits = req.body.digits;
+    MusiciansModel.createPaymentInformationSTRIPE(res, fbid, nonce, digits);
 });
 
 router.post('/updateCustomerPaymentInfoSTRIPE/:fbid', function(req, res, next){
@@ -71,7 +72,8 @@ router.post('/updateCustomerPaymentInfoSTRIPE/:fbid', function(req, res, next){
 router.post('/createPaymentInformation/:fbid', function(req, res, next){
     var nonce = req.body.payment_method_nonce;
     var fbid = req.params.fbid;
-    MusiciansModel.createPaymentInformation(res, fbid, nonce);
+    var digits = req.body.digits;
+    MusiciansModel.createPaymentInformation(res, fbid, nonce, digits);
 });
 
 router.post('/updateCustomerPaymentInfo/:fbid', function(req, res, next){

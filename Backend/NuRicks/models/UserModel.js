@@ -105,7 +105,7 @@ UsersModel = {
         });
     },
 
-    createPaymentInformationSTRIPE: function(res, fbid, nonce){
+    createPaymentInformationSTRIPE: function(res, fbid, nonce, digits){
         Users.findOne({
             where:{
                 fbid: fbid
@@ -123,6 +123,7 @@ UsersModel = {
                     if(customer) {
                         result.update({
                             customer_id: customer.id
+                            card_digits: digits
                         }).then(function (result) {
                             res.json({status: 1, user: result});
                         })
@@ -149,7 +150,7 @@ UsersModel = {
      *
      */
 
-    createPaymentInformation: function(res, fbid, nonce){
+    createPaymentInformation: function(res, fbid, nonce, digits){
         Users.findOne({
             where:{
                 fbid: fbid
