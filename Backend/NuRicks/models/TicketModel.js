@@ -145,7 +145,7 @@ TicketsModel = {
                     res.json({status: -1, errors: ['Unable to edit ticket info', err]});
                     });
                 }
-                res.json({status: "1", "tickets": results})
+                res.json({status: "1", "tickets": "all tickets updated"})
             }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find tickets', err]});
         })
