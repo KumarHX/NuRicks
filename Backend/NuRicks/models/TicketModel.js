@@ -127,15 +127,11 @@ TicketsModel = {
         })
     },
 
+    //fixed
     hideAllTicketsForEvent: function (res, eventID, hide){
         Events.findOne(eventID).then(function(editEvent) {
             editEvent.update({
                 isPossibleEvent:hide
-            }).then(function(eventInfo){
-                Tickets.findAll({
-                    where:{
-                        EventId: eventID
-                }
             }).then(function (foundTickets) {
                 for (var i = 0; i < foundTickets.length; i++) {
                     foundTickets[i].update({
@@ -146,8 +142,11 @@ TicketsModel = {
                     });
                 }
                 res.json({status: "1", "tickets": "all tickets updated"})
-            }).catch(function (err) {
-            res.json({status: -1, errors: ['Unable to find tickets', err]});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit event info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find event', err]});
         })
     },
 
