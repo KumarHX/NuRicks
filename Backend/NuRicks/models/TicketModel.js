@@ -19,7 +19,7 @@ var Tickets = sequelize.define("Tickets", {
         },
     numberSold:{type: Sequelize.INTEGER, allowNull: false, default:0},
     isGlobal:{type: Sequelize.BOOLEAN, allowNull: false},
-    hidden:{type: Sequelize.BOOLEAN, allowNull: false},
+    hidden:{type: Sequelize.BOOLEAN, allowNull: false, default:false},
 });
 
 
