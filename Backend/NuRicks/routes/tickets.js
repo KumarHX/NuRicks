@@ -25,6 +25,18 @@ router.post('/updateTicketsSold', function(req, res, next){
     ticketModel.updateTicketsSold(res, id, number);
 });
 
+router.post('/hideTicket', function(req, res, next){
+    var id = req.body.ticketID;
+    var hide = req.body.hide;
+    ticketModel.updateTicketsSold(res, id, hide);
+});
+
+router.post('/hideAllTicketsForEvent', function(req, res, next){
+    var id = req.body.eventID;
+    var hide = req.body.hide;
+    ticketModel.updateTicketsSold(res, id, hide);
+});
+
 
 router.get('/queryTicketByMusician/:fbid', function(req, res, next){
 	var search = req.params.fbid;

@@ -18,7 +18,8 @@ var Tickets = sequelize.define("Tickets", {
             primaryKey: true
         },
     numberSold:{type: Sequelize.INTEGER, allowNull: false, default:0},
-    isGlobal:{type: Sequelize.BOOLEAN, allowNull: false}
+    isGlobal:{type: Sequelize.BOOLEAN, allowNull: false},
+    hidden:{type: Sequelize.BOOLEAN, allowNull: false},
 });
 
 
@@ -105,6 +106,48 @@ TicketsModel = {
             });
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find ticket', err]});
+        })
+    },
+
+    hideTicket: function (res, id, hide){
+        Tickets.findOne({
+            where:{
+                id: id
+            }
+        }).then(function(editTicket) {
+            editTicket.update({
+                hidden: hide
+            }).then(function(ticket){
+                res.json({status: 1, ticket: ticket});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit ticket info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find ticket', err]});
+        })
+    },
+
+    hideAllTicketsForEvent: function (res, eventID, hide){
+        Events.findOne(eventID).then(function(editEvent) {
+            editEvent.update({
+                isPossibleEvent:hide
+            }).then(function(eventInfo){
+                Tickets.findAll({
+                    where:{
+                        EventId: eventID
+                }
+            }).then(function (foundTickets) {
+                for (var i = 0; i < foundTickets.length; i++) {
+                    foundTickets[i].update({
+                        hidden: hide
+                    }).then(function(ticket){
+                    }).catch(function(err){
+                    res.json({status: -1, errors: ['Unable to edit ticket info', err]});
+                    });
+                }
+                res.json({status: "1", "tickets": results})
+            }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find tickets', err]});
         })
     },
 
