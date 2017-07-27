@@ -28,13 +28,13 @@ router.post('/updateTicketsSold', function(req, res, next){
 router.post('/hideTicket', function(req, res, next){
     var id = req.body.ticketID;
     var hide = req.body.hide;
-    ticketModel.updateTicketsSold(res, id, hide);
+    ticketModel.hideTicket(res, id, hide);
 });
 
 router.post('/hideAllTicketsForEvent', function(req, res, next){
     var id = req.body.eventID;
     var hide = req.body.hide;
-    ticketModel.updateTicketsSold(res, id, hide);
+    ticketModel.hideAllTicketsForEvent(res, id, hide);
 });
 
 
