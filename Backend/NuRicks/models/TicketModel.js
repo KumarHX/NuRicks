@@ -150,7 +150,7 @@ TicketsModel = {
             }).catch(function (err) {
                 res.json({status: -1, errors: ['Unable to find tickets', err]});
             })
-        }.catch(function (err) {
+        }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find event', err]});
         })
     },
