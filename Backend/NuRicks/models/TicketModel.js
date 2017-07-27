@@ -132,19 +132,21 @@ TicketsModel = {
         Events.findOne(eventID).then(function(editEvent) {
             editEvent.update({
                 isPossibleEvent:hide
-            }).then(function (foundTickets) {
-                for (var i = 0; i < foundTickets.length; i++) {
-                    foundTickets[i].update({
-                        hidden: hide
-                    }).then(function(ticket){
-                    }).catch(function(err){
-                    res.json({status: -1, errors: ['Unable to edit ticket info', err]});
-                    });
-                }
-                res.json({status: "1", "tickets": "all tickets updated"})
-            }).catch(function(err){
-                res.json({status: -1, errors: ['Unable to edit event info', err]});
-            });
+            }).then(function (Event) {
+                Tickets.findAll({
+                    where: {
+                        Eventid: eventID
+                    }
+                }).then(function (foundTickets) {
+                    var results = [];
+                    for (var i = 0; i < foundTickets.length; i++) {
+                        var data = foundTickets[i];
+                        results.push(data);
+                    }
+                res.json({status: "1", "tickets": results})
+            }).catch(function (err) {
+                res.json({status: -1, errors: ['Unable to find tickets', err]});
+            })
         }).catch(function (err) {
             res.json({status: -1, errors: ['Unable to find event', err]});
         })
