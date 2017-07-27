@@ -128,7 +128,7 @@ TicketsModel = {
     },
 
     //fixed
-    hideAllTicketsForEvent: function (res, eventID, hide){
+    hideAllTicketsForEvent: function (res, eventID, hide) {
         Events.findOne(eventID).then(function(editEvent) {
             editEvent.update({
                 isPossibleEvent:hide
@@ -144,10 +144,13 @@ TicketsModel = {
                         results.push(data);
                     }
                 res.json({status: "1", "tickets": results})
+                }).catch(function (err) {
+                    res.json({status: -1, errors: ['Unable to find tickets', err]});
+                })
             }).catch(function (err) {
                 res.json({status: -1, errors: ['Unable to find tickets', err]});
             })
-        }).catch(function (err) {
+        }.catch(function (err) {
             res.json({status: -1, errors: ['Unable to find event', err]});
         })
     },
