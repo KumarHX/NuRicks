@@ -39,6 +39,12 @@ router.get('/queryPossibleEvents', function(req, res, next){
     EventModel.queryPossibleEvents(res);
 });
 
+router.post('/hideEvent', function(req, res, next){
+    var eventID = req.body.eventID;
+    var isPossibleEvent = req.body.isPossibleEvent;
+    EventModel.hideEvent(res,eventID,isPossibleEvent);
+});
+
 router.post('/updateEventInfo', function(req, res, next){
     var eventID = req.body.eventID;
     var eventName = req.body.eventName;

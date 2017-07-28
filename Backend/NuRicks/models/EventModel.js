@@ -144,6 +144,22 @@ EventsModel = {
         })
     },
 
+
+    hideEvent: function (res, eventID, isPossibleEvent){
+        Events.findOne(eventID).then(function(editEvent) {
+            editEvent.update({
+                isPossibleEvent: isPossibleEvent
+            }).then(function(eventInfo){
+                res.json({status: 1, eventInfo: eventInfo});
+            }).catch(function(err){
+                res.json({status: -1, errors: ['Unable to edit event info', err]});
+            });
+        }).catch(function (err) {
+            res.json({status: -1, errors: ['Unable to find event', err]});
+        })
+    },
+
+
     deleteEvent: function(res, eventId){
         Events.destroy({
             where: {
