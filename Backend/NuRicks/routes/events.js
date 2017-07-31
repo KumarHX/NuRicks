@@ -46,7 +46,7 @@ router.post('/hideEvent', function(req, res, next){
 });
 
 router.post('/updateEventInfo', function(req, res, next){
-    var eventID = req.body.eventID;
+    var eventID = req.body.id;
     var eventName = req.body.eventName;
     var	doorsOpen = req.body.doorsOpen;
     var	ShowStarts = req.body.ShowStarts;
