@@ -40,7 +40,7 @@ router.get('/queryPossibleEvents', function(req, res, next){
 });
 
 router.post('/hideEvent', function(req, res, next){
-    var eventID = req.body.eventID;
+    var eventID = req.body.id;
     var isPossibleEvent = req.body.isPossibleEvent;
     EventModel.hideEvent(res,eventID,isPossibleEvent);
 });
