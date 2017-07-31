@@ -40,14 +40,13 @@ router.get('/queryPossibleEvents', function(req, res, next){
 });
 
 router.post('/hideEvent', function(req, res, next){
-    var eventID = req.body.id;
+    var eventID = req.body.eventID;
     var isPossibleEvent = req.body.isPossibleEvent;
     EventModel.hideEvent(res,eventID,isPossibleEvent);
 });
 
 router.post('/updateEventInfo', function(req, res, next){
     var eventID = req.body.id;
-    console.log("EVENT ID :" + eventID);
     var eventName = req.body.eventName;
     var	doorsOpen = req.body.doorsOpen;
     var	ShowStarts = req.body.ShowStarts;
