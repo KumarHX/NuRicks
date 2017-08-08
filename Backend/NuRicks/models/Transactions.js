@@ -14,8 +14,8 @@ var Users = User_models.Users;
 var Ticket_models = require("./TicketModel");
 var Tickets = Ticket_models.Tickets;
 
-var api_key = 'key-82b7d8d757bf41230899754267dbbcfb';
-var domain = 'sandbox654b8cff24ea4666bdc8cb515051b085.mailgun.org';
+var api_key = 'key-598e05ca5c82205a977e57ef4ae7f1aa';
+var domain = 'nrtickets.com';
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 
