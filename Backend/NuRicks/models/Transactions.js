@@ -15,7 +15,7 @@ var Ticket_models = require("./TicketModel");
 var Tickets = Ticket_models.Tickets;
 
 var api_key = 'key-598e05ca5c82205a977e57ef4ae7f1aa';
-var domain = 'nrdtickets.com';
+var domain = 'nrtickets.com';
 var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 
