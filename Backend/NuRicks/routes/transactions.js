@@ -4,7 +4,7 @@ var router = express.Router();
 
 var transaction_model = require("../models/Transactions");
 var TransactionModel =  transaction_model.TransactionModel;
-
+//comment
 
 router.post("/sendEmail", function (req, res) {
     // setup email data with unicode symbols
@@ -21,7 +21,8 @@ router.post("/sendEmail", function (req, res) {
     var numberInParty = req.body.numberInParty;
     var transaction_id = req.body.transaction_id;
     var email = req.body.email;
-	TransactionModel.sendEmail(res,headliner, musicianName, eventDate, doorsOpen, ageRestriction, venueName, streetName, address, eventURL, guestName, numberInParty, transaction_id, email);
+    console.log("WEEE OUT HERE: " + email);
+	TransactionModel.sendEmail(res,headliner, musicianName, eventDate, doorsOpen, ageRestriction, venueName, streetName, address, eventURL, guestName, numberInParty, transaction_id);
 });
 
 
