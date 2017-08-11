@@ -12,7 +12,7 @@ var Sequelize = require('sequelize');
 
 
 var stripe = require("stripe")(
-  "sk_test_CbkY0tX7oPaWHwlsAzOEMR3D"
+  "sk_live_ddzi2zWtRgiRvJsLTTnvl7Fx"
 );
 
 //var sequelize = new Sequelize('nuricks', 'root', '11fire', {
