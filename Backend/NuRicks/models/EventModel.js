@@ -115,7 +115,9 @@ EventsModel = {
         });
     },
 
-    updateEventInfoScreen: function (res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, extraAtDoor, numberNeededToSell){
+    //github dumb
+
+    updateEventInfoScreen: function (res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, details, numberNeededToSell){
         Events.findById(eventID).then(function(editEvent) {
             editEvent.update({
                 eventName: eventName,
@@ -132,7 +134,7 @@ EventsModel = {
                 ageRequirement: ageRequirement,
                 cost: cost,
                 isPossibleEvent: isPossibleEvent,
-                extraAtDoor: extraAtDoor,
+                details: details,
                 numberNeededToSell: numberNeededToSell
             }).then(function(eventInfo){
                 res.json({status: 1, eventInfo: eventInfo});
