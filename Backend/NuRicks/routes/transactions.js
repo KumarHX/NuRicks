@@ -6,6 +6,8 @@ var transaction_model = require("../models/Transactions");
 var TransactionModel =  transaction_model.TransactionModel;
 //comment
 
+
+//dumb github
 router.post("/sendEmail", function (req, res) {
     // setup email data with unicode symbols
     var headliner = req.body.headliner;
@@ -20,8 +22,9 @@ router.post("/sendEmail", function (req, res) {
     var guestName = req.body.guestName;
     var numberInParty = req.body.numberInParty;
     var transaction_id = req.body.transaction_id;
+    var eventName = req.body.eventName;
     var email = req.body.email;
-	TransactionModel.sendEmail(res,headliner, musicianName, eventDate, doorsOpen, ageRestriction, venueName, streetName, address, eventURL, guestName, numberInParty, transaction_id, email);
+	TransactionModel.sendEmail(res,headliner, musicianName, eventDate, doorsOpen, ageRestriction, venueName, streetName, address, eventURL, guestName, numberInParty, transaction_id, email, eventName);
 });
 
 
