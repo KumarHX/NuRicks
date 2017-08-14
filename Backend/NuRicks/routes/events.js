@@ -61,9 +61,9 @@ router.post('/updateEventInfo', function(req, res, next){
     var	ageRequirement = req.body.ageRequirement;
     var cost = req.body.cost;
     var	isPossibleEvent = req.body.isPossibleEvent;
-    var	extraAtDoor = req.body.extraAtDoor;
+    var	details = req.body.details;
     var	numberNeededToSell = req.body.numberNeededToSell;
-    EventModel.updateEventInfoScreen(res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, extraAtDoor, numberNeededToSell);
+    EventModel.updateEventInfoScreen(res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, details, numberNeededToSell);
 });
 
 module.exports = router;
