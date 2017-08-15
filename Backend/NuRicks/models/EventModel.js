@@ -32,6 +32,7 @@ const util = require('util');
     },
     image_url: { type: Sequelize.STRING},
     headliner: { type: Sequelize.STRING},
+    eventPaymentDescription: { type: Sequelize.STRING},
     venue: { type: Sequelize.STRING },
     eventDate: { type: Sequelize.STRING, allowNull: false},
     street_name: { type: Sequelize.STRING, allowNull: false},
@@ -117,7 +118,7 @@ EventsModel = {
 
     //github dumb
 
-    updateEventInfoScreen: function (res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, details, numberNeededToSell){
+    updateEventInfoScreen: function (res, eventID, eventName, doorsOpen, ShowStarts, image_url, headliner, venue, eventDate, zip_code, street_name, city, state, ageRequirement, cost, isPossibleEvent, details, numberNeededToSell, eventPaymentDescription){
         Events.findById(eventID).then(function(editEvent) {
             editEvent.update({
                 eventName: eventName,
@@ -134,6 +135,7 @@ EventsModel = {
                 ageRequirement: ageRequirement,
                 cost: cost,
                 isPossibleEvent: isPossibleEvent,
+                eventPaymentDescription: eventPaymentDescription,
                 details: details,
                 numberNeededToSell: numberNeededToSell
             }).then(function(eventInfo){
